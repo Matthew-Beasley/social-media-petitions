@@ -2,11 +2,33 @@
   "name": "social-media-petitions",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --detectOpenHandles",
+    "test:dev": "npm run test -- --watch",
+    "build": "webpack src/index.js -o dist/main.js",
+    "build:dev": "npm run build -- --watch --mode=development",
+    "start:dev": "nodemon server --ignore dist/ --ignore src/ & npm run build:dev",
+    "rebuild:db": "node -e 'require(`./dataLayer/buildDB`).buildDB()'"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.10.1",
+    "@babel/preset-react": "^7.10.1",
+    "babel-loader": "^8.1.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jest": "^26.0.1",
+    "mongodb": "^3.5.8",
+    "path": "^0.12.7"
+  }
 }
