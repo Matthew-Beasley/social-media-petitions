@@ -1,6 +1,9 @@
 const express = require('express');
-const createSignature = require('../data/crud/signatures');
 const signatureRouter = express.Router();
+const {
+  createSignature,
+  getSignaturesByPetition
+} = require('../data/crud/signatures');
 
 signatureRouter.post('/', async (req, res, next) => {
   try {
@@ -10,5 +13,16 @@ signatureRouter.post('/', async (req, res, next) => {
     next(error);
   }
 });
+
+signatureRouter.get('/', async (req, res, next) => {
+  try {
+    console.log('petitionName in route ', req.body)
+    const { topic } = req.body;
+    const records = await getSignaturesByPetition(topic);
+    res.status(200).send(records);
+  } catch (error) {
+    next(error);
+  }
+})
 
 module.exports = signatureRouter;

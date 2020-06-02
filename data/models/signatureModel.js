@@ -8,6 +8,5 @@ const signatureSchema = new Schema({
 });
 
 const Signature = Mongoose.model('Signature', signatureSchema);
-console.log('Signature model in model file ', Signature)
 
 module.exports = Signature;
