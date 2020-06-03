@@ -4,10 +4,6 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const apiRouter = require('./apis/index');
-//const Mongoose = require('./data/client')
-//console.log('database in server is ', Mongoose)
-//const Signature = require('./data/models/signatureModel')
-//console.log('signature in server ', Signature)
 
 app.use(cors());
 app.use(express.json());

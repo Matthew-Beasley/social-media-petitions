@@ -14,10 +14,9 @@ signatureRouter.post('/', async (req, res, next) => {
   }
 });
 
-signatureRouter.get('/', async (req, res, next) => {
+signatureRouter.get('/:topic', async (req, res, next) => {
   try {
-    console.log('petitionName in route ', req.body)
-    const { topic } = req.body;
+    const { topic } = req.params;
     const records = await getSignaturesByPetition(topic);
     res.status(200).send(records);
   } catch (error) {
