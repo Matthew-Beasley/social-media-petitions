@@ -3,9 +3,12 @@ const Signature = require('../models/signatureModel')
 const createSignature = (recordVals) => {
   const record = new Signature(recordVals);
   record.save(function (err) {
-    if (err) throw err;
+    if (err) {
+      throw err;
+    } else {
+      return 'ok';
+    }
   });
-  return 'bogus return';
 }
 
 const getSignaturesByPetition = async (petitionName) => {

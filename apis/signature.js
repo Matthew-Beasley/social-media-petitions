@@ -8,6 +8,7 @@ const {
 signatureRouter.post('/', async (req, res, next) => {
   try {
     const record = await createSignature(req.body);
+    console.log('record in post route', record)
     res.status(201).send(record);
   } catch (error) {
     next(error);
