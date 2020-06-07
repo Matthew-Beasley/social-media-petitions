@@ -16,7 +16,13 @@ const readPetitions = async (name) => {
   return record;
 }
 
+const readAllPetitions = async () => {
+  const records = await Petitions.find();
+  return records;
+}
+
 module.exports = {
   createPetitions,
-  readPetitions
+  readPetitions,
+  readAllPetitions
 };

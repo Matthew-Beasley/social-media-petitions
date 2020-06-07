@@ -1,7 +1,8 @@
 const express = require('express');
 const {
   createPetitions,
-  readPetitions
+  readPetitions,
+  readAllPetitions
 } = require('../data/crud/petitions');
 
 const petitionsRouter = express.Router();
@@ -13,7 +14,7 @@ petitionsRouter.post('/', async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-})
+});
 
 petitionsRouter.get('/:topic', async (req, res, next) => {
   try {
@@ -23,7 +24,16 @@ petitionsRouter.get('/:topic', async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-})
+});
+
+petitionsRouter.get('/', async (req, res, next) => {
+  try {
+    const response = await readAllPetitions();
+    res.status(201).send(response);
+  } catch (error) {
+    next(error);
+  }
+});
 
 
 module.exports = petitionsRouter;
