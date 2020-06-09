@@ -5,7 +5,7 @@ const SignatureDisplay = () => {
   const [signatures, setSignatures] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/signature/trump lies')
+    axios.get('/signature/trump lies')
       .then(response => setSignatures(response.data))
       .catch(error => console.log(error));
   }, [])

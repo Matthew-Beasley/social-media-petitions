@@ -5,7 +5,7 @@ const PetitionDisplay = () => {
   const [topics, setTopics] = useState([]);
 
   useState(() => {
-    axios.get('/api/petition')
+    axios.get('/petition')
       .then(response => setTopics(response.data))
   })
   return (
@@ -16,6 +16,7 @@ const PetitionDisplay = () => {
           <li key={topic.topic}>
             <h1>{topic.topic}</h1>
             <div>{topic.text}</div>
+            <button type="button" onClick={() => displayForm(topic.topic)}>Sign</button>
           </li>
         )
       })}
@@ -23,3 +24,5 @@ const PetitionDisplay = () => {
     </div>
   )
 }
+
+export default PetitionDisplay;

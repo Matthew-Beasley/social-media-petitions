@@ -3,14 +3,16 @@ const path = require('path');
 const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
-const apiRouter = require('./apis/index');
+const signatureRouter = require('./apis/signature');
+const petitionRouter = require('./apis/petitions');
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use('/dist', express.static(path.join(__dirname, 'dist')));
-app.use('/api', apiRouter)
+app.use('/signature', signatureRouter);
+app.use('/petition', petitionRouter);
 
 app.get('/', (req, res, next) => {
   try {

@@ -1,12 +1,13 @@
 import React from 'react';
 import {Route, Link} from 'react-router-dom'
 import SignatureDisplay from './SignatureDisplay';
+import PetitionDisplay from './PetitionDisplay';
 
 const App = () => {
 
   return (
     <div id="app-constainer">
-      <h3>in App</h3>
+      <PetitionDisplay />
       <SignatureDisplay />
     </div>
   )
