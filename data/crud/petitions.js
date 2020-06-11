@@ -1,8 +1,8 @@
 const Petitions = require('../models/petitionModel');
 
-const createPetitions = (petitionVals) => {
+const createPetitions = async (petitionVals) => {
   const record = new Petitions(petitionVals);
-  record.save(function (err) {
+  await record.save(err => {
     if (err) {
       throw err;
     } else {

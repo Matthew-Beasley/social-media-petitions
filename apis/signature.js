@@ -18,7 +18,6 @@ signatureRouter.get('/:topic', async (req, res, next) => {
   try {
     const { topic } = req.params;
     const records = await getSignaturesByPetition(topic);
-    console.log(records)
     res.status(200).send(records);
   } catch (error) {
     next(error);

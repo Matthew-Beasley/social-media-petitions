@@ -1,8 +1,8 @@
 const Signature = require('../models/signatureModel')
 
-const createSignature = (recordVals) => {
+const createSignature = async (recordVals) => {
   const record = new Signature(recordVals);
-  record.save(function (err) {
+  await record.save(err => {
     if (err) {
       throw err;
     } else {
