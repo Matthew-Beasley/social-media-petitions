@@ -1,13 +1,12 @@
-const User = require('../models/userModel');
+const client = require('../client');
 
 const createUser = (record) => {
-  const sql = `
-  INSERT `
+
 }
 
 const getUsers = async() => {
-  const users = await User.find();
-  return users;
+  const sql = ``;
+
 }
 
 module.exports = {

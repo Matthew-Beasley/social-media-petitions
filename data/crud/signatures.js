@@ -1,6 +1,12 @@
-const Signature = require('../models/signatureModel')
+const client = require('../client');
 
+const createSignature = () => {
 
+}
+
+const getSignaturesByPetition = () => {
+
+}
 
 module.exports =
 {

@@ -9,6 +9,7 @@ const newDB = async () => {
 
   CREATE TABLE signatures (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    topic VARCHAR(128),
     "userId" UUID UNIQUE
   )
 
