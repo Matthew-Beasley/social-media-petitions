@@ -1,14 +1,8 @@
 const User = require('../models/userModel');
 
 const createUser = (record) => {
-  const user = new User(record);
-  user.save(err => {
-    if (err) {
-      throw err;
-    } else {
-      return 'ok';
-    }
-  });
+  const sql = `
+  INSERT `
 }
 
 const getUsers = async() => {
