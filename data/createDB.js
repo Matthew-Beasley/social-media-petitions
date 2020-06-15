@@ -20,6 +20,7 @@ const newDB = async () => {
   )
 
   CREATE TABLE users (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     "firstName" VARCHAR(128),
     "lastName" VARCHAR(128),
     street VARCHAR(256),
