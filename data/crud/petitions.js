@@ -1,27 +1,29 @@
 const client = require('../client');
 
-//topic VARCHAR(256) UNIQUE,
- // text TEXT
-
 const createPetitions = async (record) => {
   const { topic, text } = record;
   const sql = `
-  INSERT INTO petitions (topic, text),
+  INSERT INTO petitions (topic, text)
   VALUES ($1, $2)
-  RETU&RNING *`;
-  return (await client.query(sql, [topic, record])).rows[0];
+  RETURNING *`;
+  return (await client.query(sql, [topic, text])).rows[0];
 }
 
-const readPetitions = async (name) => {
-
+const readPetition = async ({ name }) => {
+  const sql = `
+  SELECT * FROM petitions
+  WHERE name = $1`;
+  return (await client.query(sql, [name])).rows[0];
 }
 
 const readAllPetitions = async () => {
-
+  const sql = `
+  SELECT * FROM petitions`;
+  return (await client.query(sql)).rows;
 }
 
 module.exports = {
   createPetitions,
-  readPetitions,
+  readPetition,
   readAllPetitions
 };

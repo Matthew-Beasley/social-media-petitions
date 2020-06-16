@@ -9,7 +9,7 @@
     "build": "webpack src/index.js -o dist/main.js",
     "build:dev": "npm run build -- --watch --mode=development",
     "start:dev": "nodemon server --ignore dist/ --ignore src/ & npm run build:dev",
-    "rebuild:db": "node -e 'require(`./dataLayer/buildDB`).buildDB()'"
+    "build:db": "node -e 'require(`./data/createDB`).newDB()'"
   },
   "keywords": [],
   "author": "",
