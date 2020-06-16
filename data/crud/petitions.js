@@ -1,28 +1,29 @@
-const Petitions = require('../models/petitionModel');
+const client = require('../client');
 
-const createPetitions = async (petitionVals) => {
-  const record = new Petitions(petitionVals);
-  await record.save(err => {
-    if (err) {
-      throw err;
-    } else {
-      return 'ok';
-    }
-  });
+const createPetitions = async (record) => {
+  const { topic, text } = record;
+  const sql = `
+  INSERT INTO petitions (topic, text)
+  VALUES ($1, $2)
+  RETURNING *`;
+  return (await client.query(sql, [topic, text])).rows[0];
 }
 
-const readPetitions = async (name) => {
-  const record = await Petitions.find({ topic: name });
-  return record;
+const readPetition = async ({ name }) => {
+  const sql = `
+  SELECT * FROM petitions
+  WHERE name = $1`;
+  return (await client.query(sql, [name])).rows[0];
 }
 
 const readAllPetitions = async () => {
-  const records = await Petitions.find();
-  return records;
+  const sql = `
+  SELECT * FROM petitions`;
+  return (await client.query(sql)).rows;
 }
 
 module.exports = {
   createPetitions,
-  readPetitions,
+  readPetition,
   readAllPetitions
 };

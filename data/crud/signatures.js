@@ -1,23 +1,21 @@
-const Signature = require('../models/signatureModel')
+const client = require('../client');
 
-const createSignature = async (recordVals) => {
-  const record = new Signature(recordVals);
-  await record.save(err => {
-    if (err) {
-      throw err;
-    } else {
-      return 'ok';
-    }
-  });
+const createSignature = async ({ topic, userId }) => {
+  const sql = `
+  INSERT INTO signatures (topic, "userId")
+  VALUES ($1, $2)
+  RETURNING *`;
+  return (await client.query(sql, [topic, userId])).rows[0];
 }
 
-const getSignaturesByPetition = async (petitionName) => {
-  const records = await Signature.find({ topic: petitionName });
-  return records;
+const getSignaturesByPetition = async ({ topic }) => {
+  const sql = `
+  SELECT * FROM signatures
+  WHERE topic = $1`;
+  return (await client.query(sql, [topic])).rows;
 }
 
-module.exports =
-{
+module.exports = {
   createSignature,
   getSignaturesByPetition
 };
