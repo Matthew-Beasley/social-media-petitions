@@ -16,6 +16,7 @@ userRouter.get('/', async (req, res, next) => {
 });
 
 userRouter.get('/:email', async (req, res, next) => {
+  console.log('im here')
   try {
     const { email } = req.params;
     const user = await getUserByEmail({ email });
@@ -23,7 +24,7 @@ userRouter.get('/:email', async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-})
+});
 
 userRouter.post('/', async (req, res, next) => {
   try {
