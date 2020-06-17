@@ -2,7 +2,8 @@ const express = require('express');
 const userRouter = express.Router();
 const {
   createUser,
-  getUsers
+  getUsers,
+  getUserByEmail
 } = require('../data/crud/users');
 
 userRouter.get('/', async (req, res, next) => {
@@ -13,6 +14,16 @@ userRouter.get('/', async (req, res, next) => {
     next(error);
   }
 });
+
+userRouter.get('/:email', async (req, res, next) => {
+  try {
+    const { email } = req.params;
+    const user = await getUserByEmail({ email });
+    res.status(200).send(user);
+  } catch (error) {
+    next(error);
+  }
+})
 
 userRouter.post('/', async (req, res, next) => {
   try {
