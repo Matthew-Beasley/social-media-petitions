@@ -8,12 +8,13 @@ const createUser = async (record) => {
     lastName,
     street,
     city,
-    state } = record;
+    state,
+    zipcode} = record;
   const sql = `
-  INSERT INTO users (email, password, "firstName", "lastName", street, city, state)
-  VALUES ($1, $2, $3, $4, $5, $6, $7)
+  INSERT INTO users (email, password, "firstName", "lastName", street, city, state, zipcode)
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
   RETURNING *`;
-  return (await client.query(sql, [email, password, firstName, lastName, street, city, state])).rows[0];
+  return (await client.query(sql, [email, password, firstName, lastName, street, city, state, zipcode])).rows[0];
 }
 
 const getUsers = async () => {

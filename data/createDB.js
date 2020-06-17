@@ -27,7 +27,8 @@ const newDB = async () => {
     "lastName" VARCHAR(128) NOT NULL,
     street VARCHAR(256),
     city VARCHAR(128),
-    state VARCHAR(2)
+    state VARCHAR(2),
+    zipcode VARCHAR(10)
   );`;
   await client.query(sql);
 }

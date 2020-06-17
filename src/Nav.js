@@ -30,6 +30,15 @@ const Nav = () => {
         <input type="text" placeholder="password" value={password} onChange={(ev) => setPassword(ev.target.value)} />
         <input type="submit" value="Submit" />
       </form>
+      {!isUser &&
+      <form>
+        <input type="text" placeholder="first name" value={firstName} onChange={(ev) => setFirstName(ev.target.value)} />
+        <input type="text" placeholder="last name" value={lastName} onChange={(ev) => setLastName(ev.target.value)} />
+        <input type="text" placeholder="street" value={street} onChange={(ev) => setStreet(ev.target.value)} />
+        <input type="text" placeholder="city" value={city} onChange={(ev) => setCity(ev.target.value)} />
+        <input type="text" placeholder="state" value={state} onChange={(ev) => setState(ev.target.value)} />
+        <input type="text" placeholder="zipcode" value={zipcode} onChange={(ev) => setZipcode(ev.target.value)} />
+      </form>}
     </div>
   )
 }
