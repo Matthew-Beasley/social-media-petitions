@@ -7,10 +7,8 @@ const {
 } = require('../auth')
 
 const createUser = async (user) => {
-  //console.log('user in crud', user)
   const { email, password } = user;
   const pwd = await hash(password);
-  console.log('pwd in crud', pwd)
   const sql = `
   INSERT INTO users (email, password)
   VALUES ($1, $2)

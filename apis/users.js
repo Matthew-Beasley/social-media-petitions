@@ -5,6 +5,7 @@ const {
   getUsers,
   getUserByEmail
 } = require('../data/crud/users');
+const { authenticate } = require('../data/auth')
 
 userRouter.get('/', async (req, res, next) => {
   try {
@@ -28,13 +29,20 @@ userRouter.get('/:email', async (req, res, next) => {
 userRouter.post('/', async (req, res, next) => {
   try {
     const val = await createUser(req.body)
-    console.log('val in api', val)
     res.status(201).send(val);
   } catch (error) {
-    console.log(error)
     next(error);
   }
 });
+
+userRouter.post('/token', async (req, res, next) => {
+  try {
+    const token = await authenticate(req.body);
+    res.status(201).send(token);
+  } catch (error) {
+    next(error);
+  }
+})
 
 module.exports = userRouter;
 

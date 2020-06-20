@@ -6,7 +6,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
 
   const login = async (credentials) => {
-    const token = (await axios.post('/auth', credentials)).data.token;
+    const token = (await axios.post('/user/token', credentials)).data;
     window.localStorage.setItem('token', token);
     //exchangeTokenForAuth();
   };
@@ -20,11 +20,10 @@ const Login = () => {
   const checkCredentials = async (event) => {
     event.preventDefault();
     const mail = URLizeEmail(email);
-    const user = await axios.get(`/user/${mail}`).data;
-    //console.log('user in login', user)
+    const user = (await axios.get(`/user/${mail}`)).data;
     if (!user) {
-      //console.log('in login', email, password)
       await axios.post('/user', { email, password });
+      login({ email, password });
     } else {
       login({ email, password });
     }

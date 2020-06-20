@@ -27,15 +27,15 @@ const compare = ({ plain, hashed }) => {
         return reject(err);
       }
       if (verified) {
-        return resolve();
+        return resolve('Accepted');
       }
       reject(Error('bad credentials'));
     });
   });
 }
 
-const authenticate = async ({ username, password }) => {
-  const user = (await client.query('SELECT * FROM users WHERE username=$1', [username])).rows[0];
+const authenticate = async ({ email, password }) => {
+  const user = (await client.query('SELECT * FROM users WHERE email = $1', [email])).rows[0];
   await compare({ plain: password, hashed: user.password });
   return jwt.encode({ id: user.id }, process.env.JWT);
 };
