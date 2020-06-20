@@ -4,17 +4,11 @@ import axios from 'axios';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [street, setStreet] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
-  const [isUser, setIsUser] = useState(true);
 
   const login = async (credentials) => {
     const token = (await axios.post('/auth', credentials)).data.token;
     window.localStorage.setItem('token', token);
-    exchangeTokenForAuth();
+    //exchangeTokenForAuth();
   };
 
   const URLizeEmail = (mail) => {
@@ -26,11 +20,13 @@ const Login = () => {
   const checkCredentials = async (event) => {
     event.preventDefault();
     const mail = URLizeEmail(email);
-    const user = await axios.get(`/user/${mail}`);
+    const user = await axios.get(`/user/${mail}`).data;
+    //console.log('user in login', user)
     if (!user) {
-      setIsUser(false);
+      //console.log('in login', email, password)
+      await axios.post('/user', { email, password });
     } else {
-      //do login stuff 
+      login({ email, password });
     }
   }
 
@@ -41,15 +37,8 @@ const Login = () => {
         <input type="text" placeholder="password" value={password} onChange={(ev) => setPassword(ev.target.value)} />
         <input type="submit" value="Submit" />
       </form>
-      {!isUser &&
-        <form>
-          <input type="text" placeholder="first name" value={firstName} onChange={(ev) => setFirstName(ev.target.value)} />
-          <input type="text" placeholder="last name" value={lastName} onChange={(ev) => setLastName(ev.target.value)} />
-          <input type="text" placeholder="street" value={street} onChange={(ev) => setStreet(ev.target.value)} />
-          <input type="text" placeholder="city" value={city} onChange={(ev) => setCity(ev.target.value)} />
-          <input type="text" placeholder="state" value={state} onChange={(ev) => setState(ev.target.value)} />
-          <input type="text" placeholder="zipcode" value={zipcode} onChange={(ev) => setZipcode(ev.target.value)} />
-        </form>}
     </div>
   )
 }
+
+export default Login;

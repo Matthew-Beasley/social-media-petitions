@@ -28,8 +28,10 @@ userRouter.get('/:email', async (req, res, next) => {
 userRouter.post('/', async (req, res, next) => {
   try {
     const val = await createUser(req.body)
+    console.log('val in api', val)
     res.status(201).send(val);
   } catch (error) {
+    console.log(error)
     next(error);
   }
 });

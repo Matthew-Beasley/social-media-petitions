@@ -7,9 +7,18 @@ const {
   hash
 } = require('../data/auth')
 
-authRouter.post('/', async (req, res, next) => {
+authRouter.get('/', async (req, res, next) => {
   try {
     const token = await authenticate(req.body)
+    res.status(201).send(token);
+  } catch (error) {
+    next(error);
+  }
+});
+
+authRouter.post('/', async (req, res, next) => {
+  try {
+    const token = await authenticate(req.body);
     res.status(201).send(token);
   } catch (error) {
     next(error);
