@@ -26,16 +26,3 @@ authRouter.post('/', async (req, res, next) => {
 })
 
 module.exports = authRouter;
-
-/*
-app.post('/api/auth', (req, res, next)=> {
-  db.authenticate(req.body)
-    .then( token => res.send({ token }))
-    .catch( ()=> {
-      const error = Error('not authorized');
-      error.status = 401;
-      next(error);
-    } );
-})
-
-*/

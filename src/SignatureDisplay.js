@@ -5,7 +5,7 @@ const SignatureDisplay = () => {
   const [signatures, setSignatures] = useState([]);
 
   useEffect(() => {
-    axios.get('/signature/nextdoor is a bunch of white supremicists')
+    axios.get('/signature')
       .then(response => setSignatures(response.data))
       .catch(error => console.log(error));
   }, [])

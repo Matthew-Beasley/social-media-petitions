@@ -8,6 +8,12 @@ const createSignature = async ({ topic, userId }) => {
   return (await client.query(sql, [topic, userId])).rows[0];
 }
 
+const getSignatures = async () => {
+  const sql = `
+  SELECT * FROM signatures`;
+  return (await client.query(sql)).rows;
+}
+
 const getSignaturesByPetition = async ({ topic }) => {
   const sql = `
   SELECT * FROM signatures
@@ -17,5 +23,6 @@ const getSignaturesByPetition = async ({ topic }) => {
 
 module.exports = {
   createSignature,
+  getSignatures,
   getSignaturesByPetition
 };

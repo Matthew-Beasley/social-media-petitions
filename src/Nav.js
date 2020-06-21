@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Login from './Login';
 
-const Nav = () => {
+const Nav = ({ setUser }) => {
 
 
   return (
     <div id="nav">
-      <Login />
+      <Login setUser={setUser} />
     </div>
   )
 }

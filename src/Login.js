@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const Login = () => {
+const Login = ({ setUser }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const login = async (credentials) => {
     const token = (await axios.post('/user/token', credentials)).data;
     window.localStorage.setItem('token', token);
-    //exchangeTokenForAuth();
+    const usr = (await axios.get(`/user/${token}`)).data;
+    setUser(usr);
   };
 
   const URLizeEmail = (mail) => {
@@ -20,7 +21,7 @@ const Login = () => {
   const checkCredentials = async (event) => {
     event.preventDefault();
     const mail = URLizeEmail(email);
-    const user = (await axios.get(`/user/${mail}`)).data;
+    const user = (await axios.get(`/user/email/${mail}`)).data;
     if (!user) {
       await axios.post('/user', { email, password });
       login({ email, password });
