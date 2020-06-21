@@ -8,7 +8,7 @@
     "test:dev": "npm run test -- --watch",
     "build": "webpack src/index.js -o dist/main.js",
     "build:dev": "npm run build -- --watch --mode=development",
-    "start:dev": "nodemon server --ignore dist/ --ignore src/ & npm run build:dev",
+    "start:dev": "JWT=foobar nodemon server --ignore dist/ --ignore src/ & npm run build:dev",
     "build:db": "node -e 'require(`./data/createDB`).newDB()'"
   },
   "keywords": [],
@@ -30,6 +30,7 @@
     "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "fs": "0.0.1-security",
     "jwt-simple": "^0.5.6",
     "path": "^0.12.7",
     "pg": "^8.2.1"

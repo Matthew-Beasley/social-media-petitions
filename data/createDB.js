@@ -23,11 +23,12 @@ const newDB = async () => {
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     email VARCHAR(256) UNIQUE NOT NULL,
     password VARCHAR(128) NOT NULL,
-    "firstName" VARCHAR(128) NOT NULL,
-    "lastName" VARCHAR(128) NOT NULL,
+    "firstName" VARCHAR(128),
+    "lastName" VARCHAR(128),
     street VARCHAR(256),
     city VARCHAR(128),
-    state VARCHAR(2)
+    state VARCHAR(2),
+    zipcode VARCHAR(10)
   );`;
   await client.query(sql);
 }

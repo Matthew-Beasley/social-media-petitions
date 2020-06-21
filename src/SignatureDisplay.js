@@ -5,7 +5,7 @@ const SignatureDisplay = () => {
   const [signatures, setSignatures] = useState([]);
 
   useEffect(() => {
-    axios.get('/signature/trump lies')
+    axios.get('/signature')
       .then(response => setSignatures(response.data))
       .catch(error => console.log(error));
   }, [])
@@ -15,7 +15,7 @@ const SignatureDisplay = () => {
       <ul>
         {signatures.map(record => {
           return (
-            <li key={record._id}>{record.name} {record.state}</li>
+            <li key={record.id}>{record.topic} {record.userId}</li>
           )
         })}
       </ul>
