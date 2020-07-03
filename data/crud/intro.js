@@ -49,12 +49,20 @@ const updateIntro = async ({ title, text }) => {
   return (await client.query(sql, [title, text])).rows[0];
 }
 
+const deleteIntro = async ({ title }) => {
+  const sql = `
+  DELETE FROM intro
+  WHERE title = $1`;
+  return (await client.query(sql, [title])).rows[0];
+}
+
 module.exports = {
   createIntro,
   readeAllIntros,
   readCurrentIntro,
   readIntroByTitle,
   setCurrentIntro,
-  updateIntro
+  updateIntro,
+  deleteIntro
 }
 
