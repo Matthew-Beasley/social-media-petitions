@@ -29,13 +29,15 @@ const newDB = async () => {
     street VARCHAR(256),
     city VARCHAR(128),
     state VARCHAR(2),
-    zipcode VARCHAR(10)
+    zipcode VARCHAR(10),
+    isAdmin BOOLEAN DEFAULT FALSE
   );
   
   CREATE TABLE intro (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     title VARCHAR(256),
-    text TEXT NOT NULL
+    text TEXT NOT NULL,
+    current BOOLEAN DEFAULT FALSE
   );`;
   await client.query(sql);
 }
