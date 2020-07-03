@@ -3,7 +3,6 @@ import Login from './Login';
 
 const Nav = ({ setUser }) => {
 
-
   return (
     <div id="nav">
       <Login setUser={setUser} />

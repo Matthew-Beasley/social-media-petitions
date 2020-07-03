@@ -20,7 +20,7 @@ userRouter.get('/', async (req, res, next) => {
 });
 
 userRouter.get('/email/:email', (req, res, next) => {
-  try {
+  try { 
     const user = getUserByEmail(req.params);
     res.status(200).send(user);
   } catch (error) {

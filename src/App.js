@@ -3,15 +3,18 @@ import {Route, Link} from 'react-router-dom'
 import SignatureDisplay from './SignatureDisplay';
 import PetitionDisplay from './PetitionDisplay';
 import Nav from './Nav';
+import HomeView from './HomeView';
+import News from './News';
 
 const App = () => {
   const [user, setUser] = useState({});
   return (
     <div id="app-constainer">
-      <h1>{user.id}</h1>
-      <Nav setUser={setUser} />
-      <PetitionDisplay />
-      <SignatureDisplay />
+      <Nav user={user} setUser={setUser} />
+      <Route exact path="/" render={() => <HomeView />} />
+      <Route path="/news" render={() => <News />} />
+      <Route path="/petition" render={() => <PetitionDisplay />} />
+      <Route path="signature" render={() => <SignatureDisplay />} />
     </div>
   )
 }

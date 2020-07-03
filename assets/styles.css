@@ -1,0 +1,36 @@
+#app-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+#nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 100%;
+  height: 4rem;
+  background-color: black;
+  color: white;
+}
+
+#login {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 50%;
+  height: 4rem;
+}
+
+#login > form {
+  display: flex;
+  flex-direction: row;
+
+  height: 4rem;
+}
+
+#login > form > input {
+  height: 1.2rem;
+  margin: 1rem .5rem 1rem .5rem;
+}
+

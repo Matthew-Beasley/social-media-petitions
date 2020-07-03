@@ -6,6 +6,7 @@ const newDB = async () => {
   DROP TABLE IF EXISTS users;
   DROP TABLE IF EXISTS petitions;
   DROP TABLE IF EXISTS signatures;
+  DROP TABLE IF EXISTS intro;
 
   CREATE TABLE signatures (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -29,6 +30,12 @@ const newDB = async () => {
     city VARCHAR(128),
     state VARCHAR(2),
     zipcode VARCHAR(10)
+  );
+  
+  CREATE TABLE intro (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    title VARCHAR(256),
+    text TEXT NOT NULL
   );`;
   await client.query(sql);
 }
