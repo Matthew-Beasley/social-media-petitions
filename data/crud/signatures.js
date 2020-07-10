@@ -21,8 +21,16 @@ const readSignaturesByPetition = async ({ topic }) => {
   return (await client.query(sql, [topic])).rows;
 }
 
+const deleteSignature = ({ userId }) => {
+  const sql = `
+  DELETE FROM signatures
+  WHERE "userId" = $1`;
+  return client.query(sql, [userId]);
+}
+
 module.exports = {
   createSignature,
   readSignatures,
-  readSignaturesByPetition
+  readSignaturesByPetition,
+  deleteSignature
 };
