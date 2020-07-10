@@ -40,25 +40,27 @@ const setCurrentIntro = async ({ title }) => {
   return (await client.query(sqlSetTrue, [title])).rows[0];
 }
 
-//TODO: make this dynamic
 const updateIntro = async (params) => {
-  /*const sql = `
-  UPDATE intro
-  SET text = $1
-  WHERE title = $2
-  RETURNING *`;*/
   let sql = `
   UPDATE intro
   SET `;
+  let pos = 1;
+  const args = [];
   for (let key in params) {
     if (key !== 'title') {
-      sql += `${key} = `
+      sql += ` ${key} = $${pos.toString()}`;
+      if (pos < (Object.keys(params).length - 1)) {
+        sql += ',';
+      }
+      args.push(params[key]);
+      pos++;
     }
   }
   sql += `
-  WHERE title = `
-
-  return (await client.query(sql, [title, text])).rows[0];
+  WHERE title = $${pos.toString()}
+  RETURNING *`;
+  args.push(params.title);
+  return (await client.query(sql, args)).rows[0];
 }
 
 const deleteIntro = async ({ title }) => {
