@@ -47,13 +47,21 @@ const updateUser = async (record) => {
   sql += `
   WHERE email = $${position.toString()}
   RETURNING *`;
-  return (await client.query(sql, [...params])).rows[0];
+  return (await client.query(sql, params)).rows[0];
+}
+
+const deleteUser = ({ email }) => {
+  const sql = `
+  DELETE FROM users
+  WHERE email = $1`;
+  return client.query(sql, [email])
 }
 
 module.exports = {
   createUser,
   getUsers,
   getUserByEmail,
-  updateUser
+  updateUser,
+  deleteUser
 }
 
