@@ -37,16 +37,18 @@ const updateUser = async (record) => {
   SET `
   for (let key in record) {
     if (key !== 'email') {
-      sql += `${key} = $${position.toString()} `;
+      sql += `"${key}" = $${position.toString()}, `;
       params.push(record[key]);
       position++;
     }
   }
-  position++;
+  sql = sql.substring(0, sql.length - 2);
   params.push(record.email)
   sql += `
   WHERE email = $${position.toString()}
   RETURNING *`;
+  console.log(sql)
+  console.log(params)
   return (await client.query(sql, params)).rows[0];
 }
 

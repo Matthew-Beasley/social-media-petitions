@@ -30,7 +30,7 @@ const newDB = async () => {
     city VARCHAR(128),
     state VARCHAR(2),
     zipcode VARCHAR(10),
-    isAdmin BOOLEAN DEFAULT FALSE
+    "isAdmin" BOOLEAN DEFAULT FALSE
   );
   
   CREATE TABLE intro (
