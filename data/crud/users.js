@@ -47,8 +47,6 @@ const updateUser = async (record) => {
   sql += `
   WHERE email = $${position.toString()}
   RETURNING *`;
-  console.log(sql)
-  console.log(params)
   return (await client.query(sql, params)).rows[0];
 }
 

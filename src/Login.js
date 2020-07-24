@@ -22,7 +22,7 @@ const Login = ({ setUser }) => {
     event.preventDefault();
     const mail = URLizeEmail(email);
     const user = (await axios.get(`/user/email/${mail}`)).data;
-    if (!user) {
+    if (!user.email) {
       await axios.post('/user', { email, password });
       login({ email, password });
     } else {

@@ -31,13 +31,21 @@ test('crud User createUser', async () => {
   )
 })
 
+// failing because there is already data and index is off
 test('crud User getUsers', async () => {
   await createUser({
     email: 'someone@email.com',
     password: '12345'
   })
-  const user = await getUsers()
-  expect(user[0]).toEqual(
+  const users = await getUsers();
+  let index = 0;
+  for (let i = 0; i < users.length; i++) {
+    if (users[i].email === 'someone@gmail.com') {
+      index = i;
+      break;
+    }
+  }
+  expect(users[index]).toEqual(
     expect.objectContaining({
       email: 'someone@email.com',
       firstName: null,

@@ -23,6 +23,14 @@ authRouter.post('/', async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+});
+/*
+authRouter.get('/user', async (req, res, next) => {
+  try {
+    const user = await findUserFromToken(req.header.token)
+  } catch (error) {
+    next(error);
+  }
 })
-
+*/
 module.exports = authRouter;
