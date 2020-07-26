@@ -1,4 +1,4 @@
-const { express } = require('express');
+const express = require('express');
 const introRouter = express.Router();
 const {
   createIntro,
