@@ -6,6 +6,7 @@ const PORT = process.env.PORT || 3000;
 const signatureRouter = require('./apis/signature');
 const petitionRouter = require('./apis/petitions');
 const userRouter = require('./apis/users');
+const introRouter = require('./apis/intros');
 const authRouter = require('./apis/auth');
 
 app.use(cors());
@@ -16,6 +17,7 @@ app.use('/dist', express.static(path.join(__dirname, 'dist')));
 app.use('/signature', signatureRouter);
 app.use('/petition', petitionRouter);
 app.use('/user', userRouter);
+app.use('/intro', introRouter);
 app.use('/auth', authRouter);
 
 app.get('/', (req, res, next) => {

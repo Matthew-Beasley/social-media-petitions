@@ -8,7 +8,7 @@ const {
 const {
   authenticate,
   findUserFromToken
-} = require('../data/auth')
+} = require('../data/auth');
 
 userRouter.get('/', async (req, res, next) => {
   try {

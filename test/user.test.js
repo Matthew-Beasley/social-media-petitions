@@ -31,7 +31,6 @@ test('crud User createUser', async () => {
   )
 })
 
-// failing because there is already data and index is off
 test('crud User getUsers', async () => {
   await createUser({
     email: 'someone@email.com',

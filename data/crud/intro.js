@@ -8,7 +8,7 @@ const createIntro = async ({ title, text }) => {
   return (await client.query(sql, [title, text])).rows[0];
 }
 
-const readeAllIntros = async () => {
+const readAllIntros = async () => {
   const sql = `
   SELECT * FROM intro`;
   return (await client.query(sql)).rows;
@@ -72,7 +72,7 @@ const deleteIntro = async ({ title }) => {
 
 module.exports = {
   createIntro,
-  readeAllIntros,
+  readAllIntros,
   readCurrentIntro,
   readIntroByTitle,
   setCurrentIntro,
