@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "jest --detectOpenHandles",
-    "test:dev": "npm run test -- --watch",
+    "test:dev": "npm run test -- --watch JWT=foobar",
     "build": "webpack src/index.js -o dist/main.js",
     "build:dev": "npm run build -- --watch --mode=development",
     "start:dev": "JWT=foobar nodemon server --ignore dist/ --ignore src/ & npm run build:dev",

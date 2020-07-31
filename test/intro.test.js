@@ -1,6 +1,6 @@
 const {
   createIntro,
-  readeAllIntros,
+  readAllIntros,
   readCurrentIntro,
   readIntroByTitle,
   setCurrentIntro,
@@ -25,7 +25,7 @@ test('crud Intro, createIntro', async () => {
 
 test('crud Intro, readAllIntros', async () => {
   await createIntro({ title: 'Title', text: 'This is the text of a problem' });
-  const intros = await readeAllIntros();
+  const intros = await readAllIntros();
   expect(intros[0]).toEqual(
     expect.objectContaining({
       title: 'Title',

@@ -9,8 +9,9 @@ const {
   updateIntro,
   deleteIntro
 } = require('../data/crud/intro');
+const { isAdmin, isLoggedIn } = require('../data/auth');
 
-introRouter.post('/', async (req, res, next) => {
+introRouter.post('/', isAdmin, async (req, res, next) => {
   try {
     const { title, text } = req.body;
     const response = await createIntro({ title, text })
@@ -20,7 +21,7 @@ introRouter.post('/', async (req, res, next) => {
   }
 });
 
-introRouter.get('/getall', async (req, res, next) => {
+introRouter.get('/getall', isLoggedIn, async (req, res, next) => {
   try {
     const intros = await readAllIntros();
     res.status(200).send(intros);
@@ -29,7 +30,7 @@ introRouter.get('/getall', async (req, res, next) => {
   }
 });
 
-introRouter.get('/current', async (req, res, next) => {
+introRouter.get('/current', isLoggedIn, async (req, res, next) => {
   try {
     const current = await readCurrentIntro();
     res.staus(200).send(current);
@@ -38,7 +39,7 @@ introRouter.get('/current', async (req, res, next) => {
   }
 });
 
-introRouter.get('/bytitle', async (req, res, next) => {
+introRouter.get('/bytitle', isLoggedIn, async (req, res, next) => {
   try {
     const intro = await readIntroByTitle(req.body);
     res.status(200).send(intro);
@@ -47,7 +48,7 @@ introRouter.get('/bytitle', async (req, res, next) => {
   }
 });
 
-introRouter.put('/setcurrent', async (req, res, next) => {
+introRouter.put('/setcurrent', isAdmin, async (req, res, next) => {
   try {
     const response = await setCurrentIntro(req.body);
     res.status(201).send(response);
@@ -56,7 +57,7 @@ introRouter.put('/setcurrent', async (req, res, next) => {
   }
 });
 
-introRouter.put('/update', async (req, res, next) => {
+introRouter.put('/update', isAdmin, async (req, res, next) => {
   try {
     const response = await updateIntro(req.body);
     res.status(201).send(response);
@@ -65,7 +66,7 @@ introRouter.put('/update', async (req, res, next) => {
   }
 });
 
-introRouter.delete('/', async (req, res, next) => {
+introRouter.delete('/', isAdmin, async (req, res, next) => {
   try {
     await deleteIntro(req.body);
   } catch (error) {

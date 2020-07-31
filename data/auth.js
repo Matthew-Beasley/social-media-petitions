@@ -37,12 +37,30 @@ const compare = ({ plain, hashed }) => {
 const authenticate = async ({ email, password }) => {
   const user = (await client.query('SELECT * FROM users WHERE email = $1', [email])).rows[0];
   await compare({ plain: password, hashed: user.password });
-  return jwt.encode({ id: user.id }, process.env.JWT);
+  return jwt.encode({ email: user.email }, process.env.JWT);
+};
+
+const isLoggedIn = (req, res, next) => {
+  if (!req.user) {
+    const error = Error('not authorized');
+    error.status = 401;
+    return next(error);
+  }
+  next();
+};
+
+const isAdmin = (req, res, next) => {
+  if (req.user.role !== 'admin') {
+    return next(Error('not authorized'));
+  }
+  next();
 };
 
 module.exports = {
   findUserFromToken,
   authenticate,
   compare,
-  hash
+  hash,
+  isLoggedIn,
+  isAdmin
 };
