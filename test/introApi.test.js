@@ -1,5 +1,6 @@
 const {
   createUser,
+  updateUser,
   deleteUser
 } = require('../data/crud/users');
 const { authenticate } = require('../data/auth');
@@ -16,13 +17,19 @@ const headers = () => {
   };
 };
 
+const url = 'http://localhost:3000';
 let user = null;
 let token = null;
 
-const authNewUser = async () => {
+const authorizeUser = async () => {
   user = await createUser({ email: 'sam@email.com', password: 'jasper' });
   token = await authenticate({ email: 'sam@email.com', password: 'jasper' });
-  authedUser = await
+}
+
+const authorizeAdmin = async () => {
+  await createUser({ email: 'sam@email.com', password: 'jasper' });
+  user = await updateUser({ email: 'sam@email.com', isAdmin: true })
+  token = await authenticate({ email: 'sam@email.com', password: 'jasper' });
 }
 
 afterEach(async () => {
@@ -32,10 +39,12 @@ afterEach(async () => {
 test('intros api createIntro', async () => {
   const title = 'Trump is a dictator';
   const text = 'Trump is subverting everything sacred in the US';
-  const intro = await axios.post('/intro', { text, title }, headers());
-  expect(intro).toEqual(
+  await authorizeAdmin();
+  const intro = await axios.post(url + '/intro', { text, title }, headers());
+  expect(intro.data).toEqual(
     expect.objectContaining({
-      title
+      title: 'Trump is a dictator',
+      text: 'Trump is subverting everything sacred in the US'
     })
   )
 });

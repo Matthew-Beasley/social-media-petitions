@@ -12,6 +12,7 @@ const {
 const { isAdmin, isLoggedIn } = require('../data/auth');
 
 introRouter.post('/', isAdmin, async (req, res, next) => {
+  console.log(isAdmin)
   try {
     const { title, text } = req.body;
     const response = await createIntro({ title, text })

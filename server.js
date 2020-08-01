@@ -8,19 +8,11 @@ const petitionRouter = require('./apis/petitions');
 const userRouter = require('./apis/users');
 const introRouter = require('./apis/intros');
 const authRouter = require('./apis/auth');
-const findUserFromToken = require('./data/auth')
+const { findUserFromToken } = require('./data/auth')
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/assets', express.static(path.join(__dirname, 'assets')));
-app.use('/dist', express.static(path.join(__dirname, 'dist')));
-app.use('/signature', signatureRouter);
-app.use('/petition', petitionRouter);
-app.use('/user', userRouter);
-app.use('/intro', introRouter);
-app.use('/auth', authRouter);
-
 app.use((req, res, next) => {
   const token = req.headers.authorization;
   if (!token) {
@@ -37,7 +29,13 @@ app.use((req, res, next) => {
       next(error);
     });
 });
-
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
+app.use('/dist', express.static(path.join(__dirname, 'dist')));
+app.use('/signature', signatureRouter);
+app.use('/petition', petitionRouter);
+app.use('/user', userRouter);
+app.use('/intro', introRouter);
+app.use('/auth', authRouter);
 
 app.get('/', (req, res, next) => {
   try {

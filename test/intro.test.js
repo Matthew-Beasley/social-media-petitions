@@ -26,7 +26,17 @@ test('crud Intro, createIntro', async () => {
 test('crud Intro, readAllIntros', async () => {
   await createIntro({ title: 'Title', text: 'This is the text of a problem' });
   const intros = await readAllIntros();
-  expect(intros[0]).toEqual(
+  let index = 0;
+  if (intros.length > 0) {
+    for (let i = 0; i < intros.length; i++) {
+      if (intros[i].title === 'Title') {
+        index = i;
+      }
+    }
+  } else {
+    throw new Error('There are no intros!');
+  }
+  expect(intros[index]).toEqual(
     expect.objectContaining({
       title: 'Title',
       text: 'This is the text of a problem'

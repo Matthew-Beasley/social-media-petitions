@@ -3,8 +3,9 @@ const jwt = require('jwt-simple');
 const client = require('./client');
 
 const findUserFromToken = async (token) => {
-  const id = jwt.decode(token, process.env.JWT).id;
-  const user = (await client.query('SELECT * FROM users WHERE id = $1', [id])).rows[0];
+  const email = jwt.decode(token, process.env.JWT).email;
+  console.log('id in finduserfromtoken ', email)
+  const user = (await client.query('SELECT * FROM users WHERE email = $1', [email])).rows[0];
   delete user.password;
   return user;
 };
@@ -50,7 +51,7 @@ const isLoggedIn = (req, res, next) => {
 };
 
 const isAdmin = (req, res, next) => {
-  if (req.user.role !== 'admin') {
+  if (req.user.isAdmin !== true) {
     return next(Error('not authorized'));
   }
   next();
