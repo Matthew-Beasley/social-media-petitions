@@ -67,7 +67,7 @@ const deleteIntro = async ({ title }) => {
   const sql = `
   DELETE FROM intro
   WHERE title = $1`;
-  return client.query(sql, [title]);
+  await client.query(sql, [title]);
 }
 
 module.exports = {

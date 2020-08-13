@@ -4,7 +4,6 @@ const client = require('./client');
 
 const findUserFromToken = async (token) => {
   const email = jwt.decode(token, process.env.JWT).email;
-  console.log('id in finduserfromtoken ', email)
   const user = (await client.query('SELECT * FROM users WHERE email = $1', [email])).rows[0];
   delete user.password;
   return user;

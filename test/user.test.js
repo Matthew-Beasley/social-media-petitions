@@ -5,7 +5,6 @@ const {
   updateUser,
   deleteUser
 } = require('../data/crud/users');
-const { TestScheduler } = require('jest');
 
 afterEach(async () => {
   await deleteUser({ email: 'someone@email.com' });

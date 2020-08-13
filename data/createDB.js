@@ -35,7 +35,7 @@ const newDB = async () => {
   
   CREATE TABLE intro (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    title VARCHAR(256),
+    title VARCHAR(256) UNIQUE,
     text TEXT NOT NULL,
     current BOOLEAN DEFAULT FALSE
   );`;

@@ -4,10 +4,11 @@ const {
   readPetitions,
   readAllPetitions
 } = require('../data/crud/petitions');
+const { isAdmin, isLoggedIn } = require('../data/auth');
 
 const petitionsRouter = express.Router();
 
-petitionsRouter.post('/', async (req, res, next) => {
+petitionsRouter.post('/', isAdmin, async (req, res, next) => {
   try {
     const response = await createPetitions(req.body);
     res.status(201).send(response);
@@ -16,7 +17,7 @@ petitionsRouter.post('/', async (req, res, next) => {
   }
 });
 
-petitionsRouter.get('/:topic', async (req, res, next) => {
+petitionsRouter.get('/:topic', isLoggedIn, async (req, res, next) => {
   try {
     const { topic } = req.params;
     const response = await readPetitions(topic);
@@ -26,7 +27,7 @@ petitionsRouter.get('/:topic', async (req, res, next) => {
   }
 });
 
-petitionsRouter.get('/', async (req, res, next) => {
+petitionsRouter.get('/', isLoggedIn, async (req, res, next) => {
   try {
     const response = await readAllPetitions();
     res.status(201).send(response);

@@ -34,15 +34,15 @@ introRouter.get('/getall', isLoggedIn, async (req, res, next) => {
 introRouter.get('/current', isLoggedIn, async (req, res, next) => {
   try {
     const current = await readCurrentIntro();
-    res.staus(200).send(current);
+    res.status(200).send(current);
   } catch (error) {
     next(error);
   }
 });
 
-introRouter.get('/bytitle', isLoggedIn, async (req, res, next) => {
+introRouter.get('/bytitle/:title', isLoggedIn, async (req, res, next) => {
   try {
-    const intro = await readIntroByTitle(req.body);
+    const intro = await readIntroByTitle(req.params);
     res.status(200).send(intro);
   } catch (error) {
     next(error);
@@ -67,9 +67,10 @@ introRouter.put('/update', isAdmin, async (req, res, next) => {
   }
 });
 
-introRouter.delete('/', isAdmin, async (req, res, next) => {
+introRouter.delete('/:title', isAdmin, async (req, res, next) => {
   try {
-    await deleteIntro(req.body);
+    await deleteIntro(req.params);
+    res.status(201).send({ job: 'delete' });
   } catch (error) {
     next(error);
   }
