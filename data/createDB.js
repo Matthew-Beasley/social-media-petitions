@@ -6,7 +6,6 @@ const newDB = async () => {
   DROP TABLE IF EXISTS users;
   DROP TABLE IF EXISTS petitions;
   DROP TABLE IF EXISTS signatures;
-  DROP TABLE IF EXISTS intro;
 
   CREATE TABLE signatures (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -17,7 +16,9 @@ const newDB = async () => {
   CREATE TABLE petitions (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     topic VARCHAR(256) UNIQUE NOT NULL,
-    text TEXT NOT NULL
+    "shortText" TEXT NOT NULL,
+    "longText" TEXT NOT NULL,
+    current BOOLEAN
   );
 
   CREATE TABLE users (
@@ -31,13 +32,6 @@ const newDB = async () => {
     state VARCHAR(2),
     zipcode VARCHAR(10),
     "isAdmin" BOOLEAN DEFAULT FALSE
-  );
-  
-  CREATE TABLE intro (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    title VARCHAR(256) UNIQUE,
-    text TEXT NOT NULL,
-    current BOOLEAN DEFAULT FALSE
   );`;
   await client.query(sql);
 }
