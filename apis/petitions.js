@@ -2,9 +2,12 @@ const express = require('express');
 const {
   createPetitions,
   readPetitions,
-  readAllPetitions
+  readAllPetitions,
+  updatePetition,
+  deletePetition
 } = require('../data/crud/petitions');
 const { isAdmin, isLoggedIn } = require('../data/auth');
+const { deleteUser } = require('../data/crud/users');
 
 const petitionsRouter = express.Router();
 
@@ -36,5 +39,22 @@ petitionsRouter.get('/', isLoggedIn, async (req, res, next) => {
   }
 });
 
+petitionsRouter.put('/', isAdmin, async (req, res, next) => {
+  try {
+    const response = await updatePetition(req.body);
+    res.status(201).send(response);
+  } catch (error) {
+    next(error);
+  }
+});
+
+petitionsRouter.delete('/', isAdmin, async (req, res, next) => {
+  try {
+    await deletePetition(req.body);
+    res.status(201);
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = petitionsRouter;
