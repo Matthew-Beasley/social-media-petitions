@@ -1,7 +1,7 @@
 const client = require('../client');
 
-const createPetitions = async (record) => {
-  const { topic, shortText, longText, current = false } = record;
+const createPetition = async (record) => {
+  const { topic, shortText, longText, current } = record;
   const sql = `
   INSERT INTO petitions (topic, "shortText", "longText", current)
   VALUES ($1, $2, $3, $4)
@@ -9,7 +9,7 @@ const createPetitions = async (record) => {
   return (await client.query(sql, [topic, shortText, longText, current])).rows[0];
 }
 
-const readPetition = async ({ topic }) => {
+const readPetition = async({ topic }) => {
   const sql = `
   SELECT * FROM petitions
   WHERE topic = $1`;
@@ -23,7 +23,6 @@ const readAllPetitions = async () => {
 }
 
 const updatePetition = async (params) => {
-  console.log(params)
   let sql = `
   UPDATE petitions
   SET `;
@@ -49,13 +48,12 @@ const updatePetition = async (params) => {
 const deletePetition = async ({ topic }) => {
   const sql = `
   DELETE FROM petitions
-  WHERE topic = $1
-  RETURNING *`;
-  return (await client.query(sql, [topic])).rows[0]
+  WHERE topic = $1`;
+  return client.query(sql, [topic])
 }
 
 module.exports = {
-  createPetitions,
+  createPetition,
   readPetition,
   readAllPetitions,
   updatePetition,

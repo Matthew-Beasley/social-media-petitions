@@ -1,5 +1,5 @@
 const {
-  createPetitions,
+  createPetition,
   readPetition,
   readAllPetitions,
   updatePetition,
@@ -11,7 +11,7 @@ afterEach(async () => {
 });
 
 test('crud Petitions createPetitions', async () => {
-  const petition = await createPetitions({
+  const petition = await createPetition({
     topic: 'Trump Lies',
     shortText: 'Trump is a despot',
     longText: 'Trumps efforts to subvert the election is the beginning of the end for the US',
@@ -26,7 +26,7 @@ test('crud Petitions createPetitions', async () => {
 });
 
 test('crud Petitions readPetition', async () => {
-  await createPetitions({
+  await createPetition({
     topic: 'Trump Lies',
     shortText: 'Trump is a despot',
     longText: 'Trumps efforts to subvert the election is the beginning of the end for the US',
@@ -41,7 +41,7 @@ test('crud Petitions readPetition', async () => {
 });
 
 test('crud Petitions readAllPetitions', async () => {
-  await createPetitions({
+  await createPetition({
     topic: 'Trump Lies',
     shortText: 'Trump is a despot',
     longText: 'Trumps efforts to subvert the election is the beginning of the end for the US',
@@ -51,7 +51,7 @@ test('crud Petitions readAllPetitions', async () => {
 });
 
 test('crud Petitions updatePetition', async () => {
-  await createPetitions({
+  await createPetition({
     topic: 'Trump Lies',
     shortText: 'Trump is a despot',
     longText: 'Trumps efforts to subvert the election is the beginning of the end for the US',
@@ -61,7 +61,6 @@ test('crud Petitions updatePetition', async () => {
     shortText: 'Trump should never have been elected',
   });
   const petition = await readPetition({ topic: 'Trump Lies' });
-  console.log(petition);
   expect(petition).toEqual(
     expect.objectContaining({
       topic: 'Trump Lies',
@@ -73,7 +72,7 @@ test('crud Petitions updatePetition', async () => {
 });
 
 test('crud Petitions deletePetition', async () => {
-  await createPetitions({
+  await createPetition({
     topic: 'Trump Lies',
     shortText: 'Trump is a despot',
     longText: 'Trumps efforts to subvert the election is the beginning of the end for the US',
