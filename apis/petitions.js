@@ -1,40 +1,55 @@
 const express = require('express');
 const {
-  createPetitions,
-  readPetitions,
-  readAllPetitions
+  createPetition,
+  readPetition,
+  readAllPetitions,
+  updatePetition,
+  deletePetition
 } = require('../data/crud/petitions');
 const { isAdmin, isLoggedIn } = require('../data/auth');
+const { deleteUser } = require('../data/crud/users');
 
-const petitionsRouter = express.Router();
+const petitionRouter = express.Router();
 
-petitionsRouter.post('/', isAdmin, async (req, res, next) => {
+petitionRouter.post('/', isAdmin, async (req, res, next) => {
   try {
-    const response = await createPetitions(req.body);
+    const response = await createPetition(req.body);
     res.status(201).send(response);
   } catch (error) {
     next(error);
   }
 });
 
-petitionsRouter.get('/:topic', isLoggedIn, async (req, res, next) => {
+petitionRouter.get('/', isLoggedIn, async (req, res, next) => {
   try {
-    const { topic } = req.params;
-    const response = await readPetitions(topic);
+    let response = undefined;
+    if (req.query.topic) {
+      response = await readPetition(req.query);
+    } else if (!req.query.topic) {
+      response = await readAllPetitions();
+    }
     res.status(200).send(response);
   } catch (error) {
     next(error);
   }
 });
 
-petitionsRouter.get('/', isLoggedIn, async (req, res, next) => {
+petitionRouter.put('/', isAdmin, async (req, res, next) => {
   try {
-    const response = await readAllPetitions();
+    const response = await updatePetition(req.body);
     res.status(201).send(response);
   } catch (error) {
     next(error);
   }
 });
 
+petitionRouter.delete('/', isAdmin, async (req, res, next) => {
+  try {
+    await deletePetition(req.query.topic);
+    res.sendStatus(201);
+  } catch (error) {
+    next(error);
+  }
+});
 
-module.exports = petitionsRouter;
+module.exports = petitionRouter;
