@@ -2,8 +2,6 @@ const { deleteUser } = require('../data/crud/users');
 const {
   createPetition,
   readPetition,
-  readAllPetitions,
-  updatePetition,
   deletePetition
 } = require('../data/crud/petitions');
 const axios = require('axios');
