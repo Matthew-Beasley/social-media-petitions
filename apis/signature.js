@@ -3,7 +3,8 @@ const signatureRouter = express.Router();
 const {
   createSignature, 
   readSignatures,
-  readSignaturesByPetition
+  readSignaturesByPetition,
+  deleteSignature
 } = require('../data/crud/signatures');
 const { isAdmin, isLoggedIn } = require('../data/auth');
 
@@ -34,5 +35,15 @@ signatureRouter.get('/:topic', isLoggedIn, async (req, res, next) => {
     next(error);
   }
 });
+
+signatureRouter.delete('/', isLoggedIn, async (req, res, next) => {
+  try {
+    const { userId, topic } = req.body;
+    await deleteSignature(userId, topic);
+    res.status(201).send('deleted');
+  } catch (error) {
+    next(error);
+  }
+})
 
 module.exports = signatureRouter;
