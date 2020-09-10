@@ -38,12 +38,15 @@ signatureRouter.get('/:topic', isLoggedIn, async (req, res, next) => {
 
 signatureRouter.delete('/', isLoggedIn, async (req, res, next) => {
   try {
-    const { userId, topic } = req.body;
-    await deleteSignature(userId, topic);
+    const params = {
+      topic: req.query.topic,
+      userId: req.query.userId
+    }
+    await deleteSignature(params);
     res.status(201).send('deleted');
   } catch (error) {
     next(error);
   }
-})
+});
 
 module.exports = signatureRouter;
