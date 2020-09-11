@@ -10,7 +10,6 @@ afterEach(async () => {
   await deleteUser({ email: 'someone@email.com' });
 })
 
-// TODO: Need to decrypt and compare password
 test('crud User createUser', async () => {
   const user = await createUser({
     email: 'someone@email.com',
