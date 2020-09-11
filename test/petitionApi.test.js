@@ -79,11 +79,11 @@ test('petitions api readAllPetitions', async () => {
   await createPetition(params2);
   await authorizeUser();
   const petitions = await axios.get(url + '/petition', headers());
-  expect(petitions.data.length).toBeGreaterThan(1);
   const sql = `
   DELETE FROM petitions
   WHERE topic = 'Donald Trump Lies'`;
   await client.query(sql);
+  expect(petitions.data.length).toBeGreaterThan(1);
 });
 
 test('petitions api updatePetition', async () => {

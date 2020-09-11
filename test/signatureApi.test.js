@@ -1,8 +1,6 @@
 const { deleteUser } = require('../data/crud/users');
 const client = require('../data/client');
 const {
-  createSignature,
-  readSignatures,
   readSignaturesByPetition,
   deleteSignature
 } = require('../data/crud/signatures');
@@ -11,7 +9,6 @@ process.env.JWT = 'foobar';
 const url = 'http://localhost:3000';
 
 const {
-  authorizeAdmin,
   authorizeUser,
   headers
 } = require('./testAuthorization');

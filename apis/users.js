@@ -3,14 +3,17 @@ const userRouter = express.Router();
 const {
   createUser,
   getUsers,
-  getUserByEmail
+  getUserByEmail,
+  updateUser
 } = require('../data/crud/users');
 const {
   authenticate,
-  findUserFromToken
+  findUserFromToken,
+  isAdmin,
+  isLoggedIn
 } = require('../data/auth');
 
-userRouter.get('/', async (req, res, next) => {
+userRouter.get('/', isAdmin, async (req, res, next) => {
   try {
     const users = await getUsers();
     res.status(200).send(users);
@@ -19,7 +22,7 @@ userRouter.get('/', async (req, res, next) => {
   }
 });
 
-userRouter.get('/email/:email', async (req, res, next) => {
+userRouter.get('/email/:email', isAdmin, async (req, res, next) => {
   try { 
     const user = await getUserByEmail(req.params);
     res.status(200).send(user);
@@ -28,7 +31,7 @@ userRouter.get('/email/:email', async (req, res, next) => {
   }
 })
 
-userRouter.get('/:token', async (req, res, next) => {
+userRouter.get('/:token', isAdmin, async (req, res, next) => {
   try {
     const { token } = req.params;
     const user = await findUserFromToken(token);
@@ -51,6 +54,15 @@ userRouter.post('/token', async (req, res, next) => {
   try {
     const token = await authenticate(req.body);
     res.status(201).send(token);
+  } catch (error) {
+    next(error);
+  }
+});
+
+userRouter.post('/update', isLoggedIn, async (req, res, next) => {
+  try {
+    const user = await updateUser(req.body);
+    res.status(201).send(user);
   } catch (error) {
     next(error);
   }
