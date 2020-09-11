@@ -19,24 +19,24 @@ afterEach(async () => {
   await deleteUser({ email: 'sam@email.com' });
   const sql = `
   DELETE FROM petitions
-  WHERE topic = 'Donald Trump is a ruthless despot'`;
+  WHERE topic = 'Little dogs are fluffy'`;
   await client.query(sql);
 });
 
 test('petitions api createPetition', async () => {
   const params = {
-    topic: 'Donald Trump is a ruthless despot',
-    shortText: 'Trump is subverting everything sacred in the US',
-    longText: 'What more is there to say than he is dangerous',
+    topic: 'Little dogs are fluffy',
+    shortText: 'You need to feed dogs every day',
+    longText: 'Dogs need a food with fewer ingredients and a grain',
     current: true
   }
   await authorizeAdmin();
   const petition = await axios.post(url + '/petition', params, headers());
   expect(petition.data).toEqual(
     expect.objectContaining({
-      topic: 'Donald Trump is a ruthless despot',
-      shortText: 'Trump is subverting everything sacred in the US',
-      longText: 'What more is there to say than he is dangerous',
+      topic: 'Little dogs are fluffy',
+      shortText: 'You need to feed dogs every day',
+      longText: 'Dogs need a food with fewer ingredients and a grain',
       current: true
     })
   )
@@ -44,19 +44,19 @@ test('petitions api createPetition', async () => {
 
 test('petitions api readPetition', async () => {
   const params = {
-    topic: 'Donald Trump is a ruthless despot',
-    shortText: 'Trump is subverting everything sacred in the US',
-    longText: 'What more is there to say than he is dangerous',
+    topic: 'Little dogs are fluffy',
+    shortText: 'You need to feed dogs every day',
+    longText: 'Dogs need a food with fewer ingredients and a grain',
     current: true
   }
   await createPetition(params);
   await authorizeUser();
-  const petition = await axios.get(url + '/petition?topic=Donald Trump is a ruthless despot', headers());
+  const petition = await axios.get(url + '/petition?topic=Little dogs are fluffy', headers());
   expect(petition.data).toEqual(
     expect.objectContaining({
-      topic: 'Donald Trump is a ruthless despot',
-      shortText: 'Trump is subverting everything sacred in the US',
-      longText: 'What more is there to say than he is dangerous',
+      topic: 'Little dogs are fluffy',
+      shortText: 'You need to feed dogs every day',
+      longText: 'Dogs need a food with fewer ingredients and a grain',
       current: true
     })
   )
@@ -64,15 +64,15 @@ test('petitions api readPetition', async () => {
 
 test('petitions api readAllPetitions', async () => {
   const params1 = {
-    topic: 'Donald Trump is a ruthless despot',
-    shortText: 'Trump is subverting everything sacred in the US',
-    longText: 'What more is there to say than he is dangerous',
+    topic: 'Little dogs are fluffy',
+    shortText: 'You need to feed dogs every day',
+    longText: 'Dogs need a food with fewer ingredients and a grain',
     current: true
   }
   const params2 = {
-    topic: 'Donald Trump Lies',
-    shortText: 'Trump is subverting everything sacred in the US',
-    longText: 'What more is there to say than he is dangerous',
+    topic: 'Donald Dogs are fluffy',
+    shortText: 'You need to feed dogs every day',
+    longText: 'Dogs need a food with fewer ingredients and a grain',
     current: false
   }
   await createPetition(params1);
@@ -81,20 +81,20 @@ test('petitions api readAllPetitions', async () => {
   const petitions = await axios.get(url + '/petition', headers());
   const sql = `
   DELETE FROM petitions
-  WHERE topic = 'Donald Trump Lies'`;
+  WHERE topic = 'Donald Dogs are fluffy'`;
   await client.query(sql);
   expect(petitions.data.length).toBeGreaterThan(1);
 });
 
 test('petitions api updatePetition', async () => {
   const params = {
-    topic: 'Donald Trump is a ruthless despot',
-    shortText: 'Trump is subverting everything sacred in the US',
-    longText: 'What more is there to say than he is dangerous',
+    topic: 'Little dogs are fluffy',
+    shortText: 'You need to feed dogs every day',
+    longText: 'Dogs need a food with fewer ingredients and a grain',
     current: true
   }
   const updateParams = {
-    topic: 'Donald Trump is a ruthless despot',
+    topic: 'Little dogs are fluffy',
     shortText: 'What a joke',
     current: false
   }
@@ -103,9 +103,9 @@ test('petitions api updatePetition', async () => {
   const petition = await axios.put(url + '/petition', updateParams, headers());
   expect(petition.data).toEqual(
     expect.objectContaining({
-      topic: 'Donald Trump is a ruthless despot',
+      topic: 'Little dogs are fluffy',
       shortText: 'What a joke',
-      longText: 'What more is there to say than he is dangerous',
+      longText: 'Dogs need a food with fewer ingredients and a grain',
       current: false
     })
   )
@@ -113,15 +113,15 @@ test('petitions api updatePetition', async () => {
 
 test('petitions api deletePetition', async () => {
   const params = {
-    topic: 'Donald Trump is a ruthless despot',
-    shortText: 'Trump is subverting everything sacred in the US',
-    longText: 'What more is there to say than he is dangerous',
+    topic: 'Little dogs are fluffy',
+    shortText: 'You need to feed dogs every day',
+    longText: 'Dogs need a food with fewer ingredients and a grain',
     current: true
   }
   await createPetition(params);
   await authorizeAdmin();
   await axios.delete(url + '/petition?topic=Donald%20Trump%20is%20a%20despot', headers());
-  const petition = await readPetition({ topic: 'Donald Trump is a ruthless despot' })
+  const petition = await readPetition({ topic: 'Little dogs are fluffy' })
   expect(petition.data).toEqual(undefined);
 });
 
