@@ -38,6 +38,9 @@ const Login = ({ setUser }) => {
   return (
     <div id="login">
       <form id="login" onSubmit={(ev) => checkCredentials(ev)}>
+        <div id="login-text">
+          <p>To log in or create an account enter email and password</p>
+        </div>
         <input type="email" placeholder="email" value={email} onChange={(ev) => setEmail(ev.target.value)} />
         <input type="text" placeholder="password" value={password} onChange={(ev) => setPassword(ev.target.value)} />
         <input type="submit" value="Submit" />
