@@ -70,7 +70,7 @@ test('petitions api readAllPetitions', async () => {
     current: true
   }
   const params2 = {
-    topic: 'Donald Dogs are fluffy',
+    topic: 'Dogs are fluffy',
     shortText: 'You need to feed dogs every day',
     longText: 'Dogs need a food with fewer ingredients and a grain',
     current: false
@@ -81,9 +81,46 @@ test('petitions api readAllPetitions', async () => {
   const petitions = await axios.get(url + '/petition', headers());
   const sql = `
   DELETE FROM petitions
-  WHERE topic = 'Donald Dogs are fluffy'`;
+  WHERE topic = 'Dogs are fluffy'`;
   await client.query(sql);
   expect(petitions.data.length).toBeGreaterThan(1);
+});
+
+test('petitions api readCurrentPetitions', async () => {
+  const params1 = {
+    topic: 'Little dogs are fluffy',
+    shortText: 'You need to feed dogs every day',
+    longText: 'Dogs need a food with fewer ingredients and a grain',
+    current: true
+  }
+  const params2 = {
+    topic: 'Dogs are fluffy',
+    shortText: 'You need to feed dogs every day',
+    longText: 'Dogs need a food with fewer ingredients and a grain',
+    current: false
+  }
+  await createPetition(params1);
+  await createPetition(params2);
+  await authorizeUser();
+  const petitions = await axios.get(url + '/petition/current', headers());
+  const sql = `
+  DELETE FROM petitions
+  WHERE topic = 'Dogs are fluffy'`;
+  await client.query(sql);
+  const petition = petitions.data.reduce((acc, item) => {
+    if (item.current === true && item.topic === 'Little dogs are fluffy') {
+      acc = item;
+    }
+    return acc;
+  })
+  expect(petition).toEqual(
+    expect.objectContaining({
+      topic: 'Little dogs are fluffy',
+      shortText: 'You need to feed dogs every day',
+      longText: 'Dogs need a food with fewer ingredients and a grain',
+      current: true
+    })
+  );
 });
 
 test('petitions api updatePetition', async () => {

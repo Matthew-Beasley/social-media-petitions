@@ -2,6 +2,7 @@ const {
   createPetition,
   readPetition,
   readAllPetitions,
+  readCurrentPetitions,
   updatePetition,
   deletePetition
 } = require('../data/crud/petitions');
@@ -46,6 +47,30 @@ test('crud Petitions readAllPetitions', async () => {
     current: true });
   const petitions = await readAllPetitions();
   expect(petitions.length).toBeGreaterThan(0);
+});
+
+test('crud Petitions readCurrentPetitions', async () => {
+  await createPetition({
+    topic: 'Dogs are fluffy',
+    shortText: 'I would have 2 dogs if I could',
+    longText: 'I have a dog named chief. He is a sweet heart!',
+    current: true
+  });
+  const petitions = await readCurrentPetitions({ topic: 'Dogs are fluffy' });
+  const petition = petitions.reduce((acc, item) => {
+    if (item.topic === 'Dogs are fluffy') {
+      acc = item;
+    }
+    return acc;
+  }, {});
+  expect(petition).toEqual(
+    expect.objectContaining({
+      topic: 'Dogs are fluffy',
+      shortText: 'I would have 2 dogs if I could',
+      longText: 'I have a dog named chief. He is a sweet heart!',
+      current: true
+    })
+  )
 });
 
 test('crud Petitions updatePetition', async () => {

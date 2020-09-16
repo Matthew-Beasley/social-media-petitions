@@ -3,6 +3,7 @@ const {
   createPetition,
   readPetition,
   readAllPetitions,
+  readCurrentPetitions,
   updatePetition,
   deletePetition
 } = require('../data/crud/petitions');
@@ -29,6 +30,15 @@ petitionRouter.get('/', isLoggedIn, async (req, res, next) => {
       response = await readAllPetitions();
     }
     res.status(200).send(response);
+  } catch (error) {
+    next(error);
+  }
+});
+
+petitionRouter.get('/current', async (req, res, next) => {
+  try {
+    const petitions = await readCurrentPetitions();
+    res.status(200).send(petitions);
   } catch (error) {
     next(error);
   }

@@ -22,6 +22,13 @@ const readAllPetitions = async () => {
   return (await client.query(sql)).rows;
 }
 
+const readCurrentPetitions = async () => {
+  const sql = `
+  SELECT * FROM petitions
+  WHERE current = true`;
+  return (await client.query(sql)).rows;
+}
+
 const updatePetition = async (params) => {
   let sql = `
   UPDATE petitions
@@ -56,6 +63,7 @@ module.exports = {
   createPetition,
   readPetition,
   readAllPetitions,
+  readCurrentPetitions,
   updatePetition,
   deletePetition
 };
