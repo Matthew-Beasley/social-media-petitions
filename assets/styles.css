@@ -12,8 +12,17 @@
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: flex-end;
+}
+
+#header-left {
+  background-image: linear-gradient(to right, white , #1F3145);
+  width: 80%;
+}
+
+#header-left > p {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode';
-  background-color: ;
+  font-size: 3rem;
+  margin-left: 4rem;
 }
 
 

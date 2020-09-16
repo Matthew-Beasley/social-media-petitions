@@ -5,6 +5,9 @@ const Header = () => {
 
   return (
     <div id="header">
+      <div id="header-left">
+        <p>Your Voice</p>
+      </div>
       <img src="../assets/header-flag.jpg" />
     </div>
   )
