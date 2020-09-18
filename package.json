@@ -9,7 +9,8 @@
     "build": "webpack src/index.js -o dist/main.js",
     "build:dev": "npm run build -- --watch --mode=development",
     "start:dev": "JWT=foobar nodemon server --ignore dist/ --ignore src/ & npm run build:dev",
-    "build:db": "node -e 'require(`./data/createDB`).newDB()'"
+    "build:db": "node -e 'require(`./data/createDB`).newDB()'",
+    "update:admin": "node -e 'require(`./data/setAdmin`).setConbecToAdmin()'"
   },
   "keywords": [],
   "author": "",

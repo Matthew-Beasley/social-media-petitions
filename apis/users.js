@@ -22,7 +22,7 @@ userRouter.get('/', isAdmin, async (req, res, next) => {
   }
 });
 
-userRouter.get('/email/:email', isAdmin, async (req, res, next) => {
+userRouter.get('/email/:email', async (req, res, next) => {
   try { 
     const user = await getUserByEmail(req.params);
     res.status(200).send(user);
@@ -31,7 +31,7 @@ userRouter.get('/email/:email', isAdmin, async (req, res, next) => {
   }
 })
 
-userRouter.get('/:token', isAdmin, async (req, res, next) => {
+userRouter.get('/:token', async (req, res, next) => {
   try {
     const { token } = req.params;
     const user = await findUserFromToken(token);

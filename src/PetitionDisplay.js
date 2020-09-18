@@ -5,7 +5,7 @@ const PetitionDisplay = () => {
   const [topics, setTopics] = useState([]);
 
   useState(() => {
-    axios.get('/petition')
+    axios.get('/petition/current')
       .then(response => setTopics(response.data))
   })
   return (
