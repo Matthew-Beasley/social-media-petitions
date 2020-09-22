@@ -9,16 +9,31 @@ import News from './News';
 
 const App = () => {
   const [user, setUser] = useState({});
-  return (
-    <div id="app-constainer">
-      <Header />
-      <Nav user={user} setUser={setUser} />
-      <Route exact path="/" render={() => <HomeView />} />
-      <Route path="/news" render={() => <News />} />
-      <Route path="/petition" render={() => <PetitionDisplay />} />
-      <Route path="signature" render={() => <SignatureDisplay />} />
-    </div>
-  )
+  const [token, setToken] = useState('');
+  useEffect(() => {
+    setToken(window.localStorage.getItem('token'));
+  }, [user]);
+  if (!token) {
+    return (
+      <div id="app-container">
+        <Header />
+        <Nav user={user} setUser={setUser} />
+        <PetitionDisplay />
+        <News />
+      </div>
+    )
+  } else {
+    return (
+      <div id="loggedin-container">
+        <Header />
+        <Nav user={user} setUser={setUser} />
+        <Route exact path="/" render={() => <HomeView />} />
+        <Route path="/news" render={() => <News />} />
+        <Route path="/petition" render={() => <PetitionDisplay />} />
+        <Route path="/signature" render={() => <SignatureDisplay />} />
+      </div>
+    )
+  }
 }
 
 export default App;

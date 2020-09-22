@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import PetitionDisplay from './PetitionDisplay';
 
 const HomeView = () => {
 
   return (
     <div id="home-view">
-      <div id="cause">
-        <h1>Current cause goes here</h1>
-      </div>
+      <PetitionDisplay />
       <div id="news-feed">
         <h1>News feed goes here</h1>
       </div>
