@@ -8,8 +8,6 @@ const {
   deletePetition
 } = require('../data/crud/petitions');
 const { isAdmin, isLoggedIn } = require('../data/auth');
-const { deleteUser } = require('../data/crud/users');
-
 const petitionRouter = express.Router();
 
 petitionRouter.post('/', isAdmin, async (req, res, next) => {
