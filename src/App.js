@@ -28,7 +28,6 @@ const App = () => {
         <Header />
         <Nav user={user} setUser={setUser} />
         <Route exact path="/" render={() => <HomeView />} />
-        <Route path="/news" render={() => <News />} />
         <Route path="/petition" render={() => <PetitionDisplay />} />
         <Route path="/signature" render={() => <SignatureDisplay />} />
       </div>

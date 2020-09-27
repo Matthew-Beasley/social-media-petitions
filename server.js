@@ -7,6 +7,7 @@ const signatureRouter = require('./apis/signature');
 const petitionRouter = require('./apis/petitions');
 const userRouter = require('./apis/users');
 const authRouter = require('./apis/auth');
+const newsRouter = require('./apis/news');
 const { findUserFromToken } = require('./data/auth')
 
 app.use(cors());
@@ -33,6 +34,7 @@ app.use('/dist', express.static(path.join(__dirname, 'dist')));
 app.use('/signature', signatureRouter);
 app.use('/petition', petitionRouter);
 app.use('/user', userRouter);
+app.use('/news', newsRouter);
 app.use('/auth', authRouter);
 
 app.get('/', (req, res, next) => {

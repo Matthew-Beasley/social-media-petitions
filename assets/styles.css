@@ -64,3 +64,41 @@
   margin: 1rem .5rem 1rem .5rem;
 }
 
+
+/*----- PetitionDisplay styles -----*/
+
+#petition-display-container {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode';
+  color: #1F3145;
+}
+
+#petition-display-container > ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style-type: none;
+  padding: 0;
+}
+
+#petition-display-container > ul > li {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+  margin: 1rem 1rem 1rem 1rem;
+  border: 1px solid black;
+}
+
+.petition-topic {
+  font-size: 1.5rem;
+  margin: 1rem 2rem 1rem 2rem;
+}
+
+.petition-shorttext {
+  font-size: 1rem;
+  margin: 0rem 2rem 1rem 2rem;
+}
+
+.petition-longtext {
+  font-size: 1rem;
+  margin: 0rem 2rem 1rem 2rem;
+}
