@@ -4,18 +4,16 @@ const redis = require('redis')
 const redisClient = redis.createClient();
 const newsRouter = express.Router();
 
-const endPoint = 'https://newsapi.org/v2/everything?q=';
+const endPoint = 'https://newsapi.org/v2/top-headlines?country=us&q=';
 const apiKey = '&apiKey=c30ad051e9e6471490d1c763659adc0b';
 
 const checkCache = (req, res, next) => {
-  console.log('in checkcache ', req.query.arg)
   redisClient.get(req.query.arg, (err, data) => {
     if (err) {
       console.log(err);
       res.status(500).send(err);
     }
     else if (data) {
-      console.log('served up by redis!')
       res.send(data);
     }
     else {
@@ -25,6 +23,7 @@ const checkCache = (req, res, next) => {
 };
 
 //https://newsapi.org/v2/everything?q=bitcoin&apiKey=c30ad051e9e6471490d1c763659adc0b
+//https://newsapi.org/v2/top-headlines?country=us&q=trump&apiKey=c30ad051e9e6471490d1c763659adc0b
 
 newsRouter.get('/topics', checkCache, async (req, res, next) => {
   const arg = req.query.arg;

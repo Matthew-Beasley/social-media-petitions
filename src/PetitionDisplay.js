@@ -3,15 +3,32 @@ import axios from 'axios';
 
 const PetitionDisplay = () => {
   const [topics, setTopics] = useState([]);
+  const [articles, setArticles] = useState([]);
 
   useEffect(() => {
+    let isCancelled = false;
     axios.get('/petition/current')
-      .then(response => setTopics(response.data))
+      .then((response) => {
+        if (!isCancelled) {
+          setTopics(response.data);
+        }
+      });
+    return () => {
+      isCancelled = true;
+    };
   }, []);
   useEffect(() => {
+    let isCancelled = false;
     axios.get('/news/topics?arg=trump')
-      .then(response => console.log(response.data));
-  }, [])
+      .then((response) => {
+        if (!isCancelled) {
+          setArticles(response.data.articles);
+        }
+      });
+    return () => {
+      isCancelled = true;
+    };
+  }, [topics]);
   return (
     <div id="petition-display-container">
       <ul>

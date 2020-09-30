@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import News from './News';
 import PetitionDisplay from './PetitionDisplay';
 
 const HomeView = () => {
@@ -6,9 +7,7 @@ const HomeView = () => {
   return (
     <div id="home-view">
       <PetitionDisplay />
-      <div id="news-feed">
-        <h1>News feed goes here</h1>
-      </div>
+      <News />
     </div>
   )
 }
