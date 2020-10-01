@@ -22,8 +22,10 @@ const News = () => {
             return (
               <li key={article.title}>
                 <img className="news-image" src={article.urlToImage} />
-                <div className="news-title"><a href={article.url} target="_blank" rel="noopener noreferrer">{article.title}</a></div>
-                <div className="news-description">{article.description}</div>
+                <div className="news-content">
+                  <div className="news-title"><a href={article.url} target="_blank" rel="noopener noreferrer">{article.title}</a></div>
+                  <div className="news-description">{article.description}</div>
+                </div>
               </li>
             )
           })
