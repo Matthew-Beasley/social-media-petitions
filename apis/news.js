@@ -29,7 +29,7 @@ newsRouter.get('/topics', checkCache, async (req, res, next) => {
   try {
     const articles = await axios.get(`${key}`);
     redisClient.set(key, JSON.stringify(articles.data));
-    redisClient.expire(key, 2/*3600*/);
+    redisClient.expire(key, 3600);
     res.status(200).json(articles);
   } catch (error) {
     next(error);
