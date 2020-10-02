@@ -5,7 +5,7 @@ import PetitionDisplay from './PetitionDisplay';
 import Header from './Header';
 import Nav from './Nav';
 import HomeView from './HomeView';
-import News from './News';
+//checkin comment
 
 const App = () => {
   const [user, setUser] = useState({});
@@ -18,18 +18,15 @@ const App = () => {
       <div id="app-container">
         <Header />
         <Nav user={user} setUser={setUser} />
-        <PetitionDisplay />
-        <News />
+        <HomeView />
       </div>
     )
   } else {
     return (
-      <div id="loggedin-container">
+      <div id="app-container">
         <Header />
         <Nav user={user} setUser={setUser} />
-        <Route exact path="/" render={() => <HomeView />} />
-        <Route path="/petition" render={() => <PetitionDisplay />} />
-        <Route path="/signature" render={() => <SignatureDisplay />} />
+        <HomeView />
       </div>
     )
   }

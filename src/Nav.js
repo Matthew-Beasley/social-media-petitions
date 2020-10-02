@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Login from './Login';
 
-const Nav = ({ setUser }) => {
+const Nav = ({ user, setUser }) => {
 
   return (
     <div id="nav">
