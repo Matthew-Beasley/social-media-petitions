@@ -1,7 +1,8 @@
 const axios = require('axios');
 const express = require('express');
-const redis = require('redis')
-const redisClient = redis.createClient();
+//const redis = require('redis')
+//const redisClient = redis.createClient();
+const redisClient = require('redis').createClient(process.env.REDIS_URL);
 const newsRouter = express.Router();
 
 const endPoint = 'https://newsapi.org/v2/top-headlines?country=us&catagory=';
@@ -22,9 +23,6 @@ const checkCache = (req, res, next) => {
     }
   });
 };
-
-//https://newsapi.org/v2/everything?q=bitcoin&apiKey=c30ad051e9e6471490d1c763659adc0b
-//https://newsapi.org/v2/top-headlines?country=us&q=trump&apiKey=c30ad051e9e6471490d1c763659adc0b
 
 newsRouter.get('/topics', checkCache, async (req, res, next) => {
   const key = `${endPoint}${req.query.arg}${apiKey}`;

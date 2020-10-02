@@ -5,7 +5,6 @@ import PetitionDisplay from './PetitionDisplay';
 import Header from './Header';
 import Nav from './Nav';
 import HomeView from './HomeView';
-//checkin comment
 
 const App = () => {
   const [user, setUser] = useState({});
