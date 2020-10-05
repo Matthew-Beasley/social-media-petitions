@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "test": "jest --detectOpenHandles",
+    "test": "jest --forceExit --detectOpenHandles",
     "test:dev": "npm run test -- --watch JWT=foobar",
     "build": "webpack src/index.js -o dist/main.js",
     "build:dev": "npm run build -- --watch --mode=development",
