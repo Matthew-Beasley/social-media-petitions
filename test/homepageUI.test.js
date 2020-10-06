@@ -1,3 +1,4 @@
+const { Builder, Key, By, until } = require('selenium-webdriver');
 const {
   getElementXpath,
   getElementName,
@@ -23,4 +24,12 @@ test('get search box contents', async () => {
   const title = await (await driver).getTitle();
   console.log('The title is ', title);
   expect(title).toEqual('Our Voice');
+})
+
+test('enter user name', async () => {
+  await driver.get('http://localhost:3000/');
+  const element = await driver.findElement(By.id('email'));
+  await element.sendKeys('jasper@email.com');
+  const value = await element.getAttribute('value');
+  expect(value).toEqual('jasper@email.com');
 })

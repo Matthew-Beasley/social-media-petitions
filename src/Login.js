@@ -41,10 +41,10 @@ const Login = ({ setUser }) => {
         <div id="login-text">
           <p>To log in or create an account enter email and password</p>
         </div>
-        <input type="email" placeholder="email" value={email} onChange={(ev) => setEmail(ev.target.value)} />
-        <input type="text" placeholder="password" value={password} onChange={(ev) => setPassword(ev.target.value)} />
-        <input type="submit" value="Submit" />
-        <input type="button" value="logout" onClick={() => logout()} />
+        <input id="email" type="email" placeholder="email" value={email} onChange={(ev) => setEmail(ev.target.value)} />
+        <input id="password" type="text" placeholder="password" value={password} onChange={(ev) => setPassword(ev.target.value)} />
+        <input id="submit" type="submit" value="Submit" />
+        <input id="logout" type="button" value="logout" onClick={() => logout()} />
       </form>
     </div>
   )
