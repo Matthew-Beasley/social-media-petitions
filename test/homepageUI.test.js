@@ -7,12 +7,12 @@ const {
 const webdriver = require('selenium-webdriver');
 //const chrome = require('selenium-webdriver/chrome')
 
-let driver;
+let driver, js;
 
 beforeAll(() => {
   driver = new webdriver.Builder()
   .forBrowser('chrome')
-  .build();
+    .build();
 })
 
 afterAll(async () => {
@@ -31,5 +31,15 @@ test('enter user name', async () => {
   const element = await driver.findElement(By.id('email'));
   await element.sendKeys('jasper@email.com');
   const value = await element.getAttribute('value');
+  await driver.findElement(By.id('email')).clear();
   expect(value).toEqual('jasper@email.com');
+})
+
+test('enter user name', async () => {
+  await driver.get('http://localhost:3000/');
+  const element = await driver.findElement(By.id('password'));
+  await element.sendKeys('jasper');
+  const value = await element.getAttribute('value');
+  await driver.findElement(By.id('password')).clear();
+  expect(value).toEqual('jasper');
 })
