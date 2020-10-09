@@ -8,7 +8,6 @@ const News = () => {
     axios.get('/news/topics?arg=politics')
       .then((response) => {
         if (!isCancelled) {
-          console.log(response.data.articles)
           setArticles(response.data.articles);
         }
       });

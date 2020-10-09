@@ -1,7 +1,5 @@
 const axios = require('axios');
 const express = require('express');
-//const redis = require('redis')
-//const redisClient = redis.createClient();
 const redisClient = require('redis').createClient(process.env.REDIS_URL);
 const newsRouter = express.Router();
 

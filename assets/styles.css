@@ -40,7 +40,12 @@
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode';
 }
 
-#login {
+#admin-link, #home-link {
+  color: white;
+  margin: 1rem;
+}
+
+#login-container {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -48,7 +53,7 @@
   height: 4rem;
 }
 
-#login > form {
+#login-form {
   display: flex;
   flex-direction: row;
   height: 4rem;

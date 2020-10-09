@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const Login = ({ setUser }) => {
+const Login = ({ setUser, history }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -28,16 +28,20 @@ const Login = ({ setUser }) => {
     } else {
       login({ email, password });
     }
+    setEmail('');
+    setPassword('');
+    history.push('/UserView')
   }
 
   const logout = () => {
     window.localStorage.removeItem('token');
     setUser({});
+    history.push('/')
   }
 
   return (
     <div id="login">
-      <form id="login" onSubmit={(ev) => checkCredentials(ev)}>
+      <form id="login-form" onSubmit={(ev) => checkCredentials(ev)}>
         <div id="login-text">
           <p>To log in or create an account enter email and password</p>
         </div>

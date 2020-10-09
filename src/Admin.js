@@ -3,11 +3,8 @@ import { Link, Route } from 'react-router-dom';
 const axios = require('axios');
 process.env.JWT = 'foobar';
 const url = 'http://localhost:3000';
-const {
-  headers
-} = require('./testAuthorization');
 
-const Admin = () => {
+const Admin = ({ headers }) => {
   const [topic, setTopic] = useState('');
   const [shortText, setShortText] = useState('');
   const [longText, setLongText] = useState('');
@@ -24,13 +21,15 @@ const Admin = () => {
   return (
     <div id="admin-container">
       <form id="create-petition">
-        <input type="text" placeholder="Topic" onChange={ev => setTopic(ev.target.value)} />
-        <input type="text" placeholder="Short Text" onChange={ev => setShortText(ev.target.value)} />
-        <input type="text" placeholder="LongText" onChange={ev => setLongText(ev.target.value)} />
-        <input type="checkbox" onChange={ev => setCurrent(ev.target.value)} />
+        <input type="text" id="admin-topic-input" placeholder="Topic" onChange={ev => setTopic(ev.target.value)} />
+        <input type="text" id="admin-shorttext-input" placeholder="Short Text" onChange={ev => setShortText(ev.target.value)} />
+        <input type="text" id="admin-longtext-input" placeholder="LongText" onChange={ev => setLongText(ev.target.value)} />
+        <input type="checkbox" id="admin-current-checkbox" onChange={ev => setCurrent(ev.target.value)} />
         <label>This is a current topic</label>
-        <input type="button" onSubmit={ev => createPetition(ev)} />
+        <input type="button" id="admin-topic-button" onSubmit={ev => createPetition(ev)} />
       </form>
     </div>
   )
 }
+
+export default Admin;

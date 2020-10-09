@@ -33,6 +33,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "fs": "0.0.1-security",
+    "geckodriver": "^1.20.0",
     "jwt-simple": "^0.5.6",
     "npm": "^6.14.8",
     "path": "^0.12.7",

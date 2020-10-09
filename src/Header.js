@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Route, Link } from 'react-router-dom';
+import React from 'react';
 
 const Header = () => {
-
   return (
     <div id="header">
       <div id="header-left">
-        <p>Your Voice</p>
+        <p>Our Voice</p>
       </div>
       <img src="../assets/header-flag.jpg" />
     </div>
