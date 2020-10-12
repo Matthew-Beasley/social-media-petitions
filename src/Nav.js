@@ -8,7 +8,6 @@ const Nav = ({ user, setUser, history }) => {
     <div id="nav">
       {!!user.isAdmin && <Link id="admin-link" to="/Admin">Administration</Link>}
       {!!user.isAdmin && history.location.pathname !== '/' ? <Link id="home-link" to="/UserView">Home</Link> : null}
-      {console.log(history.location.pathname)}
       <Login setUser={setUser} history={history} />
     </div>
   )

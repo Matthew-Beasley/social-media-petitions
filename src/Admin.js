@@ -21,10 +21,21 @@ const Admin = ({ headers }) => {
   return (
     <div id="admin-container">
       <form id="create-petition">
-        <input type="text" id="admin-topic-input" placeholder="Topic" onChange={ev => setTopic(ev.target.value)} />
-        <input type="text" id="admin-shorttext-input" placeholder="Short Text" onChange={ev => setShortText(ev.target.value)} />
-        <input type="text" id="admin-longtext-input" placeholder="LongText" onChange={ev => setLongText(ev.target.value)} />
-        <input type="checkbox" id="admin-current-checkbox" onChange={ev => setCurrent(ev.target.value)} />
+        <input
+          type="text" id="admin-topic-input" placeholder="Topic"
+          value={topic} onChange={ev => setTopic(ev.target.value)}
+        />
+        <input
+          type="text" id="admin-shorttext-input" placeholder="Short Text"
+          value={shortText} onChange={ev => setShortText(ev.target.value)}
+        />
+        <input
+          type="text" id="admin-longtext-input" placeholder="LongText"
+          value={longText} onChange={ev => setLongText(ev.target.value)}
+        />
+        <input
+          type="checkbox" id="admin-current-checkbox"
+          value={current} onChange={ev => setCurrent(ev.target.value)} />
         <label>This is a current topic</label>
         <input type="button" id="admin-topic-button" onSubmit={ev => createPetition(ev)} />
       </form>

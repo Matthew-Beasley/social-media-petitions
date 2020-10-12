@@ -3,7 +3,7 @@ const express = require('express');
 const redisClient = require('redis').createClient(process.env.REDIS_URL);
 const newsRouter = express.Router();
 
-const endPoint = 'https://newsapi.org/v2/top-headlines?country=us&catagory=';
+const endPoint = 'https://newsapi.org/v2/everything?q=';
 const apiKey = '&apiKey=c30ad051e9e6471490d1c763659adc0b';
 
 const checkCache = (req, res, next) => {

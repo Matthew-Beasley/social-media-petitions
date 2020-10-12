@@ -59,9 +59,9 @@ test('log in', async () => {
   //await driver.executeScript('window.localStorage.setItem("token", "hello")')
   //await driver.executeScript('arguments[0].click();', submit);
   //await driver.findElement(By.id("submit")).sendKeys(Key.RETURN);
-  await driver.wait(until.elementLocated(By.id('admin-topic-input')), 10000);
+  await driver.wait(until.elementLocated(By.id('petition-display-container')), 10000);
   const token = await driver.executeScript('return window.localStorage.getItem("token")')
-  //await driver.executeScript('localStorage.removeItem("token")')
+  await driver.executeScript('localStorage.removeItem("token")')
   console.log('token is ', token)
   expect(token).toBeTruthy();
 })

@@ -17,18 +17,7 @@ const PetitionDisplay = () => {
       isCancelled = true;
     };
   }, []);
-  useEffect(() => {
-    let isCancelled = false;
-    axios.get('/news/topics?arg=trump')
-      .then((response) => {
-        if (!isCancelled) {
-          setArticles(response.data.articles);
-        }
-      });
-    return () => {
-      isCancelled = true;
-    };
-  }, [topics]);
+
   return (
     <div id="petition-display-container">
       <ul>
