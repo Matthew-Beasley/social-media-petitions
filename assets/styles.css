@@ -154,3 +154,23 @@
 }
 
 
+/*----- UserView Petition Display -----*/
+
+#user-petition-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.user-petition-li {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  width: 45%;
+  margin: 1rem 1rem 1rem 1rem;
+  border: 3px solid #ff0000;
+}
+
+

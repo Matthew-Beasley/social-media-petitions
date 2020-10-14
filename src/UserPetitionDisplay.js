@@ -21,7 +21,7 @@ const UserPetitionDisplay = () => {
 
   useEffect(() => {
     petitions.forEach(petition => {
-      axios.get(`/news/topics?arg=${petition.topic}`)
+      axios.get(`/news/everything?q=${petition.topic}`)
         .then(response => {
           petition.news = response.data.articles[0];
           forceUpdate();
@@ -34,10 +34,7 @@ const UserPetitionDisplay = () => {
       <ul id="user-petition-list">
         {petitions.map(petition => {
           return (
-            <li key={petition.topic} className="user-petition">
-              <div className="petition-topic">{petition.topic}</div>
-              <div className="petition-shorttext">{petition.shortText}</div>
-              <div className="petition-longtext">{petition.longText}</div>
+            <li key={petition.topic} className="user-petition-li">
               {!!petition.news &&
                 <div id="petition-newsitem">
                   <img className="news-image" src={petition.news.urlToImage ? petition.news.urlToImage : './assets/default-article-image.jpg'} />
@@ -47,6 +44,11 @@ const UserPetitionDisplay = () => {
                   </div>
                 </div>
               }
+              <div className="user-petition-content">
+                <div className="petition-topic">{petition.topic}</div>
+                <div className="petition-shorttext">{petition.shortText}</div>
+                <div className="petition-longtext">{petition.longText}</div>
+              </div>
             </li>
           )})}
       </ul>

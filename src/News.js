@@ -5,9 +5,10 @@ const News = () => {
   const [articles, setArticles] = useState([]);
   useEffect(() => {
     let isCancelled = false;
-    axios.get('/news/topics?arg=politics')
+    axios.get('/news/topheadlines?country=us&q=&catagory=politics&language=en')
       .then((response) => {
         if (!isCancelled) {
+          console.log(response.data.articles)
           setArticles(response.data.articles);
         }
       });
