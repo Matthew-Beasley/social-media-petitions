@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, Route } from 'react-router-dom';
+import PetitionUpdate from './PetitionUpdate';
 const axios = require('axios');
 process.env.JWT = 'foobar';
 const url = 'http://localhost:3000';
 
-const Admin = ({ headers }) => {
+const Admin = ({ headers, history }) => {
   const [topic, setTopic] = useState('');
   const [shortText, setShortText] = useState('');
   const [longText, setLongText] = useState('');
@@ -20,6 +21,7 @@ const Admin = ({ headers }) => {
 
   return (
     <div id="admin-container">
+      <PetitionUpdate history={history} headers={headers} />
       <form id="create-petition">
         <input
           type="text" id="admin-topic-input" placeholder="Topic"

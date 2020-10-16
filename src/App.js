@@ -36,7 +36,7 @@ const App = () => {
         <Header />
         <Nav user={user} setUser={setUser} history={history} />
         <Route path="/UserView" render={() => <UserView history={history} />} />
-        <Route path="/Admin" component={ Admin } />
+        <Route path="/Admin" render={() => <Admin history={history} headers={headers} />} />
       </div>
     )
   }

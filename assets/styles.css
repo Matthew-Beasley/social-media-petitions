@@ -88,6 +88,7 @@
 #petition-display-container > ul > li {
   display: flex;
   flex-direction: column;
+  justify-items: center;
   width: 45%;
   margin: 1rem 1rem 1rem 1rem;
   border: 3px solid #ff0000;
@@ -174,3 +175,39 @@
 }
 
 
+/*----- Admin styles -----*/
+
+#admin-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+#petition-update-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.iscurrent {
+  margin: 0rem 1rem 1rem 2rem;
+}
+
+.update-bttn {
+  margin: 0rem 0rem 1rem 2rem;
+  height: 2rem;
+  width: 8rem;
+}
+
+.input-shorttext, .input-longtext {
+  width: 80%;
+  border: 1px solid black;
+  margin: 1rem 0rem 1rem 2rem;
+}
+
+#create-petition {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  border: 2px solid darkblue;
+}
