@@ -181,6 +181,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode';
 }
 
 #petition-update-container {
@@ -199,15 +200,42 @@
   width: 8rem;
 }
 
-.input-shorttext, .input-longtext {
-  width: 80%;
+.update-input-shorttext, .update-input-longtext {
   border: 1px solid black;
   margin: 1rem 0rem 1rem 2rem;
+  width: 85%;
 }
 
-#create-petition {
+#create-petition-form {
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: space-evenly;
   border: 2px solid darkblue;
+  width: 91%;
+  margin: 0rem 0rem 1rem 1rem;
+  padding: 1rem;
+}
+
+#create-input-shorttext, #create-input-longtext {
+  border: 1px solid black;
+  margin: 1rem 0rem 1rem 2rem;
+  width: 85%;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode';
+}
+
+#admin-topic-input {
+  width: 70%;
+}
+
+#admin-current-checkbox {
+  width: 1rem;
+  height: 1rem;
+}
+
+#admin-create-button {
+  width: 10rem;
+  height: 1.5rem;
+  font-size: 1rem;
+  margin: 1rem;
 }

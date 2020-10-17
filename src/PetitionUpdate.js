@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const PetitionUpdate = ({ history, headers }) => {
-  const [topics, setTopics] = useState([]);
+const PetitionUpdate = ({ petitions, setPetitions, headers }) => {
   const url = 'http://localhost:3000';
 
   useEffect(() => {
     let isCancelled = false;
-    axios.get('/petition/current')
+    axios.get('/petition')
       .then((response) => {
         if (!isCancelled) {
-          setTopics(response.data);
+          setPetitions([...response.data]);
         }
       });
     return () => {
@@ -21,7 +20,7 @@ const PetitionUpdate = ({ history, headers }) => {
   return (
     <div id="petition-display-container">
       <ul id="user-petition-list">
-        {topics.map(topic => {
+        {petitions.map(topic => {
 
           let isChecked;
           const setCheck = () => {
@@ -57,7 +56,7 @@ const PetitionUpdate = ({ history, headers }) => {
               <div className="petition-topic">{topic.topic}</div>
               <div>
                 <textarea
-                  className="input-shorttext"
+                  className="update-input-shorttext"
                   spellCheck="true"
                   defaultValue={topic.shortText}
                   onChange={(ev) => { setText('shortText', ev) }}
@@ -66,10 +65,10 @@ const PetitionUpdate = ({ history, headers }) => {
               </div>
               <div>
                 <textarea
-                  className="input-longtext"
+                  className="update-input-longtext"
                   spellCheck="true"
                   defaultValue={topic.longText}
-                  onChange={(ev) => { setText('longText', ev); console.log(topic.longText) }}
+                  onChange={(ev) => setText('longText', ev)}
                   rows="10"
                 />
               </div>
@@ -79,13 +78,13 @@ const PetitionUpdate = ({ history, headers }) => {
                     className="iscurrent"
                     type="checkbox"
                     checked={isChecked}
-                    onChange={() => { setCheck(); console.log(isChecked) }}
+                    onChange={() => setCheck()}
                   />Is current petition
                 </label>
                 <button
                   className="update-bttn"
                   type="button"
-                  onClick={() => { updatePetition(topic); console.log(topic) }}>
+                  onClick={() => updatePetition(topic)}>
                   Update Petition
                 </button>
               </div>

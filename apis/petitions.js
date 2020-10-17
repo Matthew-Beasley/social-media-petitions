@@ -19,7 +19,7 @@ petitionRouter.post('/', isAdmin, async (req, res, next) => {
   }
 });
 
-petitionRouter.get('/', isLoggedIn, async (req, res, next) => {
+petitionRouter.get('/', async (req, res, next) => {
   try {
     let response = undefined;
     if (req.query.topic) {
@@ -44,9 +44,7 @@ petitionRouter.get('/current', async (req, res, next) => {
 
 petitionRouter.put('/', isAdmin, async (req, res, next) => {
   try {
-    console.log('req in api ', req.body)
     const response = await updatePetition(req.body);
-    console.log('response in api ', response)
     res.status(201).send(response);
   } catch (error) {
     next(error);

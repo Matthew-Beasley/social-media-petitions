@@ -29,7 +29,6 @@ newsRouter.get('/everything', checkCache, async (req, res, next) => {
   try {
     const articles = await axios.get(key);
     console.log('served up by route')
-    console.log(key)
     redisClient.set(req.originalUrl, JSON.stringify(articles.data));
     redisClient.expire(req.originalUrl, 1800);
     res.status(200).json(articles.data);

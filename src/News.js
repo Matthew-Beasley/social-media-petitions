@@ -8,7 +8,6 @@ const News = () => {
     axios.get('/news/topheadlines?country=us&q=&catagory=politics&language=en')
       .then((response) => {
         if (!isCancelled) {
-          console.log(response.data.articles)
           setArticles(response.data.articles);
         }
       });
