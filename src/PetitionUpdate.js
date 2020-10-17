@@ -29,6 +29,7 @@ const PetitionUpdate = ({ petitions, setPetitions, headers }) => {
             } else {
               isChecked = true;
             }
+            topic.current = isChecked;
           }
 
           const updatePetition = async () => {
@@ -42,6 +43,14 @@ const PetitionUpdate = ({ petitions, setPetitions, headers }) => {
               headers());
             return response;
           }
+
+          const deletePetition = async () => {
+            await axios.delete(`${url}/petition?topic=${topic.topic}`, headers());
+            const index = petitions.indexOf(topic.topic);
+            petitions.splice(index, 1);
+            console.log(petitions);
+            setPetitions([...petitions]);
+         }
 
           const setText = (textVal, ev) => {
             if (textVal === 'shortText') {
@@ -86,6 +95,12 @@ const PetitionUpdate = ({ petitions, setPetitions, headers }) => {
                   type="button"
                   onClick={() => updatePetition(topic)}>
                   Update Petition
+                </button>
+                <button
+                  className="delete-bttn"
+                  type="button"
+                  onClick={() => deletePetition()}>
+                  Delete Petition
                 </button>
               </div>
             </li>

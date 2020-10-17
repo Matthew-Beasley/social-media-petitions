@@ -9,7 +9,6 @@ const CreatePetition  = ({history, headers, petitions, setPetitions}) => {
   const [createSuccessful, setCreateSuccessful] = useState(false);
 
   const submitPetition = async () => {
-    console.log(topic, shortText, longText, current)
     const url = 'http://localhost:3000';
     const petition = await axios.post(url + '/petition',
       { topic, shortText, longText, current },
@@ -41,15 +40,17 @@ const CreatePetition  = ({history, headers, petitions, setPetitions}) => {
         spellCheck="true"
         placeholder="Long Text"
         defaultValue={topic.longText}
-        onChange={ev => { setLongText(ev.target.value); console.log(longText) }}
+        onChange={ev => { setLongText(ev.target.value)}}
         rows="10"
       />
       <label>
         <input
-          type="checkbox" id="admin-current-checkbox"
-          value={current} onChange={ev => setCurrent(ev.target.value)}
-        />
-        Make this a current petition
+          type="checkbox"
+          className="iscurrent"
+          id="admin-current-checkbox"
+          checked={current}
+          onChange={ev => setCurrent(ev.target.value)}
+        />Make this a current petition
       </label>
       <button
         type="button"

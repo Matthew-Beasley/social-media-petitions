@@ -52,11 +52,12 @@ const updatePetition = async (params) => {
   return (await client.query(sql, args)).rows[0];
 }
 
-const deletePetition = async ({ topic }) => {
+const deletePetition = async (topic) => {
+  console.log(topic)
   const sql = `
   DELETE FROM petitions
   WHERE topic = $1`;
-  return client.query(sql, [topic])
+  await client.query(sql, [topic])
 }
 
 module.exports = {
