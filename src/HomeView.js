@@ -3,11 +3,18 @@ import News from './News';
 import PetitionDisplay from './PetitionDisplay';
 
 const HomeView = () => {
+  const [petitions, setPetitions] = useState([]);
 
   return (
     <div id="home-view">
-      <PetitionDisplay />
-      <News />
+      <PetitionDisplay
+        petitions={petitions}
+        setPetitions={setPetitions}
+      />
+      <News
+        petitions={petitions}
+        setPetitions={setPetitions}
+      />
     </div>
   )
 }

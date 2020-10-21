@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const PetitionDisplay = () => {
-  const [topics, setTopics] = useState([]);
-  const [articles, setArticles] = useState([]);
+const PetitionDisplay = ({ petitions, setPetitions }) => {
+  const forceUpdate = React.useReducer(() => ({}))[1];
 
   useEffect(() => {
     let isCancelled = false;
     axios.get('/petition/current')
       .then((response) => {
         if (!isCancelled) {
-          setTopics(response.data);
+          setPetitions(response.data);
+          forceUpdate();
         }
       });
     return () => {
@@ -21,12 +21,11 @@ const PetitionDisplay = () => {
   return (
     <div id="petition-display-container">
       <ul>
-      {topics.map(topic => {
+      {petitions.map(topic => {
         return (
           <li key={topic.id}>
             <div className="petition-topic">{topic.topic}</div>
             <div className="petition-shorttext">{topic.shortText}</div>
-            <div className="petition-longtext">{topic.longText}</div>
           </li>
         )
       })}
