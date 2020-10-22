@@ -1,17 +1,26 @@
 const client = require('../client');
 
-const createSignature = async ({ topic, userId }) => {
+const createSignature = async ({ topic, email }) => {
   const sql = `
-  INSERT INTO signatures (topic, "userId")
+  INSERT INTO signatures (topic, email)
   VALUES ($1, $2)
   RETURNING *`;
-  return (await client.query(sql, [topic, userId])).rows[0];
+  return (await client.query(sql, [topic, email])).rows[0];
 }
 
 const readSignatures = async () => {
   const sql = `
   SELECT * FROM signatures`;
   return (await client.query(sql)).rows;
+}
+
+const readMySignatures = async ({ email, topic }) => {
+  const sql = `
+  SELECT * FROM signatures
+  INNER JOIN petitions
+  ON signatures.topic = petitions.topic 
+  AND signature.email = $1`;
+  return (await client.query(sql, [email, topic])).rows;
 }
 
 const readSignaturesByPetition = async ({ topic }) => {
@@ -21,17 +30,18 @@ const readSignaturesByPetition = async ({ topic }) => {
   return (await client.query(sql, [topic])).rows;
 }
 
-const deleteSignature = async ({ userId, topic }) => {
+const deleteSignature = async ({ email, topic }) => {
   const sql = `
   DELETE FROM signatures
-  WHERE "userId" = $1
+  WHERE email = $1
   AND topic = $2`;
-  await client.query(sql, [userId, topic]);
+  await client.query(sql, [email, topic]);
 }
 
 module.exports = {
   createSignature,
   readSignatures,
+  readMySignatures,
   readSignaturesByPetition,
   deleteSignature
 };

@@ -4,6 +4,7 @@ const {
   createSignature, 
   readSignatures,
   readSignaturesByPetition,
+  readMySignatures,
   deleteSignature
 } = require('../data/crud/signatures');
 const { isAdmin, isLoggedIn } = require('../data/auth');
@@ -21,6 +22,14 @@ signatureRouter.get('/', isLoggedIn, async (req, res, next) => {
   try {
     const records = await readSignatures();
     res.status(200).send(records);
+  } catch (error) {
+    next(error);
+  }
+});
+
+signatureRouter.get('/signatures', isLoggedIn, async (req, res, next) => {
+  try {
+    const signatures = await readMySignatures(req.query)
   } catch (error) {
     next(error);
   }

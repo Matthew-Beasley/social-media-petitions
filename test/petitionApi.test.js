@@ -157,8 +157,8 @@ test('petitions api deletePetition', async () => {
   }
   await createPetition(params);
   await authorizeAdmin();
-  await axios.delete(url + '/petition?topic=Donald%20Trump%20is%20a%20despot', headers());
+  await axios.delete(url + '/petition?topic=Little%20dogs%20are%20fluffy', headers());
   const petition = await readPetition({ topic: 'Little dogs are fluffy' })
-  expect(petition.data).toEqual(undefined);
+  expect(petition).toEqual(undefined);
 });
 

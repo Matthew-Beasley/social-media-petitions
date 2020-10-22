@@ -22,17 +22,16 @@ afterAll(async () => {
 test('get app title', async () => {
   await driver.get('http://localhost:3000/');
   const title = await (await driver).getTitle();
-  console.log('The title is ', title);
   expect(title).toEqual('Our Voice');
 })
 
 test('populate email input', async () => {
   await driver.get('http://localhost:3000/');
   const element = await driver.findElement(By.id('email'));
-  await element.sendKeys('jasper@email.com');
+  await element.sendKeys('125jasper3467@email.com');
   const value = await element.getAttribute('value');
   await driver.findElement(By.id('email')).clear();
-  expect(value).toEqual('jasper@email.com');
+  expect(value).toEqual('125jasper3467@email.com');
 })
 
 test('populate password input', async () => {
@@ -47,7 +46,7 @@ test('populate password input', async () => {
 test('log in', async () => {
   await driver.get('http://localhost:3000/');
   const email = await driver.findElement(By.id('email'));
-  await email.sendKeys('jasper@email.com');
+  await email.sendKeys('125jasper3467@email.com');
   const password = await driver.findElement(By.id('password'));
   await password.sendKeys('jasper');
   //await driver.findElement(By.id('submit')).click();
@@ -59,7 +58,8 @@ test('log in', async () => {
   //await driver.executeScript('window.localStorage.setItem("token", "hello")')
   //await driver.executeScript('arguments[0].click();', submit);
   //await driver.findElement(By.id("submit")).sendKeys(Key.RETURN);
-  await driver.wait(until.elementLocated(By.id('petition-display-container')), 10000);
+  await driver.wait(until.elementLocated(By.id('home-view')), 10000);
+  console.log('petition-display-container located')
   const token = await driver.executeScript('return window.localStorage.getItem("token")')
   await driver.executeScript('localStorage.removeItem("token")')
   console.log('token is ', token)

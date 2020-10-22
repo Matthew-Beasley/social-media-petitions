@@ -7,6 +7,10 @@ const HomeView = () => {
 
   return (
     <div id="home-view">
+      <div>
+        <h1>Something here</h1>
+        <p>more descriptive text</p>
+      </div>
       <PetitionDisplay
         petitions={petitions}
         setPetitions={setPetitions}

@@ -48,7 +48,6 @@ const PetitionUpdate = ({ petitions, setPetitions, headers }) => {
             await axios.delete(`${url}/petition?topic=${topic.topic}`, headers());
             const index = petitions.indexOf(topic.topic);
             petitions.splice(index, 1);
-            console.log(petitions);
             setPetitions([...petitions]);
          }
 

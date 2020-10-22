@@ -23,58 +23,58 @@ const getUserSql = async (email) => {
 
 afterEach(async () => {
   await deleteUser({ email: 'sam@email.com' });
-  await deleteUser({ email: 'jasper@email.com' })
+  await deleteUser({ email: '125jasper3467@email.com' })
 });
 
 test('user API create user', async () => {
-  const params = { email: 'jasper@email.com', password: 'thedog' };
+  const params = { email: '125jasper3467@email.com', password: 'thedog' };
   await authorizeAdmin();
   await axios.post(url + '/user', params, headers());
-  const user = await getUserSql('jasper@email.com');
+  const user = await getUserSql('125jasper3467@email.com');
   expect(user).toEqual(
     expect.objectContaining({
-      email: 'jasper@email.com',
+      email: '125jasper3467@email.com',
     })
   )
 });
 
 test('user API read all users', async () => {
-  const params = { email: 'jasper@email.com', password: 'thedog' };
+  const params = { email: '125jasper3467@email.com', password: 'thedog' };
   await createUser(params);
   await authorizeAdmin();
   const users = await axios.get(url + '/user', headers());
   const user = users.data.reduce((acc, item) => {
-    if (item.email === 'jasper@email.com') {
+    if (item.email === '125jasper3467@email.com') {
       acc = item;
     }
     return acc;
   }, {});
   expect(user).toEqual(
     expect.objectContaining({
-      email: 'jasper@email.com'
+      email: '125jasper3467@email.com'
     })
   )
 });
 
 test('user API read users by email', async () => {
-  const params = { email: 'jasper@email.com', password: 'thedog' };
+  const params = { email: '125jasper3467@email.com', password: 'thedog' };
   await createUser(params);
   await authorizeAdmin();
-  const user = (await axios.get(url + '/user/email/jasper@email.com', headers())).data;
+    const user = (await axios.get(url + '/user/email/125jasper3467@email.com', headers())).data;
   expect(user).toEqual(
     expect.objectContaining({
-      email: 'jasper@email.com'
+      email: '125jasper3467@email.com'
     })
   )
 });
 
 test('user API rupdate user', async () => {
   const params = {
-    email: 'jasper@email.com',
+    email: '125jasper3467@email.com',
     password: 'thedog',
   };
   const updateParams = {
-    email: 'jasper@email.com',
+    email: '125jasper3467@email.com',
     password: 'thedog',
     firstName: 'jasper',
     lastName: 'thedog'
@@ -84,7 +84,7 @@ test('user API rupdate user', async () => {
   const user = (await axios.post(url + '/user/update', updateParams, headers())).data;
   expect(user).toEqual(
     expect.objectContaining({
-      email: 'jasper@email.com',
+      email: '125jasper3467@email.com',
       firstName: 'jasper',
       lastName: 'thedog'
     })

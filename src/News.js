@@ -12,6 +12,9 @@ const News = ({ petitions }) => {
       for (let i = 0; i < petitions.length; i++) {
         promises.push(axios.get(`/news/everything?q=${petitions[i].topic}`));
       }
+      if (promises.length === 0) {
+        promises.push(axios.get('/news/everything?q=politics'))
+      }
       Promise.all(promises)
         .then(values => {
           for (let i = 0; i < values.length; i++) {

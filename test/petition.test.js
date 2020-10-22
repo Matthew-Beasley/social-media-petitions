@@ -6,9 +6,14 @@ const {
   updatePetition,
   deletePetition
 } = require('../data/crud/petitions');
+const client = require('../data/client');
 
 afterEach(async () => {
-  await deletePetition({ topic: 'Dogs are fluffy' });
+  //await deletePetition({ topic: 'Dogs are fluffy' });
+  const sql = `
+  DELETE FROM petitions
+  WHERE topic = 'Dogs are fluffy'`;
+  await client.query(sql);
 });
 
 test('crud Petitions createPetitions', async () => {
@@ -98,7 +103,7 @@ test('crud Petitions deletePetition', async () => {
     shortText: 'I would have 2 dogs if I could',
     longText: 'I have a dog named chief. He is a sweet heart!',
     current: true });
-  await deletePetition({ topic: 'Dogs are fluffy' });
+  await deletePetition('Dogs are fluffy');
   const petition = await readPetition({ topic: 'Dogs are fluffy' });
   expect(petition).toEqual(undefined);
 });

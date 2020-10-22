@@ -53,7 +53,6 @@ const updatePetition = async (params) => {
 }
 
 const deletePetition = async (topic) => {
-  console.log(topic)
   const sql = `
   DELETE FROM petitions
   WHERE topic = $1`;
