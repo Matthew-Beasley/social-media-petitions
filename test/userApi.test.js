@@ -2,7 +2,9 @@ const {
   deleteUser,
   createUser
 } = require('../data/crud/users');
-const client = require('../data/client');
+const {
+  client
+} = require('./testUtils');
 const axios = require('axios');
 process.env.JWT = 'foobar';
 const url = 'http://localhost:3000';
@@ -38,8 +40,22 @@ afterEach(async () => {
   await sqlDeleteUser('jasper3467@email.com');
 });
 
-afterAll(async () => {
-  await client.end();
+beforeAll(() => {
+  client.connect(err => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('pg connected')
+    }
+  });
+});
+
+afterAll(() => {
+  client.end(err => {
+    if (err) {
+      console.log('error during disconnection', err.stack)
+    }
+  })
 });
 
 test('user API create user', async () => {

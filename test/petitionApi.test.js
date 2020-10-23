@@ -1,5 +1,7 @@
 const { deleteUser } = require('../data/crud/users');
-const client = require('../data/client');
+const {
+  client
+} = require('./testUtils');
 const {
   createPetition,
   readPetition,
@@ -14,6 +16,29 @@ const {
   authorizeUser,
   headers
 } = require('./testAuthorization');
+
+beforeAll(() => {
+  client.connect(err => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('pg connected')
+    }
+  });
+});
+
+afterAll(async () => {
+  await deleteUser({ email: 'sam@email.com' });
+  const sql = `
+  DELETE FROM petitions
+  WHERE topic = 'Little dogs are fluffy'`;
+  await client.query(sql);
+  client.end(err => {
+    if (err) {
+      console.log('error during disconnection', err.stack)
+    }
+  })
+});
 
 afterEach(async () => {
   await deleteUser({ email: 'sam@email.com' });

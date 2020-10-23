@@ -1,5 +1,6 @@
 const { Builder, Key, By, until } = require('selenium-webdriver');
 const { Client } = require('pg');
+const client = new Client(process.env.DATABASE_URL || 'postgres://localhost/social');
 
 const getElementXpath = async (driver, xpath, timeout = 3000) => {
   const el = await driver.wait(until.elementLocated(By.xpath(xpath)), timeout);
@@ -19,5 +20,6 @@ const getElementId = async (driver, id, timeout = 3000) => {
 module.exports = {
   getElementXpath,
   getElementName,
-  getElementId
+  getElementId,
+  client
 }

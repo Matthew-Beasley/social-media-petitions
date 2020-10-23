@@ -1,9 +1,15 @@
 const { Builder, Key, By, until } = require('selenium-webdriver');
 const {
-  getElementXpath,
-  getElementName,
-  getElementId
+  client
 } = require('./testUtils');
+/*client.connect(err => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('pg connected')
+  }
+});
+*/
 const webdriver = require('selenium-webdriver');
 //const chrome = require('selenium-webdriver/chrome')
 const firefox = require('selenium-webdriver/firefox')

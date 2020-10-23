@@ -5,10 +5,31 @@ const {
   updateUser,
   deleteUser
 } = require('../data/crud/users');
+const {
+  client
+} = require('./testUtils');
 
 afterEach(async () => {
   await deleteUser({ email: 'someone@email.com' });
 })
+
+beforeAll(() => {
+  client.connect(err => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('pg connected')
+    }
+  });
+});
+
+afterAll(() => {
+  client.end(err => {
+    if (err) {
+      console.log('error during disconnection', err.stack)
+    }
+  })
+});
 
 test('crud User createUser', async () => {
   const user = await createUser({

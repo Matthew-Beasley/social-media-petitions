@@ -6,7 +6,27 @@ const {
   updatePetition,
   deletePetition
 } = require('../data/crud/petitions');
-const client = require('../data/client');
+const {
+  client
+} = require('./testUtils');
+
+beforeAll(() => {
+  client.connect(err => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('pg connected')
+    }
+  });
+});
+
+afterAll(() => {
+  client.end(err => {
+    if (err) {
+      console.log('error during disconnection', err.stack)
+    }
+  })
+})
 
 afterEach(async () => {
   //await deletePetition({ topic: 'Dogs are fluffy' });

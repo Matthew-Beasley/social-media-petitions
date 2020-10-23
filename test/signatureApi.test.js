@@ -1,5 +1,7 @@
 const { deleteUser } = require('../data/crud/users');
-const client = require('../data/client');
+const {
+  client
+} = require('./testUtils');
 const {
   readSignaturesByPetition,
   deleteSignature
@@ -19,6 +21,24 @@ afterEach(async () => {
     email: 'jasper5678@email.com',
     topic: 'Dogs should rule the world'
   });
+});
+
+beforeAll(() => {
+  client.connect(err => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('pg connected')
+    }
+  });
+});
+
+afterAll(() => {
+  client.end(err => {
+    if (err) {
+      console.log('error during disconnection', err.stack)
+    }
+  })
 });
 
 test('signature api createSignature', async () => {
@@ -50,12 +70,13 @@ test('signature api get signatures (all)', async () => {
   RETURNING *`;
   await client.query(sql);
   const signatures = await axios.get(url + '/signature', headers());
-  expect(signatures.data[0]).toEqual(
-    expect.objectContaining({
-        email: 'jasper5678@email.com',
-        topic: 'Dogs should rule the world'
-      } )
-  )
+  let isThere = false;
+  signatures.data.forEach(signature => {
+    if (signature.email === 'jasper5678@email.com' && signature.topic === 'Dogs should rule the world') {
+      isThere = true;
+    }
+  })
+  expect(isThere).toEqual(true)
 });
 
 test('api signatures get by topic', async () => {

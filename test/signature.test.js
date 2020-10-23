@@ -2,26 +2,48 @@ const {
   createSignature,
   readSignatures,
   readSignaturesByPetition,
+  readMySignatures,
   deleteSignature
 } = require('../data/crud/signatures');
-const client = require('../data/client')
+const {
+  client
+} = require('./testUtils');
 
-const sqlDeleteSignature = async (email, topic) => {
+const sqlDeleteAllForEmail = async (email) => {
   const sql = `
   DELETE FROM signatures
-  WHERE email = '${email}'
-  AND topic = '${topic}'`;
-  /*
-  DELETE FROM signatures
-  WHERE email = 'matt@email.com'
-  AND topic = 'A problem'
-  */
+  WHERE email = '${email}'`;
+  await client.query(sql);
+}
+
+const sqlCreateSignature = async (topic, email) => {
+  const sql = `
+  INSERT INTO signatures (topic, email)
+  VALUES ('${topic}', '${email}')`;
   await client.query(sql);
 }
 
 afterEach(async () => {
-  await sqlDeleteSignature('jasper5678@email.com', 'A problem')
+  await sqlDeleteAllForEmail('jasper5678@email.com')
 })
+
+beforeAll(() => {
+  client.connect(err => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('pg connected')
+    }
+  });
+});
+
+afterAll(() => {
+  client.end(err => {
+    if (err) {
+      console.log('error during disconnection', err.stack)
+    }
+  })
+});
 
 test('crud Signatures, createSignature', async () => {
   const signature = await createSignature({ topic: 'A problem', email: 'jasper5678@email.com' });
@@ -34,12 +56,15 @@ test('crud Signatures, createSignature', async () => {
 })
 
 test('crud Signatures, readSignatures', async () => {
-  const signature = await createSignature({
-    topic: 'A problem',
-    email: 'jasper5678@email.com'
+  await sqlCreateSignature('A problem', 'jasper5678@email.com')
+  const signatures = await readSignatures();
+  let isThere = false;
+  signatures.forEach(signature => {
+    if (signature.email === 'jasper5678@email.com') {
+      isThere = true;
+    }
   });
-  const readSignature = await readSignatures();
-  expect(signature).toEqual(readSignature[0]);
+  expect(isThere).toEqual(true);
 })
 
 test('crud Signatures, readSignatureByPetition', async () => {
@@ -54,6 +79,14 @@ test('crud Signatures, readSignatureByPetition', async () => {
       email: 'jasper5678@email.com'
     })
   )
+})
+
+test('crud Signatures, readMySignatures', async () => {
+  await sqlCreateSignature('A problem', 'jasper5678@email.com');
+  await sqlCreateSignature('another problem', 'jasper5678@email.com');
+  const signatures = await readMySignatures('jasper5678@email.com');
+  console.log('signatures', signatures)
+  expect(signatures.length).toEqual(2);
 })
 
 test('crud Signatures, deleteSignature', async () => {

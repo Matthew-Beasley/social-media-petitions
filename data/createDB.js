@@ -10,7 +10,7 @@ const newDB = async () => {
   CREATE TABLE signatures (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     topic VARCHAR(128) NOT NULL,
-    email VARCHAR(128) UNIQUE NOT NULL
+    email VARCHAR(128) NOT NULL
   );
 
   CREATE TABLE petitions (

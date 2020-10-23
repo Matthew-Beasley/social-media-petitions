@@ -14,13 +14,15 @@ const readSignatures = async () => {
   return (await client.query(sql)).rows;
 }
 
-const readMySignatures = async ({ email, topic }) => {
+const readMySignatures = async (email) => {
+  console.log(email)
   const sql = `
-  SELECT * FROM signatures
-  INNER JOIN petitions
-  ON signatures.topic = petitions.topic 
-  AND signature.email = $1`;
-  return (await client.query(sql, [email, topic])).rows;
+  SELECT * FROM petitions
+  INNER JOIN signatures
+  ON signatures.email = '$1'`
+  //const rows = await client.query(sql, [email]);
+  console.log('rows in crud ', ['incrudlog'])
+  return ['in crud'] //rows;
 }
 
 const readSignaturesByPetition = async ({ topic }) => {
