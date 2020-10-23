@@ -16,7 +16,7 @@ const {
 afterEach(async () => {
   await deleteUser({ email: 'sam@email.com' });
   await deleteSignature({
-    userId: '4f6b5196-5543-4ef4-b6b9-33414853d2b6',
+    email: 'jasper5678@email.com',
     topic: 'Dogs should rule the world'
   });
 });
@@ -25,18 +25,18 @@ test('signature api createSignature', async () => {
   await authorizeUser();
   await axios.post(url + '/signature', {
     topic: 'Dogs should rule the world',
-    userId: '4f6b5196-5543-4ef4-b6b9-33414853d2b6'
+    email: 'jasper5678@email.com'
   }, headers());
   const signatures = await readSignaturesByPetition({ topic: 'Dogs should rule the world' });
   const signature = signatures.reduce((acc, item) => {
-    if (item.userId === '4f6b5196-5543-4ef4-b6b9-33414853d2b6') {
+    if (item.email === 'jasper5678@email.com') {
       acc = item;
     }
     return acc;
   }, {})
   expect(signature).toEqual(
     expect.objectContaining({
-      userId: '4f6b5196-5543-4ef4-b6b9-33414853d2b6',
+      email: 'jasper5678@email.com',
       topic: 'Dogs should rule the world'
     })
   )
@@ -45,14 +45,14 @@ test('signature api createSignature', async () => {
 test('signature api get signatures (all)', async () => {
   await authorizeUser();
   const sql = `
-  INSERT INTO signatures ("userId", topic)
-  VALUES ('4f6b5196-5543-4ef4-b6b9-33414853d2b6', 'Dogs should rule the world')
+  INSERT INTO signatures (email, topic)
+  VALUES ('jasper5678@email.com', 'Dogs should rule the world')
   RETURNING *`;
   await client.query(sql);
   const signatures = await axios.get(url + '/signature', headers());
   expect(signatures.data[0]).toEqual(
     expect.objectContaining({
-        userId: '4f6b5196-5543-4ef4-b6b9-33414853d2b6',
+        email: 'jasper5678@email.com',
         topic: 'Dogs should rule the world'
       } )
   )
@@ -61,14 +61,14 @@ test('signature api get signatures (all)', async () => {
 test('api signatures get by topic', async () => {
   await authorizeUser();
   const sql = `
-  INSERT INTO signatures ("userId", topic)
-  VALUES ('4f6b5196-5543-4ef4-b6b9-33414853d2b6', 'Dogs should rule the world')
+  INSERT INTO signatures (email, topic)
+  VALUES ('jasper5678@email.com', 'Dogs should rule the world')
   RETURNING *`;
   await client.query(sql);
   const signature = await axios.get(url + '/signature/Dogs should rule the world', headers());
   expect(signature.data[0]).toEqual(
     expect.objectContaining({
-      userId: '4f6b5196-5543-4ef4-b6b9-33414853d2b6',
+      email: 'jasper5678@email.com',
       topic: 'Dogs should rule the world'
     })
   )
@@ -76,21 +76,21 @@ test('api signatures get by topic', async () => {
 
 test('api signatures delete', async () => {
   const sql = `
-  INSERT INTO signatures ("userId", topic)
-  VALUES ('4f6b5196-5543-4ef4-b6b9-33414853d2b6', 'Dogs should rule the world')
+  INSERT INTO signatures (email, topic)
+  VALUES ('jasper5678@email.com', 'Dogs should rule the world')
   RETURNING *`;
   await client.query(sql);
   await authorizeUser();
-  const query = url + '/signature?topic=Dogs%20should%20rule%20the%20world&userId=4f6b5196-5543-4ef4-b6b9-33414853d2b6'
+  const query = url + '/signature?topic=Dogs%20should%20rule%20the%20world&email=jasper5678@email.com'
   await axios.delete(query, headers());
   const testSql = `
   SELECT * FROM signatures
-  WHERE "userId" = '4f6b5196-5543-4ef4-b6b9-33414853d2b6'
+  WHERE email = 'jasper5678@email.com'
   AND topic = 'Dogs should rule the world'`;
   const signatures = (await client.query(testSql)).rows;
   const signature = signatures.reduce((acc, item) => {
     if (item.topic === 'Dogs should rule the world' &&
-    item.userId === '4f6b5196-5543-4ef4-b6b9-33414853d2b6') {
+      item.email === 'jasper5678@email.com') {
       acc = item;
     }
     return acc;

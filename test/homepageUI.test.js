@@ -28,10 +28,10 @@ test('get app title', async () => {
 test('populate email input', async () => {
   await driver.get('http://localhost:3000/');
   const element = await driver.findElement(By.id('email'));
-  await element.sendKeys('125jasper3467@email.com');
+  await element.sendKeys('jasper3467@email.com');
   const value = await element.getAttribute('value');
   await driver.findElement(By.id('email')).clear();
-  expect(value).toEqual('125jasper3467@email.com');
+  expect(value).toEqual('jasper3467@email.com');
 })
 
 test('populate password input', async () => {
@@ -46,7 +46,7 @@ test('populate password input', async () => {
 test('log in', async () => {
   await driver.get('http://localhost:3000/');
   const email = await driver.findElement(By.id('email'));
-  await email.sendKeys('125jasper3467@email.com');
+  await email.sendKeys('jasper3467@email.com');
   const password = await driver.findElement(By.id('password'));
   await password.sendKeys('jasper');
   //await driver.findElement(By.id('submit')).click();

@@ -49,7 +49,7 @@ signatureRouter.delete('/', isLoggedIn, async (req, res, next) => {
   try {
     const params = {
       topic: req.query.topic,
-      userId: req.query.userId
+      email: req.query.email
     }
     await deleteSignature(params);
     res.status(201).send('deleted');
