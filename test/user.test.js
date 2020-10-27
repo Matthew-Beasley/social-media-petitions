@@ -9,8 +9,15 @@ const {
   client
 } = require('./testUtils');
 
+const sqlDeleteByEmail = async (email) => {
+  const sql = `
+  DELETE FROM users
+  WHERE email = '${email}'`;
+  await client.query(sql);
+}
+
 afterEach(async () => {
-  await deleteUser({ email: 'someone@email.com' });
+  await sqlDeleteByEmail('someone@email.com')
 })
 
 beforeAll(() => {

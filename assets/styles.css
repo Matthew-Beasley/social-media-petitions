@@ -244,3 +244,10 @@
   font-size: 1rem;
   margin: 1rem;
 }
+
+
+/*----- User Petition Display Styles -----*/
+
+#user-petitiondisplay-hr {
+  border: 2px solid darkblue;
+}

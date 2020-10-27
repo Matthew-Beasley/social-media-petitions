@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import { Route, Link, useHistory} from 'react-router-dom'
-import SignatureDisplay from './SignatureDisplay';
-import PetitionDisplay from './PetitionDisplay';
 import Admin from './Admin';
 import Header from './Header';
 import Nav from './Nav';
@@ -12,6 +10,7 @@ const App = () => {
   const [user, setUser] = useState({});
   const [token, setToken] = useState('');
   const history = useHistory();
+
   const headers = () => {
     return {
       headers: {
@@ -19,9 +18,11 @@ const App = () => {
       }
     };
   };
+
   useEffect(() => {
     setToken(window.localStorage.getItem('token'));
   }, [user]);
+
   if (!token) {
     return (
       <div id="app-container">
@@ -35,7 +36,7 @@ const App = () => {
       <div id="app-container">
         <Header />
         <Nav user={user} setUser={setUser} history={history} />
-        <Route path="/UserView" render={() => <UserView history={history} />} />
+        <Route path="/UserView" render={() => <UserView history={history} user={user} headers={headers} />} />
         <Route path="/Admin" render={() => <Admin history={history} headers={headers} />} />
       </div>
     )

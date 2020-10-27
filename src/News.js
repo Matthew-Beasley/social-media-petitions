@@ -4,9 +4,9 @@ import { v4 as uuidv4 } from 'uuid';
 
 const News = ({ petitions }) => {
   const [articles, setArticles] = useState([]);
+
   useEffect(() => {
     let isCancelled = false;
-
     if (!isCancelled) {
       const promises = [];
       for (let i = 0; i < petitions.length; i++) {

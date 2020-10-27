@@ -23,9 +23,17 @@ const sqlCreateSignature = async (topic, email) => {
   await client.query(sql);
 }
 
+const sqlDeleteUserByEmail = async (email) => {
+  const sql = `
+  DELETE FROM users
+  WHERE email = '${email}'`;
+  await client.query(sql);
+}
+
 afterEach(async () => {
-  await sqlDeleteAllForEmail('jasper5678@email.com')
-})
+  await sqlDeleteAllForEmail('jasper5678@email.com');
+  await sqlDeleteUserByEmail('jasper5678@email.com');
+});
 
 beforeAll(() => {
   client.connect(err => {
@@ -85,7 +93,7 @@ test('crud Signatures, readMySignatures', async () => {
   await sqlCreateSignature('A problem', 'jasper5678@email.com');
   await sqlCreateSignature('another problem', 'jasper5678@email.com');
   const signatures = await readMySignatures('jasper5678@email.com');
-  console.log('signatures', signatures)
+  console.log('signatures ', signatures);
   expect(signatures.length).toEqual(2);
 })
 

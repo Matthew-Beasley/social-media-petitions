@@ -12,15 +12,34 @@ const url = 'http://localhost:3000';
 
 const {
   authorizeUser,
+  authorizeAdmin,
   headers
 } = require('./testAuthorization');
 
+const sqlDeleteAllForEmail = async (email) => {
+  const sql = `
+  DELETE FROM signatures
+  WHERE email = '${email}'`;
+  await client.query(sql);
+}
+
+const sqlDeleteUser = async (email) => {
+  const sql = `
+  DELETE FROM users
+  WHERE email = '${email}'`;
+  await client.query(sql);
+}
+
+const sqlCreateSignature = async (topic, email) => {
+  const sql = `
+  INSERT INTO signatures (topic, email)
+  VALUES ('${topic}', '${email}')`;
+  await client.query(sql);
+}
+
 afterEach(async () => {
-  await deleteUser({ email: 'sam@email.com' });
-  await deleteSignature({
-    email: 'jasper5678@email.com',
-    topic: 'Dogs should rule the world'
-  });
+  await sqlDeleteUser('sam@email.com' );
+  await sqlDeleteAllForEmail('jasper5678@email.com');
 });
 
 beforeAll(() => {
@@ -89,10 +108,18 @@ test('api signatures get by topic', async () => {
   const signature = await axios.get(url + '/signature/Dogs should rule the world', headers());
   expect(signature.data[0]).toEqual(
     expect.objectContaining({
-      email: 'jasper5678@email.com',
+      email: 'jasper5678@email.com', //fix this?
       topic: 'Dogs should rule the world'
     })
   )
+});
+
+test('api signatures get by email', async () => {
+  await sqlCreateSignature('A problem', 'jasper5678@email.com');
+  await sqlCreateSignature('another problem', 'jasper5678@email.com');
+  await authorizeUser();
+  const signatures = await axios.get(url + '/signature/byemail?email=jasper5678@email.com', headers());
+  expect(signatures.data.length).toEqual(2);
 });
 
 test('api signatures delete', async () => {
