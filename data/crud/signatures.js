@@ -15,12 +15,23 @@ const readSignatures = async () => {
 }
 
 const readMySignatures = async (email) => {
+  //console.log('email in readMySignatures ', email)
   const sql = `
-  SELECT DISTINCT petitions.id, petitions.topic, petitions."shortText" , petitions."longText" , petitions.current, signatures.email
-  FROM petitions
-  JOIN signatures
-  ON signatures.email = $1`;
-  return (await client.query(sql, [email])).rows;
+    SELECT DISTINCT petitions.id, petitions.topic, petitions."shortText" , petitions."longText" , petitions.current, signatures.email
+    FROM signatures
+    JOIN petitions
+    ON signatures.topic = petitions.topic
+    `;
+  const resp = await client.query(sql)
+  //console.log('resp in readMySignatures', resp)
+  const rowsByEmail = [];
+  for (let i = 0; i < resp.rows.length; i++) {
+    if (resp.rows[i].email === email) {
+      rowsByEmail.push(resp.rows[i]);
+    }
+  }
+  console.log('rowsByEmail in readMySignatures (datalayer) ', rowsByEmail)
+  return rowsByEmail;
 }
 
 const readSignaturesByPetition = async ({ topic }) => {

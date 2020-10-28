@@ -92,6 +92,8 @@ test('crud Signatures, readSignatureByPetition', async () => {
 test('crud Signatures, readMySignatures', async () => {
   await sqlCreateSignature('A problem', 'jasper5678@email.com');
   await sqlCreateSignature('another problem', 'jasper5678@email.com');
+  const rows = await client.query('select * from signatures')
+  console.log('looking for signatures from test ', rows.rows)
   const signatures = await readMySignatures('jasper5678@email.com');
   console.log('signatures ', signatures);
   expect(signatures.length).toEqual(2);

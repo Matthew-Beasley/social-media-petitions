@@ -2,46 +2,48 @@ import React, { useEffect, useState } from 'react';
 import { Route, Link } from 'react-router-dom';
 import axios from 'axios';
 
-const UserPetitionDisplay = ({ user, headers }) => {
+const UserPetitionDisplay = ({ user, headers, signatures, setSignatures }) => {
   const forceUpdate = React.useReducer(() => ({}))[1];
   const url = 'http://localhost:3000';
-  const [unsignedPetitions, setUnsignedPetitions] = useState([]);
   const [petitions, setPetitions] = useState([]);
-  const [signatures, setSignatures] = useState([]);
+  const [unsignedPetitions, setUnsignedPetitions] = useState();
 
   useEffect(() => {
     axios.get('/petition/current')
       .then((response) => {
         setPetitions(response.data);
       });
-  }, []);
+  }, [signatures]);
 
   useEffect(() => {
-    //fix user and email for this
-    axios.get(`${url}/signature/byemail?email=conbec@outlook.com`, headers())
+    //console.log('user in userPetitionDisplay useEffect ', user)
+    axios.get(`${url}/signature/byemail?email=${user.email}`, headers())
       .then(response => {
-        const unsigned = [];
-        if (response.data.length === 0) {
-          unsigned.push(petitions)
-        } else if (petitions.length !== 0) {
-          for (let i = 0; i < petitions.length; i++) {
-            let match = false;
-            for (let k = 0; k < response.data.length; k++) {
-              if (petitions[i].topic === response.data[k].topic) {
-                match = true;
-              }
-            }
-            if (match === false) {
-              console.log('push(petitions[i]', petitions[i])
-              unsigned.push(petitions[i]);
+      //console.log(response.data)
+      const unsigned = [];
+      if (response.data.length === 0) {
+        unsigned.push(...petitions)
+      } else if (petitions.length !== 0) {
+        for (let i = 0; i < petitions.length; i++) {    //something going on around here, first pass is an array, second an object
+          let match = false;
+          for (let k = 0; k < response.data.length; k++) {
+            if (petitions[i].topic === response.data[k].topic) {
+              match = true;
             }
           }
+          if (match === false) {
+            unsigned.push(petitions[i]);
+          }
         }
-        setUnsignedPetitions(...unsigned);
       }
-    )
+      //if (unsigned.length > 0) {
+        console.log('unsigned var in useEffect (userpetitiondisplay) ', unsigned) //something fishy is going on here
+        setUnsignedPetitions(unsigned);
+      //}
+      //forceUpdate();
+    })
   }, [petitions])
-
+/*
   useEffect(() => {
     petitions.forEach(petition => {
       axios.get(`/news/everything?q=${petition.topic}`)
@@ -51,17 +53,16 @@ const UserPetitionDisplay = ({ user, headers }) => {
         })
     });
   }, [petitions]);
-
+*/
   const signPetition = async (petitionToSign) => {
-    const response = await axios.post(url + '/signature', { email: 'conbec@outlook.com', topic: petitionToSign.topic }, headers());
+    const response = await axios.post(url + '/signature', { email: user.email, topic: petitionToSign.topic }, headers());
     setSignatures([...signatures, response.data]);
   }
 
   return (
     <div id="user-petition-container">
       <ul id="user-petition-list">
-        {console.log('unsignedPetitions in return', unsignedPetitions)}
-        {unsignedPetitions.map(petition => {
+        {!!unsignedPetitions && unsignedPetitions.map(petition => {
           return (
             <li key={petition.topic} className="user-petition-li">
               <div className="user-petition-content">

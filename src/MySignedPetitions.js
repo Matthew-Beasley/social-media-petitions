@@ -2,24 +2,23 @@ import React, { useEffect, useState } from 'react';
 import { Route, Link } from 'react-router-dom';
 import axios from 'axios';
 
-const MySignedPetitions = ({ user, headers }) => {
-  const [signedPetitions, setSignedPetitions] = useState([]);
+const MySignedPetitions = ({ user, headers, signatures }) => {
   const url = 'http://localhost:3000';
+  const [signedPetitions, setSignedPetitions] = useState([]);
   
   useEffect(() => {
     let isCancelled = false;
-    console.log(user)
-    //fix user.email here
     axios.get(`${url}/signature/byemail?email=conbec@outlook.com`, headers())
       .then((response) => {
         if (!isCancelled) {
+          //console.log(response.data)
           setSignedPetitions(response.data);
         }
       });
     return () => {
       isCancelled = true;
     };
-  }, []);
+  }, [signatures]);
 
   return (
     <div id="signed-petition-container">

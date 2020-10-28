@@ -4,6 +4,8 @@ import PetitionDisplay from './PetitionDisplay';
 
 const HomeView = () => {
   const [petitions, setPetitions] = useState([]);
+  const [signedPetitions, setSignedPetitions] = useState([]);
+  const [unsignedPetitions, setUnsignedPetitions] = useState([]);
 
   return (
     <div id="home-view">
