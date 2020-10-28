@@ -16,15 +16,13 @@ const UserPetitionDisplay = ({ user, headers, signatures, setSignatures }) => {
   }, [signatures]);
 
   useEffect(() => {
-    //console.log('user in userPetitionDisplay useEffect ', user)
     axios.get(`${url}/signature/byemail?email=${user.email}`, headers())
       .then(response => {
-      //console.log(response.data)
       const unsigned = [];
       if (response.data.length === 0) {
         unsigned.push(...petitions)
       } else if (petitions.length !== 0) {
-        for (let i = 0; i < petitions.length; i++) {    //something going on around here, first pass is an array, second an object
+        for (let i = 0; i < petitions.length; i++) {
           let match = false;
           for (let k = 0; k < response.data.length; k++) {
             if (petitions[i].topic === response.data[k].topic) {
@@ -36,14 +34,10 @@ const UserPetitionDisplay = ({ user, headers, signatures, setSignatures }) => {
           }
         }
       }
-      //if (unsigned.length > 0) {
-        console.log('unsigned var in useEffect (userpetitiondisplay) ', unsigned) //something fishy is going on here
-        setUnsignedPetitions(unsigned);
-      //}
-      //forceUpdate();
+      setUnsignedPetitions(unsigned);
     })
   }, [petitions])
-/*
+
   useEffect(() => {
     petitions.forEach(petition => {
       axios.get(`/news/everything?q=${petition.topic}`)
@@ -53,7 +47,7 @@ const UserPetitionDisplay = ({ user, headers, signatures, setSignatures }) => {
         })
     });
   }, [petitions]);
-*/
+
   const signPetition = async (petitionToSign) => {
     const response = await axios.post(url + '/signature', { email: user.email, topic: petitionToSign.topic }, headers());
     setSignatures([...signatures, response.data]);
@@ -81,7 +75,6 @@ const UserPetitionDisplay = ({ user, headers, signatures, setSignatures }) => {
                   <img className="news-image" src={petition.news.urlToImage ? petition.news.urlToImage : './assets/default-article-image.jpg'} />
                   <div className="news-content">
                     <div className="news-title"><a href={petition.news.url} target="_blank" rel="noopener noreferrer">{petition.news.title}</a></div>
-                    <div className="news-description">{petition.news.description}</div>
                   </div>
                 </div>
               }
