@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import News from './News';
 import PetitionDisplay from './PetitionDisplay';
 
 const HomeView = () => {
   const [petitions, setPetitions] = useState([]);
-  const [signedPetitions, setSignedPetitions] = useState([]);
-  const [unsignedPetitions, setUnsignedPetitions] = useState([]);
 
   return (
     <div id="home-view">

@@ -30,7 +30,6 @@ const readMySignatures = async (email) => {
       rowsByEmail.push(resp.rows[i]);
     }
   }
-  console.log('rowsByEmail in readMySignatures (datalayer) ', rowsByEmail)
   return rowsByEmail;
 }
 

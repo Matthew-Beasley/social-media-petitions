@@ -8,7 +8,7 @@ const MySignedPetitions = ({ user, headers, signatures }) => {
   
   useEffect(() => {
     let isCancelled = false;
-    axios.get(`${url}/signature/byemail?email=conbec@outlook.com`, headers())
+    axios.get(`${url}/signature/byemail?email=${user.email}`, headers())
       .then((response) => {
         if (!isCancelled) {
           //console.log(response.data)
@@ -28,7 +28,7 @@ const MySignedPetitions = ({ user, headers, signatures }) => {
           return (
             <li key={petition.id} className="user-petition-li">
               <div className="user-petition-content">
-                <div>id is {petition.id}</div>
+                <div className="petition-thanks">Thank you for your Support!</div>
                 <div className="petition-topic">{petition.topic}</div>
                 <div className="petition-shorttext">{petition.shortText}</div>
                 <div className="petition-longtext">{petition.longText}</div>

@@ -17,6 +17,10 @@ const CreatePetition  = ({history, headers, petitions, setPetitions}) => {
     if (petition.data.topic === topic) {
       setCreateSuccessful(true);
     }
+    setTopic('');
+    setShortText('');
+    setLongText('');
+    setCurrent(false);
   }
 
   return (
@@ -25,14 +29,14 @@ const CreatePetition  = ({history, headers, petitions, setPetitions}) => {
       <input
         type="text" id="admin-topic-input"
         placeholder="Topic"
-        value={topic} onChange={ev => setTopic(ev.target.value)}
+        value={topic} onChange={ev => {setTopic(ev.target.value); setCreateSuccessful(false)}}
       />
       <textarea
         id="create-input-shorttext"
         spellCheck="true"
         placeholder="Short Text"
         defaultValue={topic.shortText}
-        onChange={ev => setShortText(ev.target.value)}
+        onChange={ev => { setShortText(ev.target.value); setCreateSuccessful(false)}}
         rows="3"
       />
       <textarea
@@ -40,7 +44,7 @@ const CreatePetition  = ({history, headers, petitions, setPetitions}) => {
         spellCheck="true"
         placeholder="Long Text"
         defaultValue={topic.longText}
-        onChange={ev => { setLongText(ev.target.value)}}
+        onChange={ev => { setLongText(ev.target.value); setCreateSuccessful(false) }}
         rows="10"
       />
       <label>
@@ -49,7 +53,7 @@ const CreatePetition  = ({history, headers, petitions, setPetitions}) => {
           className="iscurrent"
           id="admin-current-checkbox"
           checked={current}
-          onChange={ev => setCurrent(ev.target.value)}
+          onChange={ev => {setCurrent(ev.target.value); setCreateSuccessful(false)}}
         />Make this a current petition
       </label>
       <button

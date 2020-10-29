@@ -4,28 +4,23 @@ import { v4 as uuidv4 } from 'uuid';
 
 const News = ({ petitions }) => {
   const [articles, setArticles] = useState([]);
+  console.log(petitions)
 
   useEffect(() => {
-    let isCancelled = false;
-    if (!isCancelled) {
-      const promises = [];
-      for (let i = 0; i < petitions.length; i++) {
-        promises.push(axios.get(`/news/everything?q=${petitions[i].topic}`));
-      }
-      if (promises.length === 0) {
-        promises.push(axios.get('/news/everything?q=politics'))
-      }
-      Promise.all(promises)
-        .then(values => {
-          for (let i = 0; i < values.length; i++) {
-            setArticles([...articles, ...values[i].data.articles]);
-          }
-        })
-      return () => {
-        isCancelled = true;
-      }
+    const promises = [];
+    for (let i = 0; i < petitions.length; i++) {
+      promises.push(axios.get(`/news/everything?q=${petitions[i].topic}`));
     }
-  }, [petitions]);
+    if (promises.length === 0) {
+      promises.push(axios.get('/news/everything?q=politics'))
+    }
+    Promise.all(promises)
+      .then(values => {
+        for (let i = 0; i < values.length; i++) {
+          setArticles([...articles, ...values[i].data.articles]);
+        }
+      })
+  }, []);
 
   return (
     <div id="news-container">
@@ -40,7 +35,7 @@ const News = ({ petitions }) => {
                 </div>
               </li>
             )
-          })})
+          })}
       </ul>
     </div>
   )

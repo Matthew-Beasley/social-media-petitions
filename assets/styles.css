@@ -40,6 +40,13 @@
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode';
 }
 
+#links {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  width: 30%;
+}
+
 #admin-link, #home-link {
   color: white;
   margin: 1rem;
@@ -250,4 +257,29 @@
 
 #user-petitiondisplay-hr {
   border: 2px solid darkblue;
+}
+
+
+/*----- My Signed Petitions Styles -----*/
+
+#signed-petition-container {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode';
+}
+
+#signed-petition-container > ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.user-petition-li {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+}
+
+.petition-thanks {
+  font-size: large;
+  color: blue;
+  margin: 1rem 0rem 0rem 2rem;
 }
