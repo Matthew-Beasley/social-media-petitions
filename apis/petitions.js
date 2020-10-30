@@ -4,6 +4,7 @@ const {
   readPetition,
   readAllPetitions,
   readCurrentPetitions,
+  readUnsignedPetitions,
   updatePetition,
   deletePetition
 } = require('../data/crud/petitions');
@@ -36,6 +37,15 @@ petitionRouter.get('/', async (req, res, next) => {
 petitionRouter.get('/current', async (req, res, next) => {
   try {
     const petitions = await readCurrentPetitions();
+    res.status(200).send(petitions);
+  } catch (error) {
+    next(error);
+  }
+});
+
+petitionRouter.get('/unsigned', async (req, res, next) => {
+  try {
+    const petitions = await readUnsignedPetitions(req.query.email);
     res.status(200).send(petitions);
   } catch (error) {
     next(error);

@@ -29,6 +29,30 @@ const readCurrentPetitions = async () => {
   return (await client.query(sql)).rows;
 }
 
+const readUnsignedPetitions = async (email) => {
+  const unsignedsql = `
+  SELECT DISTINCT petitions.id, petitions.topic, petitions."shortText" , petitions."longText" , petitions.current, signatures.email
+  FROM petitions
+  JOIN signatures
+  ON signatures.topic = petitions.topic`;
+  const signedPetitions = (await client.query(unsignedsql)).rows;
+  const allPetitions = (await client.query('SELECT * FROM petitions')).rows;
+  const unsignedPetitions = [];
+  for (let i = 0; i < allPetitions.length; i++) {
+    let pushit = true;
+    for (let k = 0; k < signedPetitions.length; k++) {
+      if (allPetitions[i].topic === signedPetitions[k].topic) {
+        pushit = false;
+      }
+    }
+    if (pushit === true) {
+      unsignedPetitions.push(allPetitions[i]);
+    }
+    pushit = true;
+  }
+  return unsignedPetitions;
+}
+
 const updatePetition = async (params) => {
   let sql = `
   UPDATE petitions
@@ -64,6 +88,7 @@ module.exports = {
   readPetition,
   readAllPetitions,
   readCurrentPetitions,
+  readUnsignedPetitions,
   updatePetition,
   deletePetition
 };

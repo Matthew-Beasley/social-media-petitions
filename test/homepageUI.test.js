@@ -2,14 +2,6 @@ const { Builder, Key, By, until } = require('selenium-webdriver');
 const {
   client
 } = require('./testUtils');
-/*client.connect(err => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log('pg connected')
-  }
-});
-*/
 const webdriver = require('selenium-webdriver');
 //const chrome = require('selenium-webdriver/chrome')
 const firefox = require('selenium-webdriver/firefox')
@@ -65,9 +57,7 @@ test('log in', async () => {
   //await driver.executeScript('arguments[0].click();', submit);
   //await driver.findElement(By.id("submit")).sendKeys(Key.RETURN);
   await driver.wait(until.elementLocated(By.id('home-view')), 10000);
-  console.log('petition-display-container located')
   const token = await driver.executeScript('return window.localStorage.getItem("token")')
   await driver.executeScript('localStorage.removeItem("token")')
-  console.log('token is ', token)
   expect(token).toBeTruthy();
 })

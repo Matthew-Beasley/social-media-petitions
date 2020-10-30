@@ -116,11 +116,14 @@
   margin: 0rem 2rem 1rem 2rem;
 }
 
+#petition-display-hr {
+  border: 3px solid darkblue;
+}
+
 
 /*----- News Styles -----*/
 
 #news-container {
-  border-top: 5px solid #ff0000;
   color: #1F3145;
 }
 
@@ -256,7 +259,7 @@
 /*----- User Petition Display Styles -----*/
 
 #user-petitiondisplay-hr {
-  border: 2px solid darkblue;
+  border: 3px solid darkblue;
 }
 
 

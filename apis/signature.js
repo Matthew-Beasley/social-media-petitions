@@ -29,9 +29,7 @@ signatureRouter.get('/', isLoggedIn, async (req, res, next) => {
 
 signatureRouter.get('/byemail',  isLoggedIn, async (req, res, next) => {
   try {
-    console.log('req.query in bymail route', req.query)
     const signatures = await readMySignatures(req.query.email, req.query.topic);
-    console.log(signatures)
     res.status(200).send(signatures)
   } catch (error) {
     next(error);

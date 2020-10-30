@@ -29,10 +29,14 @@ beforeAll(() => {
 
 afterAll(async () => {
   await deleteUser({ email: 'sam@email.com' });
-  const sql = `
+  const sql1 = `
   DELETE FROM petitions
   WHERE topic = 'Little dogs are fluffy'`;
-  await client.query(sql);
+  const sql2 = `
+  DELETE FROM petitions
+  WHERE topic = 'Dogs are fluffy'`;
+  await client.query(sql1);
+  await client.query(sql2)
   client.end(err => {
     if (err) {
       console.log('error during disconnection', err.stack)
@@ -46,6 +50,11 @@ afterEach(async () => {
   DELETE FROM petitions
   WHERE topic = 'Little dogs are fluffy'`;
   await client.query(sql);
+  const sql1 = `
+  DELETE FROM petitions
+  WHERE topic = 'Little dogs are fluffy'`;
+  await client.query(sql);
+  await client.query(sql1)
 });
 
 test('petitions api createPetition', async () => {
@@ -109,6 +118,40 @@ test('petitions api readAllPetitions', async () => {
   WHERE topic = 'Dogs are fluffy'`;
   await client.query(sql);
   expect(petitions.data.length).toBeGreaterThan(1);
+});
+
+test('petitions api readUnsignedPetitions', async () => {
+  const params1 = {
+    topic: 'Little dogs are fluffy',
+    shortText: 'You need to feed dogs every day',
+    longText: 'Dogs need a food with fewer ingredients and a grain',
+    current: true
+  }
+  const params2 = {
+    topic: 'Dogs are fluffy',
+    shortText: 'You need to feed dogs every day',
+    longText: 'Dogs need a food with fewer ingredients and a grain',
+    current: false
+  }
+  await createPetition(params1);
+  await createPetition(params2);
+  const sqlinsert = `
+  INSERT INTO signatures (topic, email)
+  VALUES ('Dogs are fluffy', 'jasper321@email.com')`;
+  await client.query(sqlinsert);
+  await authorizeUser();
+  const petitions = await axios.get(url + '/petition/unsigned?email=jasper321%40email%2Ecom', headers());
+  const sqldelete = `
+  DELETE FROM signatures
+  WHERE topic = 'Dogs are fluffy'`;
+  await client.query(sqldelete);
+  let test = false;
+  for (let i = 0; i < petitions.data.length; i++) {
+    if (petitions.data[i].topic === 'Dogs are fluffy') {
+      test = true;
+    }
+  }
+  expect(test).toEqual(false);
 });
 
 test('petitions api readCurrentPetitions', async () => {

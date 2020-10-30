@@ -11,7 +11,6 @@ const MySignedPetitions = ({ user, headers, signatures }) => {
     axios.get(`${url}/signature/byemail?email=${user.email}`, headers())
       .then((response) => {
         if (!isCancelled) {
-          //console.log(response.data)
           setSignedPetitions(response.data);
         }
       });

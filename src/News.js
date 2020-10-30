@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 const News = ({ petitions }) => {
   const [articles, setArticles] = useState([]);
-  console.log(petitions)
 
   useEffect(() => {
     const promises = [];

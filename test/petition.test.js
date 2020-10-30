@@ -3,6 +3,7 @@ const {
   readPetition,
   readAllPetitions,
   readCurrentPetitions,
+  readUnsignedPetitions,
   updatePetition,
   deletePetition
 } = require('../data/crud/petitions');
@@ -51,18 +52,44 @@ test('crud Petitions createPetitions', async () => {
   )
 });
 
-test('crud Petitions readPetition', async () => {
-  await createPetition({topic: 'Dogs are fluffy',
+test('crud Petitions readUnsignedPetitions signed', async () => {
+  const sql = `
+  INSERT INTO signatures (topic, email)
+  VALUES ('cats blow', 'jasper123456@email.com')`;
+  await client.query(sql);
+  await createPetition({
+    topic: 'cats blow',
     shortText: 'I would have 2 dogs if I could',
     longText: 'I have a dog named chief. He is a sweet heart!',
     current: true });
-  const petition = await readPetition({ topic: 'Dogs are fluffy' });
-  expect(petition).toEqual(
-    expect.objectContaining({
-      topic: 'Dogs are fluffy',
-      shortText: 'I would have 2 dogs if I could'
-    })
-  )
+  const petitions = await readUnsignedPetitions('jasper123456@email.com');
+  let petitionExists = false;
+  for (let i = 0; i < petitions.length; i++) {
+    if (petitions[i].topic === 'cats blow') {
+      petitionExists = true;
+    }
+  }
+  await client.query(`DELETE FROM petitions WHERE topic = 'cats blow'`);
+  await client.query(`DELETE FROM signatures WHERE email = 'jasper123456@email.com'`);
+  expect(petitionExists).toEqual(false);
+});
+
+test('crud Petitions readUnsignedPetitions unsigned', async () => {
+  await createPetition({
+    topic: 'cats blow',
+    shortText: 'I would have 2 dogs if I could',
+    longText: 'I have a dog named chief. He is a sweet heart!',
+    current: true
+  });
+  const petitions = await readUnsignedPetitions('jasper123456@email.com');
+  let petitionExists = false;
+  for (let i = 0; i < petitions.length; i++) {
+    if (petitions[i].topic === 'cats blow') {
+      petitionExists = true;
+    }
+  }
+  await client.query(`DELETE FROM petitions WHERE topic = 'cats blow'`);
+  expect(petitionExists).toEqual(true);
 });
 
 test('crud Petitions readAllPetitions', async () => {

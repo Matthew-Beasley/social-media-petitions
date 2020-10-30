@@ -30,6 +30,7 @@ const PetitionDisplay = ({ petitions, setPetitions }) => {
         )
       })}
       </ul>
+      <hr id="petition-display-hr" />
     </div>
   )
 }

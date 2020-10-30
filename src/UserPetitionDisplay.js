@@ -9,7 +9,8 @@ const UserPetitionDisplay = ({ user, headers, signatures, setSignatures }) => {
   const [unsignedPetitions, setUnsignedPetitions] = useState();
 
   useEffect(() => {
-    axios.get('/petition/current')
+    axios.get(`${url}/petition/current`)
+    axios.get(`${url}/petition/unsigned?email=${user.email}`)
       .then((response) => {
         setPetitions(response.data);
       });
