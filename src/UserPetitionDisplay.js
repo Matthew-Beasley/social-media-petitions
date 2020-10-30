@@ -9,7 +9,6 @@ const UserPetitionDisplay = ({ user, headers, signatures, setSignatures }) => {
   const [unsignedPetitions, setUnsignedPetitions] = useState();
 
   useEffect(() => {
-    axios.get(`${url}/petition/current`)
     axios.get(`${url}/petition/unsigned?email=${user.email}`)
       .then((response) => {
         setPetitions(response.data);
@@ -19,24 +18,24 @@ const UserPetitionDisplay = ({ user, headers, signatures, setSignatures }) => {
   useEffect(() => {
     axios.get(`${url}/signature/byemail?email=${user.email}`, headers())
       .then(response => {
-      const unsigned = [];
-      if (response.data.length === 0) {
-        unsigned.push(...petitions)
-      } else if (petitions.length !== 0) {
-        for (let i = 0; i < petitions.length; i++) {
-          let match = false;
-          for (let k = 0; k < response.data.length; k++) {
-            if (petitions[i].topic === response.data[k].topic) {
-              match = true;
+        const unsigned = [];
+        if (response.data.length === 0) {
+          unsigned.push(...petitions)
+        } else if (petitions.length !== 0) {
+          for (let i = 0; i < petitions.length; i++) {
+            let match = false;
+            for (let k = 0; k < response.data.length; k++) {
+              if (petitions[i].topic === response.data[k].topic) {
+                match = true;
+              }
+            }
+            if (match === false) {
+              unsigned.push(petitions[i]);
             }
           }
-          if (match === false) {
-            unsigned.push(petitions[i]);
-          }
         }
-      }
-      setUnsignedPetitions(unsigned);
-    })
+        setUnsignedPetitions(unsigned);
+      })
   }, [petitions])
 
   useEffect(() => {
@@ -56,6 +55,7 @@ const UserPetitionDisplay = ({ user, headers, signatures, setSignatures }) => {
 
   return (
     <div id="user-petition-container">
+      <h1 className="user-h1">Unsigned Petitions</h1>
       <ul id="user-petition-list">
         {!!unsignedPetitions && unsignedPetitions.map(petition => {
           return (
@@ -80,7 +80,8 @@ const UserPetitionDisplay = ({ user, headers, signatures, setSignatures }) => {
                 }
               </div>
             </li>
-          )})}
+          )
+        })}
       </ul>
       <hr id="user-petitiondisplay-hr" />
     </div>

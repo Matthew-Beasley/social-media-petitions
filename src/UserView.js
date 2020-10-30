@@ -23,3 +23,4 @@ const UserView = ({ history, user, headers }) => {
 }
 
 export default UserView;
+

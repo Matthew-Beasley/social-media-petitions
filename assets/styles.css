@@ -79,6 +79,14 @@
 
 /*----- PetitionDisplay styles -----*/
 
+#home-text {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode';
+  color: white;
+  font-size: 1rem;
+  background-color: #1F3145;
+  padding: 1rem 2rem 1rem 2rem;
+}
+
 #petition-display-container {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode';
   color: #1F3145;
@@ -166,6 +174,14 @@
 
 
 /*----- UserView Petition Display -----*/
+
+#user-petition-container {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode';
+}
+
+.user-h1 {
+  margin-left: 10%;
+}
 
 #user-petition-list {
   display: flex;

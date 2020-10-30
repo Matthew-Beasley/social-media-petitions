@@ -5,7 +5,7 @@ import axios from 'axios';
 const MySignedPetitions = ({ user, headers, signatures }) => {
   const url = 'http://localhost:3000';
   const [signedPetitions, setSignedPetitions] = useState([]);
-  
+
   useEffect(() => {
     let isCancelled = false;
     axios.get(`${url}/signature/byemail?email=${user.email}`, headers())
@@ -21,7 +21,7 @@ const MySignedPetitions = ({ user, headers, signatures }) => {
 
   return (
     <div id="signed-petition-container">
-      <h3>in MySignedPetitions</h3>
+      <h1 className="user-h1">Signed Petitions</h1>
       <ul>
         {signedPetitions.map(petition => {
           return (
@@ -40,4 +40,5 @@ const MySignedPetitions = ({ user, headers, signatures }) => {
   )
 }
 
- export default MySignedPetitions;
+export default MySignedPetitions;
+
