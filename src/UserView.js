@@ -4,6 +4,7 @@ import UserPetitionDisplay from './UserPetitionDisplay';
 import MySignedPetitions from './MySignedPetitions';
 
 const UserView = ({ history, user, headers }) => {
+  console.log('user in userView ', user)
   const [signatures, setSignatures] = useState([]);
   return (
     <div>

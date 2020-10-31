@@ -47,7 +47,7 @@
   width: 30%;
 }
 
-#admin-link, #home-link {
+.nav-link {
   color: white;
   margin: 1rem;
 }
