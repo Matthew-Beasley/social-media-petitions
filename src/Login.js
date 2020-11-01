@@ -24,13 +24,13 @@ const Login = ({ setUser, history }) => {
     const user = (await axios.get(`/user/email/${mail}`)).data;
     if (!user.email) {
       await axios.post('/user', { email, password });
-      login({ email, password });
+      await login({ email, password });
     } else {
-      login({ email, password });
+      await login({ email, password });
     }
     setEmail('');
     setPassword('');
-    history.push('/UserView')
+    history.push('/UserView');
   }
 
   const logout = () => {

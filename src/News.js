@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-const News = ({ petitions }) => {
+const News = ({ petitions, setTrigger }) => {
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {
@@ -19,6 +19,10 @@ const News = ({ petitions }) => {
           setArticles([...articles, ...values[i].data.articles]);
         }
       })
+  }, []);
+
+  useEffect(() => {
+    setTrigger(Math.random());
   }, []);
 
   return (

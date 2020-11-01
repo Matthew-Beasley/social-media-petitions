@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Route, Link } from 'react-router-dom';
 import axios from 'axios';
 
-const UserPetitionDisplay = ({ user, headers, signatures, setSignatures }) => {
+const UserPetitionDisplay = ({ user, headers, signatures, setSignatures, setTrigger }) => {
   const forceUpdate = React.useReducer(() => ({}))[1];
   const url = 'http://localhost:3000';
   const [petitions, setPetitions] = useState([]);
@@ -14,6 +14,10 @@ const UserPetitionDisplay = ({ user, headers, signatures, setSignatures }) => {
         setPetitions(response.data);
       });
   }, [signatures]);
+
+  useEffect(() => {
+    setTrigger(Math.random());
+  }, []);
 
   useEffect(() => {
     axios.get(`${url}/signature/byemail?email=${user.email}`, headers())

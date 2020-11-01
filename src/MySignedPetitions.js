@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Route, Link } from 'react-router-dom';
 import axios from 'axios';
 
-const MySignedPetitions = ({ user, headers, signatures }) => {
+const MySignedPetitions = ({ user, headers, signatures, setTrigger }) => {
   const url = 'http://localhost:3000';
   const [signedPetitions, setSignedPetitions] = useState([]);
 
@@ -18,6 +18,10 @@ const MySignedPetitions = ({ user, headers, signatures }) => {
       isCancelled = true;
     };
   }, [signatures]);
+
+  useEffect(() => {
+    setTrigger(Math.random());
+  }, []);
 
   return (
     <div id="signed-petition-container">

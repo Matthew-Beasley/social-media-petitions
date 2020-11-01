@@ -6,8 +6,12 @@ const axios = require('axios');
 process.env.JWT = 'foobar';
 const url = 'http://localhost:3000';
 
-const Admin = ({ headers, history }) => {
+const Admin = ({ headers, history, setTrigger }) => {
   const [petitions, setPetitions] = useState([]);
+
+  useEffect(() => {
+    setTrigger(Math.random());
+  }, []);
   
   return (
     <div id="admin-container">
