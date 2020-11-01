@@ -9,6 +9,7 @@ import UserView from './UserView';
 const App = () => {
   const [user, setUser] = useState({});
   const [token, setToken] = useState('');
+  const [trigger, setTrigger] = useState(0);
   const history = useHistory();
 
   const headers = () => {
@@ -23,24 +24,15 @@ const App = () => {
     setToken(window.localStorage.getItem('token'));
   }, [user]);
 
-  if (!token) {
-    return (
-      <div id="app-container">
-        <Header />
-        <Nav user={user} setUser={setUser} history={history} />
-        <Route exact path="/" component={ HomeView } />
-      </div>
-    )
-  } else {
-    return (
-      <div id="app-container">
-        <Header />
-        <Nav user={user} setUser={setUser} history={history} />
-        <Route path="/UserView" render={() => <UserView history={history} user={user} headers={headers} />} />
-        <Route path="/Admin" render={() => <Admin history={history} headers={headers} />} />
-      </div>
-    )
-  }
+  return (
+    <div id="app-container">
+      <Header />
+      <Nav user={user} setUser={setUser} history={history} trigger={trigger} />
+      <Route exact path="/" render={() => <HomeView setTrigger={setTrigger} />} />
+      <Route path="/UserView" render={() => <UserView history={history} user={user} headers={headers} setTrigger={setTrigger} />} />
+      <Route path="/Admin" render={() => <Admin history={history} headers={headers} setTrigger={setTrigger} />} />
+    </div>
+  )
 }
 
 export default App;

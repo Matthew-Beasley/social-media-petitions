@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const PetitionDisplay = ({ petitions, setPetitions }) => {
+const PetitionDisplay = ({ petitions, setPetitions, setTrigger }) => {
   const forceUpdate = React.useReducer(() => ({}))[1];
 
   useEffect(() => {
@@ -17,6 +17,10 @@ const PetitionDisplay = ({ petitions, setPetitions }) => {
       isCancelled = true;
     };
   }, []);
+
+  useEffect(() => {
+    setTrigger(Math.random())
+  }, [])
 
   return (
     <div id="petition-display-container">
