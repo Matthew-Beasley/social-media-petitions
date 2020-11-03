@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import News from './News';
 import PetitionDisplay from './PetitionDisplay';
 
-const HomeView = ({ trigger, setTrigger }) => {
+const HomeView = ({ trigger, setTrigger, startTime, endTime }) => {
   const [petitions, setPetitions] = useState([]);
 
   return (
@@ -27,6 +27,8 @@ const HomeView = ({ trigger, setTrigger }) => {
         petitions={petitions}
         setPetitions={setPetitions}
         setTrigger={setTrigger}
+        startTime={startTime}
+        endTime={endTime}
       />
     </div>
   )

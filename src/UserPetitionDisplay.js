@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Route, Link } from 'react-router-dom';
 import axios from 'axios';
 
-const UserPetitionDisplay = ({ user, headers, signatures, setSignatures, setTrigger }) => {
+const UserPetitionDisplay = ({ user, headers, signatures, setSignatures, setTrigger, startDate, endDate }) => {
   const forceUpdate = React.useReducer(() => ({}))[1];
   const url = 'http://localhost:3000';
   const [petitions, setPetitions] = useState([]);
@@ -11,6 +11,7 @@ const UserPetitionDisplay = ({ user, headers, signatures, setSignatures, setTrig
   useEffect(() => {
     axios.get(`${url}/petition/unsigned?email=${user.email}`)
       .then((response) => {
+        console.log(`petitions for ${user.email} are ${response}`)
         setPetitions(response.data);
       });
   }, [signatures]);
@@ -44,7 +45,7 @@ const UserPetitionDisplay = ({ user, headers, signatures, setSignatures, setTrig
 
   useEffect(() => {
     petitions.forEach(petition => {
-      axios.get(`/news/everything?q=${petition.topic}`)
+      axios.get(`${url}/news/everything?q=${petition.topic}&from=${startDate}&to${endDate}`)
         .then(response => {
           petition.news = response.data.articles[0];
           forceUpdate();

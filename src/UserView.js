@@ -3,8 +3,10 @@ import { Route, Link } from 'react-router-dom';
 import UserPetitionDisplay from './UserPetitionDisplay';
 import MySignedPetitions from './MySignedPetitions';
 
-const UserView = ({ history, user, headers, setTrigger }) => {
+const UserView = ({ history, user, headers, setTrigger, startTime, endTime }) => {
   const [signatures, setSignatures] = useState([]);
+  //to do: solve reload problaem, maybe get user again if he doesn't exist?
+  
   return (
     <div>
       <UserPetitionDisplay
@@ -13,6 +15,8 @@ const UserView = ({ history, user, headers, setTrigger }) => {
         signatures={signatures}
         setSignatures={setSignatures}
         setTrigger={setTrigger}
+        startTime={startTime}
+        endTime={endTime}
       />
       <MySignedPetitions
         user={user}

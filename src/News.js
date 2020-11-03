@@ -2,13 +2,14 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-const News = ({ petitions, setTrigger }) => {
+const News = ({ petitions, setTrigger, startTime, endTime }) => {
   const [articles, setArticles] = useState([]);
+  const url = 'http://localhost:3000'
 
   useEffect(() => {
     const promises = [];
     for (let i = 0; i < petitions.length; i++) {
-      promises.push(axios.get(`/news/everything?q=${petitions[i].topic}`));
+      promises.push(axios.get(`${url}/news/everything?q=${petitions[i].topic}&from=${startTime}&to=${endTime}`));
     }
     if (promises.length === 0) {
       promises.push(axios.get('/news/everything?q=politics'))
