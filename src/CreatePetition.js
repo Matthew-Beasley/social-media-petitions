@@ -9,7 +9,7 @@ const CreatePetition  = ({history, headers, petitions, setPetitions, URL}) => {
   const [createSuccessful, setCreateSuccessful] = useState(false);
 
   const submitPetition = async () => {
-    const petition = await axios.post(URL + '/petition',
+    const petition = await axios.post('/petition',
       { topic, shortText, longText, current },
       headers());
     setPetitions([...petitions, petition.data]);
