@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Route, Link } from 'react-router-dom';
 import UserPetitionDisplay from './UserPetitionDisplay';
 import MySignedPetitions from './MySignedPetitions';
+import UserPetitionSubmit from './UserPetitionSubmit';
 
 const UserView = ({ history, user, headers, setTrigger, startTime, endTime }) => {
   const [signatures, setSignatures] = useState([]);
@@ -9,6 +10,10 @@ const UserView = ({ history, user, headers, setTrigger, startTime, endTime }) =>
   
   return (
     <div>
+      <UserPetitionSubmit
+        history={history}
+        headers={headers}
+      />
       <UserPetitionDisplay
         user={user}
         headers={headers}

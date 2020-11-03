@@ -302,3 +302,32 @@
   color: blue;
   margin: 1rem 0rem 0rem 2rem;
 }
+
+
+/*----- User Submit Petition Styles -----*/
+
+#user-submit-launch {
+  display: flex;
+  flex-direction: row;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode';
+  color: white;
+  background-color: #1F3145;
+  font-size: .85rem;
+  border-top: 20px solid white;
+}
+
+#dropdown-link {
+  border: 0px;
+  width: 5rem;
+  margin: 1rem 0rem 1rem 5rem;
+  text-decoration: none;
+  color: white;
+  font-size: 2rem;
+  background-color: #1f3145;
+  border-color: #1f3145;
+  cursor: pointer;
+}
+
+#user-submit-text {
+  padding: 2rem;
+}
