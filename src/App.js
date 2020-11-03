@@ -14,6 +14,7 @@ const App = () => {
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const history = useHistory();
+  const URL = 'http://localhost:3000';//'https://our-voice-here.herokuapp.com/';
 
   const headers = () => {
     return {
@@ -43,6 +44,7 @@ const App = () => {
             setTrigger={setTrigger}
             startTime={startTime}
             endTime={endTime}
+            URL={URL}
           />)}
       />
       <Route
@@ -55,6 +57,7 @@ const App = () => {
           setTrigger={setTrigger}
           startTime={startTime}
           endTime={endTime}
+          URL={URL}
         />)}
       />
       <Route
@@ -63,6 +66,7 @@ const App = () => {
           history={history}
           headers={headers}
           setTrigger={setTrigger}
+          URL={URL}
         />)}
       />
     </div>

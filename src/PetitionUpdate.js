@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const PetitionUpdate = ({ petitions, setPetitions, headers }) => {
-  const url = 'http://localhost:3000';
+const PetitionUpdate = ({ petitions, setPetitions, headers, URL }) => {
 
   useEffect(() => {
     let isCancelled = false;
@@ -33,7 +32,7 @@ const PetitionUpdate = ({ petitions, setPetitions, headers }) => {
           }
 
           const updatePetition = async () => {
-            const response = await axios.put(url + '/petition',
+            const response = await axios.put('/petition',
               {
                 topic: topic.topic,
                 shortText: topic.shortText,
@@ -45,7 +44,7 @@ const PetitionUpdate = ({ petitions, setPetitions, headers }) => {
           }
 
           const deletePetition = async () => {
-            await axios.delete(`${url}/petition?topic=${topic.topic}`, headers());
+            await axios.delete(`/petition?topic=${topic.topic}`, headers());
             const index = petitions.indexOf(topic.topic);
             petitions.splice(index, 1);
             setPetitions([...petitions]);

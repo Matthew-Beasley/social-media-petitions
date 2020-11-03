@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 
-const CreatePetition  = ({history, headers, petitions, setPetitions}) => {
+const CreatePetition  = ({history, headers, petitions, setPetitions, URL}) => {
   const [topic, setTopic] = useState('');
   const [shortText, setShortText] = useState('');
   const [longText, setLongText] = useState('');
@@ -9,8 +9,7 @@ const CreatePetition  = ({history, headers, petitions, setPetitions}) => {
   const [createSuccessful, setCreateSuccessful] = useState(false);
 
   const submitPetition = async () => {
-    const url = 'http://localhost:3000';
-    const petition = await axios.post(url + '/petition',
+    const petition = await axios.post(URL + '/petition',
       { topic, shortText, longText, current },
       headers());
     setPetitions([...petitions, petition.data]);

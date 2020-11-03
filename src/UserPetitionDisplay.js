@@ -2,16 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Route, Link } from 'react-router-dom';
 import axios from 'axios';
 
-const UserPetitionDisplay = ({ user, headers, signatures, setSignatures, setTrigger, startDate, endDate }) => {
+const UserPetitionDisplay = ({ user, headers, signatures, setSignatures, setTrigger, startDate, endDate, URL }) => {
   const forceUpdate = React.useReducer(() => ({}))[1];
-  const url = 'http://localhost:3000';
   const [petitions, setPetitions] = useState([]);
   const [unsignedPetitions, setUnsignedPetitions] = useState();
 
   useEffect(() => {
-    axios.get(`${url}/petition/unsigned?email=${user.email}`)
+    axios.get(`/petition/unsigned?email=${user.email}`)
       .then((response) => {
-        console.log(`petitions for ${user.email} are ${response}`)
         setPetitions(response.data);
       });
   }, [signatures]);
@@ -21,7 +19,7 @@ const UserPetitionDisplay = ({ user, headers, signatures, setSignatures, setTrig
   }, []);
 
   useEffect(() => {
-    axios.get(`${url}/signature/byemail?email=${user.email}`, headers())
+    axios.get(`/signature/byemail?email=${user.email}`, headers())
       .then(response => {
         const unsigned = [];
         if (response.data.length === 0) {
@@ -45,7 +43,7 @@ const UserPetitionDisplay = ({ user, headers, signatures, setSignatures, setTrig
 
   useEffect(() => {
     petitions.forEach(petition => {
-      axios.get(`${url}/news/everything?q=${petition.topic}&from=${startDate}&to${endDate}`)
+      axios.get(`/news/everything?q=${petition.topic}&from=${startDate}&to${endDate}`)
         .then(response => {
           petition.news = response.data.articles[0];
           forceUpdate();
@@ -54,7 +52,7 @@ const UserPetitionDisplay = ({ user, headers, signatures, setSignatures, setTrig
   }, [petitions]);
 
   const signPetition = async (petitionToSign) => {
-    const response = await axios.post(url + '/signature', { email: user.email, topic: petitionToSign.topic }, headers());
+    const response = await axios.post('/signature', { email: user.email, topic: petitionToSign.topic }, headers());
     setSignatures([...signatures, response.data]);
   }
 

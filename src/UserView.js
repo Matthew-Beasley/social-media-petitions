@@ -17,12 +17,14 @@ const UserView = ({ history, user, headers, setTrigger, startTime, endTime }) =>
         setTrigger={setTrigger}
         startTime={startTime}
         endTime={endTime}
+        URL={URL}
       />
       <MySignedPetitions
         user={user}
         headers={headers}
         signatures={signatures}
         setTrigger={setTrigger}
+        URL={URL}
       />
     </div>
   )
