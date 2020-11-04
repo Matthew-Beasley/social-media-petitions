@@ -3,8 +3,7 @@ import { Route, Link } from 'react-router-dom';
 import axios from 'axios';
 
 
-const UserPetitionSubmit = (history, headers) => {
-  const [isDropped, setIsDropped] = useState(false);
+const UserPetitionSubmit = ({ history, headers, isDropped, setIsDropped }) => {
   const [topic, setTopic] = useState('');
   const [shortText, setShortText] = useState('');
   const [longText, setLongText] = useState('');
@@ -49,13 +48,17 @@ const UserPetitionSubmit = (history, headers) => {
           onClick={() => setDropDown()}>
           &or;
         </div>}
-      <div id="user-submit-text">Click arrow to submit a petition suggestion</div>
+        <div id="user-submit-text">Click arrow to submit a petition suggestion</div>
       </div>
+      {isDropped &&
+      <div>
         <div id="user-form-header">
-          <p>To submit a suggestion for a petition, fill out the form below.</p>
-          <p>Suggestions are ranked by frequency of appearance, and most popular petitions will be set as current.</p>
+          <p>
+            To submit a suggestion for a petition, fill out the form below.<br />
+            Suggestions are ranked by frequency of appearance, and most popular petitions will be set as current.
+          </p>
         </div>
-        <form id="create-petition-form">
+        <form id="user-petition-form">
           {createSuccessful && <h3>Successfully created petition {topic}</h3>}
           <input
             type="text" id="admin-topic-input"
@@ -78,15 +81,6 @@ const UserPetitionSubmit = (history, headers) => {
             onChange={ev => { setLongText(ev.target.value); setCreateSuccessful(false) }}
             rows="10"
           />
-          <label>
-            <input
-              type="checkbox"
-              className="iscurrent"
-              id="admin-current-checkbox"
-              checked={current}
-              onChange={ev => { setCurrent(ev.target.value); setCreateSuccessful(false) }}
-            />Make this a current petition
-          </label>
           <button
             type="button"
             id="admin-create-button"
@@ -94,6 +88,7 @@ const UserPetitionSubmit = (history, headers) => {
             Create Petition
           </button>
         </form>
+      </div>}
     </div>
   )
 }

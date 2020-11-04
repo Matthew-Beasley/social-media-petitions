@@ -313,7 +313,7 @@
   color: white;
   background-color: #1F3145;
   font-size: .85rem;
-  border-top: 20px solid white;
+  border-top: 10px solid white;
 }
 
 #dropdown-link {
@@ -330,4 +330,24 @@
 
 #user-submit-text {
   padding: 2rem;
+}
+
+#user-form-header {
+  display: flex;
+  flex-direction: column;
+  padding-left: 10rem;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode';
+  color: white;
+  background-color: rgb(150, 14, 14);
+  font-size: .85rem;
+}
+
+#user-petition-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border: 3px solid darkblue;
+  width: 99.5%;
+  padding-top: 1rem;
 }

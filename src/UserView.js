@@ -6,29 +6,36 @@ import UserPetitionSubmit from './UserPetitionSubmit';
 
 const UserView = ({ history, user, headers, setTrigger, startTime, endTime }) => {
   const [signatures, setSignatures] = useState([]);
-  //to do: solve reload problaem, maybe get user again if he doesn't exist?
-  
+  const [isDropped, setIsDropped] = useState(false);
+  //to do: solve reload problem, maybe get user again if he doesn't exist?
+
   return (
     <div>
       <UserPetitionSubmit
         history={history}
         headers={headers}
+        isDropped={isDropped}
+        setIsDropped={setIsDropped}
       />
-      <UserPetitionDisplay
-        user={user}
-        headers={headers}
-        signatures={signatures}
-        setSignatures={setSignatures}
-        setTrigger={setTrigger}
-        startTime={startTime}
-        endTime={endTime}
-      />
-      <MySignedPetitions
-        user={user}
-        headers={headers}
-        signatures={signatures}
-        setTrigger={setTrigger}
-      />
+      {!isDropped &&
+        <div>
+          <UserPetitionDisplay
+            user={user}
+            headers={headers}
+            signatures={signatures}
+            setSignatures={setSignatures}
+            setTrigger={setTrigger}
+            startTime={startTime}
+            endTime={endTime}
+          />
+          <MySignedPetitions
+            user={user}
+            headers={headers}
+            signatures={signatures}
+            setTrigger={setTrigger}
+          />
+        </div>
+      }
     </div>
   )
 }
