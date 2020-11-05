@@ -5,10 +5,11 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const signatureRouter = require('./apis/signature');
 const petitionRouter = require('./apis/petitions');
+const suggestionRouter = require('./apis/suggestions');
 const userRouter = require('./apis/users');
 const authRouter = require('./apis/auth');
 const newsRouter = require('./apis/news');
-const { findUserFromToken } = require('./data/auth')
+const { findUserFromToken } = require('./data/auth');
 
 app.use(cors());
 app.use(express.json());
@@ -33,6 +34,7 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use('/dist', express.static(path.join(__dirname, 'dist')));
 app.use('/signature', signatureRouter);
 app.use('/petition', petitionRouter);
+app.use('suggestion', suggestionRouter);
 app.use('/user', userRouter);
 app.use('/news', newsRouter);
 app.use('/auth', authRouter);

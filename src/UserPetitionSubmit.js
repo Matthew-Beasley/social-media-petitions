@@ -12,7 +12,7 @@ const UserPetitionSubmit = ({ history, headers, isDropped, setIsDropped }) => {
   const [petitions, setPetitions] = useState([]);
 
   const submitPetition = async () => {
-    const petition = await axios.post('/petition', //change this to the new user petition table route
+    const petition = await axios.post('/suggestion', //change this to the new user petition table route
       { topic, shortText, longText, current },
       headers());
     setPetitions([...petitions, petition.data]);
