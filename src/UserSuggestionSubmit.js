@@ -3,26 +3,23 @@ import { Route, Link } from 'react-router-dom';
 import axios from 'axios';
 
 
-const UserPetitionSubmit = ({ history, headers, isDropped, setIsDropped }) => {
+const UserSuggestionSubmit = ({ history, headers, isDropped, setIsDropped, suggestions, setSuggestions }) => {
   const [topic, setTopic] = useState('');
   const [shortText, setShortText] = useState('');
   const [longText, setLongText] = useState('');
-  const [current, setCurrent] = useState(false);
   const [createSuccessful, setCreateSuccessful] = useState(false);
-  const [petitions, setPetitions] = useState([]);
 
   const submitPetition = async () => {
-    const petition = await axios.post('/suggestion', //change this to the new user petition table route
-      { topic, shortText, longText, current },
+    const suggestionResponse = await axios.post('/suggestion', //change this to the new user petition table route
+      { topic, shortText, longText },
       headers());
-    setPetitions([...petitions, petition.data]);
-    if (petition.data.topic === topic) {
+    if (suggestionResponse.data.topic === topic) {
       setCreateSuccessful(true);
     }
+    setSuggestions([...suggestions, suggestionResponse.data]);
     setTopic('');
     setShortText('');
     setLongText('');
-    setCurrent(false);
   }
 
   const setDropDown = () => {
@@ -59,7 +56,7 @@ const UserPetitionSubmit = ({ history, headers, isDropped, setIsDropped }) => {
           </p>
         </div>
         <form id="user-petition-form">
-          {createSuccessful && <h3>Successfully created petition {topic}</h3>}
+          {createSuccessful && <h3>Successfully created petition suggestion {topic}</h3>}
           <input
             type="text" id="admin-topic-input"
             placeholder="Topic"
@@ -85,7 +82,7 @@ const UserPetitionSubmit = ({ history, headers, isDropped, setIsDropped }) => {
             type="button"
             id="admin-create-button"
             onClick={() => submitPetition()} >
-            Create Petition
+            Create Suggestion
           </button>
         </form>
       </div>}
@@ -93,4 +90,4 @@ const UserPetitionSubmit = ({ history, headers, isDropped, setIsDropped }) => {
   )
 }
 
-export default UserPetitionSubmit;
+export default UserSuggestionSubmit;

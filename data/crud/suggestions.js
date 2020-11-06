@@ -1,29 +1,32 @@
 const client = require('../client');
 
-const createPetition = async (record) => {
-  const { topic, shortText, longText, current } = record;
+const createSuggestion = async (record) => {
+  console.log('record in crud', record)
+  const { topic, shortText, longText } = record;
   const sql = `
-  INSERT INTO petitions (topic, "shortText", "longText", current)
-  VALUES ($1, $2, $3, $4)
-  RETURNING *`;
-  return (await client.query(sql, [topic, shortText, longText, current])).rows[0];
+  INSERT INTO suggestions (topic, "shortText", "longText")
+  VALUES ($1, $2, $3)
+  RETURNING *;`;
+  const rows = (await client.query(sql, [topic, shortText, longText])).rows[0];
+  console.log('rows in crud', rows)
+  return rows;
 }
 
-const readAllPetitions = async () => {
+const readAllSuggestions = async () => {
   const sql = `
-  SELECT * FROM petitions`;
+  SELECT * FROM suggestions`;
   return (await client.query(sql)).rows;
 }
 
-const deletePetition = async (topic) => {
+const deleteSuggestion = async (topic) => {
   const sql = `
-  DELETE FROM petitions
+  DELETE FROM suggestions
   WHERE topic = $1`;
   await client.query(sql, [topic])
 }
 
 module.exports = {
-  createPetition,
-  readAllPetitions,
-  deletePetition
+  createSuggestion,
+  readAllSuggestions,
+  deleteSuggestion
 };

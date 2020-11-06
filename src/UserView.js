@@ -2,20 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { Route, Link } from 'react-router-dom';
 import UserPetitionDisplay from './UserPetitionDisplay';
 import MySignedPetitions from './MySignedPetitions';
-import UserPetitionSubmit from './UserPetitionSubmit';
+import UserSuggestionSubmit from './UserSuggestionSubmit';
+import UserSuggestionsView from './UserSuggestionsView';
 
 const UserView = ({ history, user, headers, setTrigger, startTime, endTime }) => {
   const [signatures, setSignatures] = useState([]);
   const [isDropped, setIsDropped] = useState(false);
+  const [suggestions, setSuggestions] = useState([]);
   //to do: solve reload problem, maybe get user again if he doesn't exist?
 
   return (
     <div>
-      <UserPetitionSubmit
+      <UserSuggestionSubmit
         history={history}
         headers={headers}
         isDropped={isDropped}
         setIsDropped={setIsDropped}
+        suggestions={suggestions}
+        setSuggestions={setSuggestions}
       />
       {!isDropped &&
         <div>
@@ -33,6 +37,11 @@ const UserView = ({ history, user, headers, setTrigger, startTime, endTime }) =>
             headers={headers}
             signatures={signatures}
             setTrigger={setTrigger}
+          />
+          <UserSuggestionsView
+            headers={headers}
+            suggestions={suggestions}
+            setSuggestions={setSuggestions}
           />
         </div>
       }
