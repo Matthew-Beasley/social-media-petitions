@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Route, Link } from 'react-router-dom';
 import axios from 'axios';
 
-const MySignedPetitions = ({ user, headers, signatures, setTrigger, URL }) => {
+const MySignedPetitions = ({ user, headers, signatures, setTrigger }) => {
   const [signedPetitions, setSignedPetitions] = useState([]);
 
   useEffect(() => {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Route, Link } from 'react-router-dom';
 import axios from 'axios';
 
-const UserPetitionDisplay = ({ user, headers, signatures, setSignatures, setTrigger, startDate, endDate, URL }) => {
+const UserPetitionDisplay = ({ user, headers, signatures, setSignatures, setTrigger, startDate, endDate }) => {
   const forceUpdate = React.useReducer(() => ({}))[1];
   const [petitions, setPetitions] = useState([]);
   const [unsignedPetitions, setUnsignedPetitions] = useState();

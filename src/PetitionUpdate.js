@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const PetitionUpdate = ({ petitions, setPetitions, headers, URL }) => {
+const PetitionUpdate = ({ petitions, setPetitions, headers }) => {
 
   useEffect(() => {
     let isCancelled = false;

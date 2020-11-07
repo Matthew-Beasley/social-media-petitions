@@ -15,14 +15,12 @@ const Admin = ({ headers, history, setTrigger }) => {
         headers={headers}
         petitions={petitions}
         setPetitions={setPetitions}
-        URL={URL}
       />
       <CreatePetition
         history={history}
         headers={headers}
         petitions={petitions}
         setPetitions={setPetitions}
-        URL={URL}
       />
     </div>
   )

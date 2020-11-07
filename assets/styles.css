@@ -302,3 +302,93 @@
   color: blue;
   margin: 1rem 0rem 0rem 2rem;
 }
+
+
+/*----- User Submit Petition Styles -----*/
+
+#user-submit-launch {
+  display: flex;
+  flex-direction: row;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode';
+  color: white;
+  background-color: #1F3145;
+  font-size: .85rem;
+  border-top: 10px solid white;
+}
+
+#dropdown-link {
+  border: 0px;
+  width: 5rem;
+  margin: 1rem 0rem 1rem 5rem;
+  text-decoration: none;
+  color: white;
+  font-size: 2rem;
+  background-color: #1f3145;
+  border-color: #1f3145;
+  cursor: pointer;
+}
+
+#user-submit-text {
+  padding: 2rem;
+}
+
+#user-form-header {
+  display: flex;
+  flex-direction: column;
+  padding-left: 10rem;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode';
+  color: white;
+  background-color: rgb(150, 14, 14);
+  font-size: .85rem;
+}
+
+#user-petition-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border: 3px solid darkblue;
+  width: 99.5%;
+  padding-top: 1rem;
+}
+
+
+/*----- User Suggestion View -----*/
+
+#user-suggestion-container {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode';
+}
+
+#user-suggestion-header {
+  font-size: large;
+  margin:1rem 0rem 1rem 3rem;
+}
+
+#user-suggestion-container > ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+#user-suggestion-container > ul > li {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  width: 40%;
+  border: 3px solid darkblue;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.user-suggestion-topic {
+  color: red;
+  margin-bottom: 1rem;
+}
+
+#user-suggestion-container > ul > li > div {
+  margin-left: 2rem;
+}

@@ -2,30 +2,43 @@ import React, { useState, useEffect } from 'react';
 import { Route, Link } from 'react-router-dom';
 import UserPetitionDisplay from './UserPetitionDisplay';
 import MySignedPetitions from './MySignedPetitions';
+import UserSuggestionSubmit from './UserSuggestionSubmit';
 
 const UserView = ({ history, user, headers, setTrigger, startTime, endTime }) => {
   const [signatures, setSignatures] = useState([]);
-  //to do: solve reload problaem, maybe get user again if he doesn't exist?
-  
+  const [isDropped, setIsDropped] = useState(false);
+  const [suggestions, setSuggestions] = useState([]);
+  //to do: solve reload problem, maybe get user again if he doesn't exist?
+
   return (
     <div>
-      <UserPetitionDisplay
-        user={user}
+      <UserSuggestionSubmit
+        history={history}
         headers={headers}
-        signatures={signatures}
-        setSignatures={setSignatures}
-        setTrigger={setTrigger}
-        startTime={startTime}
-        endTime={endTime}
-        URL={URL}
+        isDropped={isDropped}
+        setIsDropped={setIsDropped}
+        suggestions={suggestions}
+        setSuggestions={setSuggestions}
       />
-      <MySignedPetitions
-        user={user}
-        headers={headers}
-        signatures={signatures}
-        setTrigger={setTrigger}
-        URL={URL}
-      />
+      {!isDropped &&
+        <div>
+          <UserPetitionDisplay
+            user={user}
+            headers={headers}
+            signatures={signatures}
+            setSignatures={setSignatures}
+            setTrigger={setTrigger}
+            startTime={startTime}
+            endTime={endTime}
+          />
+          <MySignedPetitions
+            user={user}
+            headers={headers}
+            signatures={signatures}
+            setTrigger={setTrigger}
+          />
+        </div>
+      }
     </div>
   )
 }
