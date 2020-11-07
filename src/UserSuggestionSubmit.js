@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Link } from 'react-router-dom';
 import axios from 'axios';
+import UserSuggestionsView from './UserSuggestionsView';
 
 
 const UserSuggestionSubmit = ({ history, headers, isDropped, setIsDropped, suggestions, setSuggestions }) => {
@@ -85,6 +86,11 @@ const UserSuggestionSubmit = ({ history, headers, isDropped, setIsDropped, sugge
             Create Suggestion
           </button>
         </form>
+        <UserSuggestionsView
+          headers={headers}
+          suggestions={suggestions}
+          setSuggestions={setSuggestions}
+        />
       </div>}
     </div>
   )

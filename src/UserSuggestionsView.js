@@ -9,10 +9,15 @@ const UserSuggestionsView = ({ headers, suggestions, setSuggestions }) => {
 
   return (
     <div id="user-suggestion-container">
+      <div id="user-suggestion-header">Suggestions I have submitted</div>
       <ul>
         {suggestions.map(item => {
           return (
-            <li key = { item.id } > { item.topic }</li>
+            <li key={item.id} >
+              <div className="user-suggestion-topic">{item.topic}</div>
+              <div>{item.shortText}</div>
+              <div>{item.longText}</div>
+            </li>
         )})}
       </ul>
     </div>

@@ -3,7 +3,6 @@ import { Route, Link } from 'react-router-dom';
 import UserPetitionDisplay from './UserPetitionDisplay';
 import MySignedPetitions from './MySignedPetitions';
 import UserSuggestionSubmit from './UserSuggestionSubmit';
-import UserSuggestionsView from './UserSuggestionsView';
 
 const UserView = ({ history, user, headers, setTrigger, startTime, endTime }) => {
   const [signatures, setSignatures] = useState([]);
@@ -37,11 +36,6 @@ const UserView = ({ history, user, headers, setTrigger, startTime, endTime }) =>
             headers={headers}
             signatures={signatures}
             setTrigger={setTrigger}
-          />
-          <UserSuggestionsView
-            headers={headers}
-            suggestions={suggestions}
-            setSuggestions={setSuggestions}
           />
         </div>
       }

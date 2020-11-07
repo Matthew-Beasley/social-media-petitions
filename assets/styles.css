@@ -351,3 +351,44 @@
   width: 99.5%;
   padding-top: 1rem;
 }
+
+
+/*----- User Suggestion View -----*/
+
+#user-suggestion-container {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode';
+}
+
+#user-suggestion-header {
+  font-size: large;
+  margin:1rem 0rem 1rem 3rem;
+}
+
+#user-suggestion-container > ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+#user-suggestion-container > ul > li {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  width: 40%;
+  border: 3px solid darkblue;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.user-suggestion-topic {
+  color: red;
+  margin-bottom: 1rem;
+}
+
+#user-suggestion-container > ul > li > div {
+  margin-left: 2rem;
+}
