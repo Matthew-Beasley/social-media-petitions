@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 const UserSuggestionsView = ({ headers, suggestions, setSuggestions }) => {
   useEffect(() => {
@@ -13,7 +14,7 @@ const UserSuggestionsView = ({ headers, suggestions, setSuggestions }) => {
       <ul>
         {suggestions.map(item => {
           return (
-            <li key={item.id} >
+            <li key={uuidv4()} >
               <div className="user-suggestion-topic">{item.topic}</div>
               <div>{item.shortText}</div>
               <div>{item.longText}</div>
