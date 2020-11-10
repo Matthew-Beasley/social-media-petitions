@@ -39,7 +39,7 @@ const newDB = async () => {
     topic VARCHAR(256) UNIQUE NOT NULL,
     "shortText" TEXT NOT NULL,
     "longText" TEXT NOT NULL,
-    current BOOLEAN DEFAULT FALSE
+    email VARCHAR(256) NOT NULL
   );`;
   await client.query(sql);
 }

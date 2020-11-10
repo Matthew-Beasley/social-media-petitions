@@ -1,14 +1,12 @@
 const client = require('../client');
 
 const createSuggestion = async (record) => {
-  console.log('record in crud', record)
-  const { topic, shortText, longText } = record;
+  const { topic, shortText, longText, email } = record;
   const sql = `
-  INSERT INTO suggestions (topic, "shortText", "longText")
-  VALUES ($1, $2, $3)
+  INSERT INTO suggestions (topic, "shortText", "longText", email)
+  VALUES ($1, $2, $3, $4)
   RETURNING *;`;
-  const rows = (await client.query(sql, [topic, shortText, longText])).rows[0];
-  console.log('rows in crud', rows)
+  const rows = (await client.query(sql, [topic, shortText, longText, email])).rows[0];
   return rows;
 }
 
