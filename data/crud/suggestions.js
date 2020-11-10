@@ -10,6 +10,13 @@ const createSuggestion = async (record) => {
   return rows;
 }
 
+const readMySuggestions = async (email) => {
+  const sql = `
+  SELECT * FROM suggestions
+  WHERE email = $1`;
+  return (await client.query(sql, [email])).rows;
+}
+
 const readAllSuggestions = async () => {
   const sql = `
   SELECT * FROM suggestions`;
@@ -25,6 +32,7 @@ const deleteSuggestion = async (topic) => {
 
 module.exports = {
   createSuggestion,
+  readMySuggestions,
   readAllSuggestions,
   deleteSuggestion
 };
