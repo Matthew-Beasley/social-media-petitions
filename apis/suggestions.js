@@ -1,8 +1,9 @@
 const express = require('express');
 const {
   createSuggestion,
+  readMySuggestions,
   readAllSuggestions,
-  deleteSuggestion
+  deleteSuggestion,
 } = require('../data/crud/suggestions');
 const { isLoggedIn } = require('../data/auth');
 const suggestionRouter = express.Router();
@@ -11,6 +12,15 @@ suggestionRouter.post('/', isLoggedIn, async (req, res, next) => {
   try {
     const response = await createSuggestion(req.body);
     res.status(201).send(response);
+  } catch (error) {
+    next(error);
+  }
+});
+
+suggestionRouter.get('/byemail', async (req, res, next) => {
+  try {
+    const suggestions = await readMySuggestions(req.query.email);
+    res.status(200).send(suggestions);
   } catch (error) {
     next(error);
   }

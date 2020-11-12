@@ -37,13 +37,10 @@ const readUnsignedPetitions = async (email) => {
   ON signatures.topic = petitions.topic`;
   const signedPetitions = (await client.query(unsignedsql)).rows;
   const allPetitions = (await client.query('SELECT * FROM petitions')).rows;
-  //console.log(allPetitions)
   const unsignedPetitions = [];
   for (let i = 0; i < allPetitions.length; i++) {
     let pushit = true;
-    console.log(allPetitions[i])
     for (let k = 0; k < signedPetitions.length; k++) {
-      //console.log(signedPetitions[k])
       if (allPetitions[i].topic === signedPetitions[k].topic && signedPetitions[k].email ===  email) {
         pushit = false;
       }
@@ -53,7 +50,6 @@ const readUnsignedPetitions = async (email) => {
     }
     pushit = true;
   }
-  //console.log(unsignedPetitions)
   return unsignedPetitions;
 }
 
