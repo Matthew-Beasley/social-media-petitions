@@ -19,6 +19,7 @@ const UserView = ({ history, user, headers, setTrigger, startTime, endTime }) =>
         setIsDropped={setIsDropped}
         suggestions={suggestions}
         setSuggestions={setSuggestions}
+        user={user}
       />
       {!isDropped &&
         <div>

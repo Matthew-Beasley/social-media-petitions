@@ -4,7 +4,7 @@ import axios from 'axios';
 import UserSuggestionsView from './UserSuggestionsView';
 
 
-const UserSuggestionSubmit = ({ history, headers, isDropped, setIsDropped, suggestions, setSuggestions }) => {
+const UserSuggestionSubmit = ({ history, headers, isDropped, setIsDropped, suggestions, setSuggestions, user }) => {
   const [topic, setTopic] = useState('');
   const [shortText, setShortText] = useState('');
   const [longText, setLongText] = useState('');
@@ -12,7 +12,7 @@ const UserSuggestionSubmit = ({ history, headers, isDropped, setIsDropped, sugge
 
   const submitPetition = async () => {
     const suggestionResponse = await axios.post('/suggestion', //change this to the new user petition table route
-      { topic, shortText, longText },
+      { topic, shortText, longText, email: user.email },
       headers());
     if (suggestionResponse.data.topic === topic) {
       setCreateSuccessful(true);
@@ -89,7 +89,7 @@ const UserSuggestionSubmit = ({ history, headers, isDropped, setIsDropped, sugge
         <UserSuggestionsView
           headers={headers}
           suggestions={suggestions}
-          setSuggestions={setSuggestions}
+          user={user}
         />
       </div>}
     </div>
