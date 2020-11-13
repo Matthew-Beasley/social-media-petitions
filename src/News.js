@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-const News = ({ petitions, setTrigger, startTime, endTime }) => {
+const News = ({ petitions, setTrigger, startTime, endTime, trigger }) => {
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {
@@ -11,7 +11,7 @@ const News = ({ petitions, setTrigger, startTime, endTime }) => {
       promises.push(axios.get(`/news/everything?q=${petitions[i].topic}&from=${startTime}&to=${endTime}`));
     }
     if (promises.length === 0) {
-      promises.push(axios.get(`/news/everything?q=politics`))
+      promises.push(axios.get(`/news/everything?q=politics&from=${startTime}&to=${endTime}`));
     }
     Promise.all(promises)
       .then(values => {
@@ -19,7 +19,7 @@ const News = ({ petitions, setTrigger, startTime, endTime }) => {
           setArticles([...articles, ...values[i].data.articles]);
         }
       })
-  }, []);
+  }, [petitions]);
 
   useEffect(() => {
     setTrigger(Math.random());

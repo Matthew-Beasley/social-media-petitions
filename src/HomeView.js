@@ -29,6 +29,7 @@ const HomeView = ({ trigger, setTrigger, startTime, endTime }) => {
         setTrigger={setTrigger}
         startTime={startTime}
         endTime={endTime}
+        trigger={trigger}
       />
     </div>
   )

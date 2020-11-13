@@ -25,7 +25,8 @@ const checkCache = (req, res, next) => {
 };
 
 newsRouter.get('/everything', checkCache, async (req, res, next) => {
-  const key = `${everythingEndPoint}?q=${req.query.q ? req.query.q : ''}&${apiKey}`;
+  const key = `${everythingEndPoint}?q=${req.query.q}&from=${req.query.from}&to=${req.query.to}&language=en&${apiKey}`;
+  console.log('key in everything route ', key)
   try {
     const articles = await axios.get(key);
     console.log('served up by route')
@@ -38,7 +39,7 @@ newsRouter.get('/everything', checkCache, async (req, res, next) => {
 });
 
 newsRouter.get('/topheadlines', checkCache, async (req, res, next) => {
-  const key = `${topHeadlinesEndPoint}?language=${req.query.language ? req.query.language : ''}&country=${req.query.country ? req.query.country : ''}&category=${req.query.catagory ? req.query.catagory : ''}&${apiKey}`;
+  const key = `${topHeadlinesEndPoint}?q=${req.query.q}&from=${req.query.from}&to=${req.query.to}&language=en&${apiKey}`;
   try {
     const articles = await axios.get(key);
     console.log('served up by route')
