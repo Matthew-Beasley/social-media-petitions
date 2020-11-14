@@ -25,7 +25,7 @@ const checkCache = (req, res, next) => {
 };
 
 newsRouter.get('/everything', checkCache, async (req, res, next) => {
-  const key = `${everythingEndPoint}?q=${req.query.q}&from=${req.query.from}&to=${req.query.to}&language=en&${apiKey}`;
+  const key = `${everythingEndPoint}?q=${req.query.q}&from=${req.query.from}&to=${req.query.to}&pagesize=${req.query.pageSize}&language=en&${apiKey}`;
   console.log('key in everything route ', key)
   try {
     const articles = await axios.get(key);
