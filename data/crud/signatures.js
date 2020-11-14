@@ -20,15 +20,16 @@ const readMySignatures = async (email) => {
     FROM signatures
     JOIN petitions
     ON signatures.topic = petitions.topic`;
-  const resp = await client.query(sql)
+  const resp = (await client.query(sql)).rows;
   const rowsByEmail = [];
-  for (let i = 0; i < resp.rows.length; i++) {
-    if (resp.rows[i].email === email) {
-      rowsByEmail.push(resp.rows[i]);
+  for (let i = 0; i < resp.length; i++) {
+    if (resp[i].email === email) {
+      rowsByEmail.push(resp[i]);
     }
   }
   return rowsByEmail;
 }
+
 
 const readSignaturesByPetition = async ({ topic }) => {
   const sql = `

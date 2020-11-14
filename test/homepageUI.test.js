@@ -23,6 +23,8 @@ test('get app title', async () => {
   expect(title).toEqual('Our Voice');
 })
 
+
+
 test('populate email input', async () => {
   await driver.get('http://localhost:3000/');
   const element = await driver.findElement(By.id('email'));
@@ -47,16 +49,10 @@ test('log in', async () => {
   await email.sendKeys('jasper3467@email.com');
   const password = await driver.findElement(By.id('password'));
   await password.sendKeys('jasper');
-  //await driver.findElement(By.id('submit')).click();
+  await driver.wait(until.elementLocated(By.id('submit')), 50000);
   const submit = await driver.findElement(By.id('submit'));
-  //console.log('submit obj ', submit.driver_.executor_)
   await submit.click();
-  //await driver.executeScript('arguments[0].click();', submit);
-  //await driver.executeScript('document.querySelector("#submit").click()')
-  //await driver.executeScript('window.localStorage.setItem("token", "hello")')
-  //await driver.executeScript('arguments[0].click();', submit);
-  //await driver.findElement(By.id("submit")).sendKeys(Key.RETURN);
-  await driver.wait(until.elementLocated(By.id('home-view')), 10000);
+  await driver.wait(until.elementLocated(By.id('home-link')), 50000);
   const token = await driver.executeScript('return window.localStorage.getItem("token")')
   await driver.executeScript('localStorage.removeItem("token")')
   expect(token).toBeTruthy();

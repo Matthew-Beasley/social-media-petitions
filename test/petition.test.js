@@ -69,8 +69,8 @@ test('crud Petitions readUnsignedPetitions signed', async () => {
       petitionExists = true;
     }
   }
-  await client.query(`DELETE FROM petitions WHERE topic = 'cats blow'`);
-  await client.query(`DELETE FROM signatures WHERE email = 'jasper123456@email.com'`);
+  await client.query('DELETE FROM petitions WHERE topic = \'cats blow\'');
+  await client.query('DELETE FROM signatures WHERE email = \'jasper123456@email.com\'');
   expect(petitionExists).toEqual(false);
 });
 
@@ -88,7 +88,7 @@ test('crud Petitions readUnsignedPetitions unsigned', async () => {
       petitionExists = true;
     }
   }
-  await client.query(`DELETE FROM petitions WHERE topic = 'cats blow'`);
+  await client.query('DELETE FROM petitions WHERE topic = \'cats blow\'');
   expect(petitionExists).toEqual(true);
 });
 

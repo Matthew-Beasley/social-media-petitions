@@ -30,6 +30,20 @@ const sqlDeleteUserByEmail = async (email) => {
   await client.query(sql);
 }
 
+const sqlCreatePetition = async (topic, shortText, longText, current) => {
+  const sql = `
+  INSERT INTO petitions (topic, "shortText", "longText", current)
+  VALUES ('${topic}', '${shortText}', '${longText}', '${current}')`;
+  await client.query(sql);
+}
+
+const sqlDeletePetition = async (topic) => {
+  const sql = `
+  DELETE FROM petitions
+  WHERE topic = '${topic}'`;
+  await client.query(sql);
+}
+
 afterEach(async () => {
   await sqlDeleteAllForEmail('jasper5678@email.com');
   await sqlDeleteUserByEmail('jasper5678@email.com');
@@ -91,10 +105,16 @@ test('crud Signatures, readSignatureByPetition', async () => {
 
 test('crud Signatures, readMySignatures', async () => {
   await sqlCreateSignature('A problem', 'jasper5678@email.com');
-  await sqlCreateSignature('another problem', 'jasper5678@email.com');
-  const rows = await client.query('select * from signatures')
+  await sqlCreatePetition('A problem', 'short', 'long', 'true');
   const signatures = await readMySignatures('jasper5678@email.com');
-  expect(signatures.length).toEqual(2);
+  await sqlDeletePetition('A problem');
+  const results = signatures.reduce((acc, item) => {
+    if (item.email === 'jasper5678@email.com') {
+      acc.push(item);
+    }
+    return acc;
+  }, []);
+  expect(results.length).toEqual(1);
 })
 
 test('crud Signatures, deleteSignature', async () => {

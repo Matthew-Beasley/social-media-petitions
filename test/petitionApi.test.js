@@ -52,7 +52,7 @@ afterEach(async () => {
   await client.query(sql);
   const sql1 = `
   DELETE FROM petitions
-  WHERE topic = 'Little dogs are fluffy'`;
+  WHERE topic = 'Dogs are fluffy'`;
   await client.query(sql);
   await client.query(sql1)
 });
@@ -113,11 +113,13 @@ test('petitions api readAllPetitions', async () => {
   await createPetition(params2);
   await authorizeUser();
   const petitions = await axios.get(url + '/petition', headers());
-  const sql = `
-  DELETE FROM petitions
-  WHERE topic = 'Dogs are fluffy'`;
-  await client.query(sql);
-  expect(petitions.data.length).toBeGreaterThan(1);
+  const testResults = petitions.data.reduce((acc, item) => {
+    if (item.topic === 'Little dogs are fluffy' || item.topic === 'Dogs are fluffy') {
+      acc.push(item);
+    }
+    return acc;
+  }, [])
+  expect(testResults.length).toEqual(2);
 });
 
 test('petitions api readUnsignedPetitions', async () => {
