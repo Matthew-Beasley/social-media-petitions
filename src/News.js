@@ -8,16 +8,15 @@ const News = ({ petitions, setTrigger, startTime, endTime, trigger }) => {
   useEffect(() => {
     const promises = [];
     for (let i = 0; i < petitions.length; i++) {
-      promises.push(axios.get(`/news/everything?q=${petitions[i].topic}&from=${startTime}&to=${endTime}`));
+      promises.push(axios.get(`/news/everything?q=${petitions[i].topic}&from=${startTime}&to=${endTime}&pageSize=5`));
     }
-    if (promises.length === 0) {
-      promises.push(axios.get(`/news/everything?q=politics&from=${startTime}&to=${endTime}`));
-    }
+    const contents = [];
     Promise.all(promises)
-      .then(values => {
-        for (let i = 0; i < values.length; i++) {
-          setArticles([...articles, ...values[i].data.articles]);
+      .then(items => {
+        for (let i = 0; i < items.length; i++) {
+          contents.push(...items[i].data.articles);
         }
+        setArticles([...contents]);
       })
   }, [petitions]);
 
