@@ -5,7 +5,7 @@ const {
   readAllSuggestions,
   deleteSuggestion,
 } = require('../data/crud/suggestions');
-const { isLoggedIn } = require('../data/auth');
+const { isLoggedIn, isAdmin } = require('../data/auth');
 const suggestionRouter = express.Router();
 
 suggestionRouter.post('/', isLoggedIn, async (req, res, next) => {
@@ -17,7 +17,7 @@ suggestionRouter.post('/', isLoggedIn, async (req, res, next) => {
   }
 });
 
-suggestionRouter.get('/byemail', async (req, res, next) => {
+suggestionRouter.get('/byemail', isLoggedIn, async (req, res, next) => {
   try {
     const suggestions = await readMySuggestions(req.query.email);
     res.status(200).send(suggestions);
@@ -26,7 +26,7 @@ suggestionRouter.get('/byemail', async (req, res, next) => {
   }
 });
 
-suggestionRouter.get('/', isLoggedIn, async (req, res, next) => {
+suggestionRouter.get('/', isAdmin, async (req, res, next) => {
   try {
     const suggestions = await readAllSuggestions();
     res.status(200).send(suggestions);
@@ -35,7 +35,7 @@ suggestionRouter.get('/', isLoggedIn, async (req, res, next) => {
   }
 });
 
-suggestionRouter.delete('/', isLoggedIn, async (req, res, next) => {
+suggestionRouter.delete('/', isAdmin, async (req, res, next) => {
   try {
     await deleteSuggestion(req.query.topic);
     res.sendStatus(201);
