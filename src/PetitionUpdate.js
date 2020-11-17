@@ -1,26 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 const PetitionUpdate = ({ petitions, setPetitions, headers }) => {
 
   useEffect(() => {
-    let isCancelled = false;
     axios.get('/petition')
       .then((response) => {
-        if (!isCancelled) {
-          setPetitions([...response.data]);
-        }
+        setPetitions(response.data);
       });
-    return () => {
-      isCancelled = true;
-    };
   }, []);
 
   return (
     <div id="petition-display-container">
       <ul id="user-petition-list">
         {petitions.map(topic => {
-
           let isChecked;
           const setCheck = () => {
             if (isChecked) {
@@ -59,7 +53,7 @@ const PetitionUpdate = ({ petitions, setPetitions, headers }) => {
           }
 
           return (
-            <li key={topic.id} className="user-petition-li">
+            <li key={uuidv4()} className="user-petition-li">
               <div className="petition-topic">{topic.topic}</div>
               <div>
                 <textarea

@@ -10,15 +10,13 @@ const SuggestionAdmin = ({ headers, setPetitions, petitions }) => {
   }, [])
 
   const promote = async (suggestion) => {
-    const petition = {
-      topic: suggestion.topic,
-      shortText: suggestion.shortText,
-      longText: suggestion.longText,
-      surrent: false
-    }
     await axios.delete(`/suggestion?topic=${suggestion.topic}`, headers());
-    setPetitions(...petitions, petition);
-    //get rid of suggestion from views
+    await axios.post('/petition', suggestion, headers());
+    setPetitions([...petitions, suggestion]);
+
+    const index = views.indexOf(suggestion.topic);
+    views.splice(index, 1);
+    setViews([...views]);
   }
 
   return (
