@@ -110,17 +110,17 @@
 }
 
 .petition-topic {
-  font-size: 1.5rem;
+  font-size: 1rem;
   margin: 1rem 2rem 1rem 2rem;
 }
 
 .petition-shorttext {
-  font-size: 1rem;
+  font-size: .75rem;
   margin: 0rem 2rem 1rem 2rem;
 }
 
 .petition-longtext {
-  font-size: 1rem;
+  font-size: .75rem;
   margin: 0rem 2rem 1rem 2rem;
 }
 

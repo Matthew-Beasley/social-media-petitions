@@ -73,14 +73,6 @@ const UserPetitionDisplay = ({ user, headers, signatures, setSignatures, setTrig
                   onClick={() => signPetition(petition)}>
                   Sign Petition
                 </button>
-                {!!petition.news &&
-                  <div id="petition-newsitem">
-                    <img className="news-image" src={petition.news.urlToImage ? petition.news.urlToImage : './assets/default-article-image.jpg'} />
-                    <div className="news-content">
-                      <div className="news-title"><a href={petition.news.url} target="_blank" rel="noopener noreferrer">{petition.news.title}</a></div>
-                    </div>
-                  </div>
-                }
               </div>
             </li>
           )
