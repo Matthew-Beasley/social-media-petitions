@@ -5,6 +5,24 @@ import { v4 as uuidv4 } from 'uuid';
 const News = ({ petitions, setTrigger, startTime, endTime, trigger }) => {
   const [articles, setArticles] = useState([]);
 
+  const parseQuery = (topic) => {
+    const exclusions = ['a', 'an', 'the', 'and', 'or', 'in', 'of', 'that', 'is']
+    const query = topic.replace(',', '').split(' ').reduce((acc, item) => {
+      let valid = true;
+      for (let i = 0; i < exclusions.length; i++) {
+        if (item === exclusions[i]) {
+          valid = false;
+        }
+      }
+      if (valid === true) {
+        acc += (item + ',');
+      }
+      return acc;
+    }, '')
+      .slice(0, -1)
+    return query;
+  }
+
   useEffect(() => {
     const promises = [];
     for (let i = 0; i < petitions.length; i++) {
@@ -17,7 +35,7 @@ const News = ({ petitions, setTrigger, startTime, endTime, trigger }) => {
           contents.push(...items[i].data.articles);
         }
         setArticles([...contents]);
-      })
+      });
   }, [petitions]);
 
   useEffect(() => {
