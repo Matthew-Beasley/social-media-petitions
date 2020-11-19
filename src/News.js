@@ -10,16 +10,16 @@ const News = ({ petitions, setTrigger, startTime, endTime, trigger }) => {
     for (let i = 0; i < petitions.length; i++) {
       promises.push(axios.get(`/news/everything?q=${petitions[i].topic.replace(/,/g, '')}&from=${startTime}&to=${endTime}&pageSize=5`));
     }
+    if (promises.length < 2) {
+      promises.push(axios.get(`/news/everything?q=politics&from=${startTime}&to=${endTime}&pageSize=5`));
+    }
     const contents = [];
     Promise.all(promises)
       .then(items => {
         for (let i = 0; i < items.length; i++) {
           contents.push(...items[i].data.articles);
         }
-        if (contents.length < 2) {
-          axios.get(`/news/everything?q=politics&from=${startTime}&to=${endTime}&pageSize=5`)
-            .then(response => contents.push(response.data.articles));
-        }
+        console.log(...contents)
         setArticles([...contents]);
       });
   }, [petitions]);
@@ -31,7 +31,6 @@ const News = ({ petitions, setTrigger, startTime, endTime, trigger }) => {
   return (
     <div id="news-container">
       <ul id="news-list">
-        {console.log(articles)}
         {articles.map(article => {
           return (
             <li key={uuidv4()}>
