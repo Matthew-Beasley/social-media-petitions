@@ -8,7 +8,6 @@ const News = ({ petitions, setTrigger, startTime, endTime, trigger }) => {
   useEffect(() => {
     const promises = [];
     for (let i = 0; i < petitions.length; i++) {
-      console.log(petitions[i].topic)
       promises.push(axios.get(`/news/everything?q=${petitions[i].topic.replace(/,/g, '')}&from=${startTime}&to=${endTime}&pageSize=5`));
     }
     const contents = [];
@@ -16,6 +15,10 @@ const News = ({ petitions, setTrigger, startTime, endTime, trigger }) => {
       .then(items => {
         for (let i = 0; i < items.length; i++) {
           contents.push(...items[i].data.articles);
+        }
+        if (contents.length < 2) {
+          axios.get(`/news/everything?q=politics&from=${startTime}&to=${endTime}&pageSize=5`)
+            .then(response => contents.push(response.data.articles));
         }
         setArticles([...contents]);
       });
@@ -28,6 +31,7 @@ const News = ({ petitions, setTrigger, startTime, endTime, trigger }) => {
   return (
     <div id="news-container">
       <ul id="news-list">
+        {console.log(articles)}
         {articles.map(article => {
           return (
             <li key={uuidv4()}>
