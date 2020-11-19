@@ -8,9 +8,9 @@ const News = ({ petitions, setTrigger, startTime, endTime, trigger }) => {
   useEffect(() => {
     const promises = [];
     for (let i = 0; i < petitions.length; i++) {
-      promises.push(axios.get(`/news/everything?q=${petitions[i].topic.replace(/,/g, '')}&from=${startTime}&to=${endTime}&pageSize=5`));
+      //promises.push(axios.get(`/news/everything?q=${petitions[i].topic.replace(/,/g, '')}&from=${startTime}&to=${endTime}&pageSize=5`));
     }
-    if (promises.length < 2) {
+    if (promises.length < ) {
       promises.push(axios.get(`/news/everything?q=politics&from=${startTime}&to=${endTime}&pageSize=5`));
     }
     const contents = [];
@@ -19,7 +19,6 @@ const News = ({ petitions, setTrigger, startTime, endTime, trigger }) => {
         for (let i = 0; i < items.length; i++) {
           contents.push(...items[i].data.articles);
         }
-        console.log(...contents)
         setArticles([...contents]);
       });
   }, [petitions]);
