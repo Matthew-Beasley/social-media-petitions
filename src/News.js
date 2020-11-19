@@ -10,7 +10,7 @@ const News = ({ petitions, setTrigger, startTime, endTime, trigger }) => {
     for (let i = 0; i < petitions.length; i++) {
       //promises.push(axios.get(`/news/everything?q=${petitions[i].topic.replace(/,/g, '')}&from=${startTime}&to=${endTime}&pageSize=5`));
     }
-    if (promises.length < ) {
+    if (promises.length < 2) {
       promises.push(axios.get(`/news/everything?q=politics&from=${startTime}&to=${endTime}&pageSize=5`));
     }
     const contents = [];
