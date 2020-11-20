@@ -318,11 +318,11 @@
 
 #dropdown-link {
   border: 0px;
-  width: 5rem;
+  width: 50%;
   margin: 1rem 0rem 1rem 5rem;
   text-decoration: none;
   color: white;
-  font-size: 2rem;
+  font-size: 1rem;
   background-color: #1f3145;
   border-color: #1f3145;
   cursor: pointer;

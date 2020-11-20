@@ -38,15 +38,14 @@ const UserSuggestionSubmit = ({ history, headers, isDropped, setIsDropped, sugge
         <div
           id="dropdown-link"
           onClick={() => setDropDown()}>
-          &and;
+          Click to Close User Submission Form
         </div>
         :
         <div
           id="dropdown-link"
           onClick={() => setDropDown()}>
-          &or;
+          Click to Open User Submission Form to submit a petition suggestion
         </div>}
-        <div id="user-submit-text">Click arrow to submit a petition suggestion</div>
       </div>
       {isDropped &&
       <div>
