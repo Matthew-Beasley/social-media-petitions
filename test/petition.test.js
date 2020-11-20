@@ -57,8 +57,8 @@ test('crud Petitions readUnsignedPetitions signed', async () => {
   INSERT INTO signatures (topic, email)
   VALUES ('cats blow', 'jasper123456@email.com')`;
   await client.query(sql);
-  await createPetition({
-    topic: 'cats blow',
+  await createPetition(
+    {topic: 'cats blow',
     shortText: 'I would have 2 dogs if I could',
     longText: 'I have a dog named chief. He is a sweet heart!',
     current: true });

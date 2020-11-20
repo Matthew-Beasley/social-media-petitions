@@ -1,7 +1,14 @@
 const { Builder, Key, By, until } = require('selenium-webdriver');
+const { client } = require('./testUtils');
 const {
-  client
-} = require('./testUtils');
+  createPetition,
+  readPetition,
+  readAllPetitions,
+  readCurrentPetitions,
+  readUnsignedPetitions,
+  updatePetition,
+  deletePetition
+} = require('../data/crud/petitions');
 const webdriver = require('selenium-webdriver');
 //const chrome = require('selenium-webdriver/chrome')
 const firefox = require('selenium-webdriver/firefox')
@@ -26,6 +33,13 @@ const logIn = async (user, pwd, driver) => {
   const submit = await driver.findElement(By.id('submit'));
   await submit.click();
   await driver.wait(until.elementLocated(By.id('home-link')), 50000);
+}
+
+const getRows = async (table, column, value) => {
+  const sql = `
+  SELECT * FROM ${table}
+  WHERE ${column} = ${value}`;
+  return (await client.query(sql)).rows
 }
 
 test('get app title', async () => {
@@ -67,4 +81,19 @@ test('log in', async () => {
   expect(token).toBeTruthy();
 })
 
-test('')
+test('current petitions displayed', async () => {
+  await driver.get('http://localhost:3000/');
+  const petitions = await readCurrentPetitions();
+  let petitionCount = 0;
+  await driver.get('http://localhost:3000/');
+  const elements = await driver.findElements(By.className('petition-topic'));
+  for (let i = 0; i < petitions.length; i++) {
+    for (let k = 0; k < elements.length; k++) {
+      const topic = await elements[k].getText();
+      if (petitions[i].topic === topic) {
+        petitionCount++;
+      }
+    }
+  }
+  expect(petitionCount).toEqual(elements.length);
+})

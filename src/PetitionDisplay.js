@@ -27,7 +27,7 @@ const PetitionDisplay = ({ petitions, setPetitions, setTrigger }) => {
       <ul>
       {petitions.map(topic => {
         return (
-          <li key={topic.id}>
+          <li key={topic.id} className="petition-display-li">
             <div className="petition-topic">{topic.topic}</div>
             <div className="petition-shorttext">{topic.shortText}</div>
           </li>
