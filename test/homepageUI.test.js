@@ -97,3 +97,9 @@ test('current petitions displayed', async () => {
   }
   expect(petitionCount).toEqual(elements.length);
 })
+
+test('news articles match', async () => {
+  await driver.get('http://localhost:3000/');
+  const newsArticles = await driver.findElements(By.className('news-content'));
+  expect(newsArticles.length).toBeGreaterThan(4);
+})
