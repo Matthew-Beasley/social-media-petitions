@@ -24,15 +24,15 @@ afterAll(async () => {
   await driver.quit();
 })
 
-const logIn = async (user, pwd, driver) => {
-  const email = await driver.findElement(By.id('email'));
+const logIn = async (user, pwd, web) => {
+  const email = await web.findElement(By.id('email'));
   await email.sendKeys(user);
-  const password = await driver.findElement(By.id('password'));
+  const password = await web.findElement(By.id('password'));
   await password.sendKeys(pwd);
-  await driver.wait(until.elementLocated(By.id('submit')), 50000);
-  const submit = await driver.findElement(By.id('submit'));
+  await web.wait(until.elementLocated(By.id('submit')), 4000);
+  const submit = await web.findElement(By.id('submit'));
   await submit.click();
-  await driver.wait(until.elementLocated(By.id('home-link')), 50000);
+  await web.wait(until.elementLocated(By.id('home-link')), 4000);
 }
 
 const getRows = async (table, column, value) => {
@@ -72,10 +72,10 @@ test('log in', async () => {
   await email.sendKeys('jasper3467@email.com');
   const password = await driver.findElement(By.id('password'));
   await password.sendKeys('jasper');
-  await driver.wait(until.elementLocated(By.id('submit')), 50000);
+  await driver.wait(until.elementLocated(By.id('submit')), 4000);
   const submit = await driver.findElement(By.id('submit'));
   await submit.click();
-  await driver.wait(until.elementLocated(By.id('home-link')), 50000);
+  await driver.wait(until.elementLocated(By.id('home-link')), 4000);
   const token = await driver.executeScript('return window.localStorage.getItem("token")');
   await driver.executeScript('localStorage.removeItem("token")');
   expect(token).toBeTruthy();
@@ -102,4 +102,12 @@ test('news articles match', async () => {
   await driver.get('http://localhost:3000/');
   const newsArticles = await driver.findElements(By.className('news-content'));
   expect(newsArticles.length).toBeGreaterThan(4);
+})
+
+test('User page home link exists', async () => {
+  await driver.get('http://localhost:3000/');
+  await logIn('jasper3467@email.com', 'jasper', driver);
+  await driver.wait(until.elementLocated(By.id('home-link')), 4000);
+  const link = await driver.findElement(By.id('home-link'));
+  expect(link).toBeTruthy();
 })

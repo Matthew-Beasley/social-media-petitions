@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const PetitionDisplay = ({ petitions, setPetitions, setTrigger }) => {
   const forceUpdate = React.useReducer(() => ({}))[1];
+  const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     let isCancelled = false;
@@ -30,6 +31,9 @@ const PetitionDisplay = ({ petitions, setPetitions, setTrigger }) => {
           <li key={topic.id} className="petition-display-li">
             <div className="petition-topic">{topic.topic}</div>
             <div className="petition-shorttext">{topic.shortText}</div>
+            {toggle ? <div className="long-text">{topic.longText}</div> : null}
+            {toggle ? <div className="arrow" onClick={() => setToggle(false)}>&#9651;</div> :
+              <div className="arrow" onClick={() => setToggle(true)}>&#9661;</div>}
           </li>
         )
       })}
