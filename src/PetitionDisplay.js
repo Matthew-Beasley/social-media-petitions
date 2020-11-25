@@ -1,9 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+const PetitionModule = ({ petition }) => {
+  const [toggle, setToggle] = useState(false);
+
+  return (
+    <li key={petition.id} className="petition-display-li">
+      <div className="petition-topic">{petition.topic}</div>
+      <div className="petition-shorttext">{petition.shortText}</div>
+      {toggle ? <div className="long-text">{petition.longText}</div> : null}
+      {toggle ? <div className="arrow" onClick={() => setToggle(false)}>&#9651;</div> :
+        <div className="arrow" onClick={() => setToggle(true)}>&#9661;</div>}
+    </li>
+  )
+}
+
 const PetitionDisplay = ({ petitions, setPetitions, setTrigger }) => {
   const forceUpdate = React.useReducer(() => ({}))[1];
-  const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     let isCancelled = false;
@@ -26,16 +39,8 @@ const PetitionDisplay = ({ petitions, setPetitions, setTrigger }) => {
   return (
     <div id="petition-display-container">
       <ul>
-      {petitions.map(topic => {
-        return (
-          <li key={topic.id} className="petition-display-li">
-            <div className="petition-topic">{topic.topic}</div>
-            <div className="petition-shorttext">{topic.shortText}</div>
-            {toggle ? <div className="long-text">{topic.longText}</div> : null}
-            {toggle ? <div className="arrow" onClick={() => setToggle(false)}>&#9651;</div> :
-              <div className="arrow" onClick={() => setToggle(true)}>&#9661;</div>}
-          </li>
-        )
+      {petitions.map(petition => {
+        return (<PetitionModule petition={petition} key={petition.id} />)
       })}
       </ul>
       <hr id="petition-display-hr" />
