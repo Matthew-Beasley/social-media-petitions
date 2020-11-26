@@ -4,6 +4,15 @@
   width: 100%;
 }
 
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, .5);
+  box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+}
 
 /*----- Header Styles -----*/
 
@@ -114,14 +123,14 @@
 .petition-topic {
   font-size: 1rem;
   margin: 1rem 2rem 1rem 2rem;
-  max-height: 2.5rem;
+  height: 3rem;
   overflow: auto;
 }
 
 .petition-shorttext {
   font-size: .75rem;
   margin: 0rem 2rem 1rem 2rem;
-  max-height: 2rem;
+  height: 4rem;
   overflow-y: scroll;
 }
 
