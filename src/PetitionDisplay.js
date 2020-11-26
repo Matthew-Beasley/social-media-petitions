@@ -9,8 +9,8 @@ const PetitionModule = ({ petition }) => {
       <div className="petition-topic">{petition.topic}</div>
       <div className="petition-shorttext">{petition.shortText}</div>
       {toggle ? <div className="petition-longtext">{petition.longText}</div> : null}
-      {toggle ? <div className="arrow" onClick={() => setToggle(false)}>&#9651;</div> :
-        <div className="arrow" onClick={() => setToggle(true)}>&#9661;</div>}
+      {toggle ? <div className="arrow" onClick={() => setToggle(false)}><p>&#9651;</p></div> :
+      <div className="arrow" onClick={() => setToggle(true)}>&#9661;</div>}
     </li>
   )
 }
