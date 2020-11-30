@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { userState } from './State';
 
-const Login = ({ setUser, history }) => {
+const Login = ({ history }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [user, setUser] = useRecoilState(userState)
 
   const login = async (credentials) => {
     const token = (await axios.post('/user/token', credentials)).data;
@@ -21,8 +24,8 @@ const Login = ({ setUser, history }) => {
   const checkCredentials = async (event) => {
     event.preventDefault();
     const mail = URLizeEmail(email);
-    const user = (await axios.get(`/user/email/${mail}`)).data;
-    if (!user.email) {
+    const usr = (await axios.get(`/user/email/${mail}`)).data;
+    if (!usr.email) {
       await axios.post('/user', { email, password });
       await login({ email, password });
     } else {

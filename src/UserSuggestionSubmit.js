@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Link } from 'react-router-dom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { userState } from './State';
 import axios from 'axios';
 import UserSuggestionsView from './UserSuggestionsView';
 
 
-const UserSuggestionSubmit = ({ history, headers, isDropped, setIsDropped, suggestions, setSuggestions, user }) => {
+const UserSuggestionSubmit = ({ history, headers, isDropped, setIsDropped, suggestions, setSuggestions }) => {
+  const [user, setUser] = useRecoilState(userState)
   const [topic, setTopic] = useState('');
   const [shortText, setShortText] = useState('');
   const [longText, setLongText] = useState('');
@@ -88,7 +91,6 @@ const UserSuggestionSubmit = ({ history, headers, isDropped, setIsDropped, sugge
         <UserSuggestionsView
           headers={headers}
           suggestions={suggestions}
-          user={user}
         />
       </div>}
     </div>

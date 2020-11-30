@@ -4,7 +4,7 @@ import UserPetitionDisplay from './UserPetitionDisplay';
 import MySignedPetitions from './MySignedPetitions';
 import UserSuggestionSubmit from './UserSuggestionSubmit';
 
-const UserView = ({ history, user, headers, setTrigger, startTime, endTime }) => {
+const UserView = ({ history, headers, setTrigger, startTime, endTime }) => {
   const [signatures, setSignatures] = useState([]);
   const [isDropped, setIsDropped] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
@@ -19,12 +19,10 @@ const UserView = ({ history, user, headers, setTrigger, startTime, endTime }) =>
         setIsDropped={setIsDropped}
         suggestions={suggestions}
         setSuggestions={setSuggestions}
-        user={user}
       />
       {!isDropped &&
         <div>
           <UserPetitionDisplay
-            user={user}
             headers={headers}
             signatures={signatures}
             setSignatures={setSignatures}
@@ -33,7 +31,6 @@ const UserView = ({ history, user, headers, setTrigger, startTime, endTime }) =>
             endTime={endTime}
           />
           <MySignedPetitions
-            user={user}
             headers={headers}
             signatures={signatures}
             setTrigger={setTrigger}

@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Link } from 'react-router-dom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { userState } from './State';
 import Login from './Login';
 
-const Nav = ({ trigger, user, setUser, history }) => {
+const Nav = ({ trigger, history }) => {
   const forceUpdate = React.useReducer(() => ({}))[1];
+  const [user, setUser] = useRecoilState(userState);
 
 
   useEffect(() => {
