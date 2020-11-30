@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { userState } from './State';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
-const UserSuggestionsView = ({ headers, suggestions, user }) => {
+const UserSuggestionsView = ({ headers, suggestions }) => {
   const [views, setViews] = useState([]);
+  const [user, setUser] = useRecoilState(userState)
   useEffect(() => {
     axios.get(`/suggestion/byemail?email=${user.email}`, headers())
     .then(rows => setViews(rows.data))
