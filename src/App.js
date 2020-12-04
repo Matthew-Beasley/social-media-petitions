@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Route, Link, useHistory } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { userState } from './State';
+import { userState, triggerState } from './State';
 import dayjs from 'dayjs';
 import Admin from './Admin';
 import Header from './Header';
@@ -12,7 +12,7 @@ import UserView from './UserView';
 const App = () => {
   const [user, setUser] = useRecoilState(userState);
   const [token, setToken] = useState('');
-  const [trigger, setTrigger] = useState(0);
+  const [trigger, setTrigger] = useRecoilState(triggerState);
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const history = useHistory();
@@ -38,7 +38,7 @@ const App = () => {
   return (
     <div id="app-container">
       <Header />
-      <Nav history={history} trigger={trigger} />
+      <Nav history={history} />
       <Route
         exact path="/" render={() =>
           (<HomeView
@@ -52,8 +52,6 @@ const App = () => {
         (<UserView
           history={history}
           headers={headers}
-          trigger={trigger}
-          setTrigger={setTrigger}
           startTime={startTime}
           endTime={endTime}
         />)}

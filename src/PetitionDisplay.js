@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useRecoilState } from 'recoil';
+import { triggerState } from './State';
 
 const PetitionModule = ({ petition }) => {
   const [toggle, setToggle] = useState(false);
@@ -15,8 +17,9 @@ const PetitionModule = ({ petition }) => {
   )
 }
 
-const PetitionDisplay = ({ petitions, setPetitions, setTrigger }) => {
+const PetitionDisplay = ({ petitions, setPetitions }) => {
   const forceUpdate = React.useReducer(() => ({}))[1];
+  const [trigger, setTrigger] = useRecoilState(triggerState)
 
   useEffect(() => {
     let isCancelled = false;

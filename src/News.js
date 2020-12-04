@@ -1,9 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { triggerState } from './State';
 import { v4 as uuidv4 } from 'uuid';
 
-const News = ({ petitions, setTrigger, startTime, endTime, trigger }) => {
+const News = ({ petitions, startTime, endTime }) => {
   const [articles, setArticles] = useState([]);
+  const [trigger, setTrigger] = useRecoilState(triggerState);
 
   useEffect(() => {
     const promises = [];

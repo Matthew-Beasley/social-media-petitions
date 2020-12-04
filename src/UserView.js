@@ -26,7 +26,6 @@ const UserView = ({ history, headers, setTrigger, startTime, endTime }) => {
             headers={headers}
             signatures={signatures}
             setSignatures={setSignatures}
-            setTrigger={setTrigger}
             startTime={startTime}
             endTime={endTime}
           />

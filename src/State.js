@@ -8,4 +8,9 @@ const userState = atom({
   default: {}
 });
 
-export { userState };
+const triggerState = atom({//[trigger, setTrigger] = useState(0);
+  key: 'triggerState',
+  default: 0
+});
+
+export { userState , triggerState };
