@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Route, Link } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { userState } from './State';
+import { useRecoilState } from 'recoil';
+import { userState, triggerState, signaturesState } from './State';
 import axios from 'axios';
 
-const MySignedPetitions = ({ headers, signatures, setTrigger }) => {
+const MySignedPetitions = ({ headers }) => {
   const [signedPetitions, setSignedPetitions] = useState([]);
   const [user, setUser] = useRecoilState(userState);
+  const [trigger, setTrigger] = useRecoilState(triggerState);
+  const [signatures, setSignatures] = useRecoilState(signaturesState);
 
   useEffect(() => {
     let isCancelled = false;

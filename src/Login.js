@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { userState } from './State';
 
-const Login = ({ history }) => {
+const Login = ({ history}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [user, setUser] = useRecoilState(userState)

@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Link } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { userState } from './State';
+import { userState, triggerState, startTimeState, endTimeState, signaturesState } from './State';
 import axios from 'axios';
 
-const UserPetitionDisplay = ({ headers, signatures, setSignatures, setTrigger, startDate, endDate }) => {
+const UserPetitionDisplay = ({ headers }) => {
   const forceUpdate = React.useReducer(() => ({}))[1];
   const [user, setUser] = useRecoilState(userState);
+  const [trigger, setTrigger] = useRecoilState(triggerState);
+  const [startDate, setStartDate] = useRecoilState(startTimeState);
+  const [endDate, setEndDate] = useRecoilState(endTimeState);
+  const [signatures, setSignatures] = useRecoilState(signaturesState);
   const [petitions, setPetitions] = useState([]);
   const [unsignedPetitions, setUnsignedPetitions] = useState();
 

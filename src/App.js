@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Route, Link, useHistory } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { userState } from './State';
+import { userState, triggerState, startTimeState, endTimeState } from './State';
 import dayjs from 'dayjs';
 import Admin from './Admin';
 import Header from './Header';
@@ -12,9 +12,9 @@ import UserView from './UserView';
 const App = () => {
   const [user, setUser] = useRecoilState(userState);
   const [token, setToken] = useState('');
-  const [trigger, setTrigger] = useState(0);
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
+  const [trigger, setTrigger] = useRecoilState(triggerState);
+  const [startTime, setStartTime] = useRecoilState(startTimeState);
+  const [endTime, setEndTime] = useRecoilState(endTimeState);
   const history = useHistory();
 
   const headers = () => {
@@ -38,34 +38,10 @@ const App = () => {
   return (
     <div id="app-container">
       <Header />
-      <Nav history={history} trigger={trigger} />
-      <Route
-        exact path="/" render={() =>
-          (<HomeView
-            setTrigger={setTrigger}
-            startTime={startTime}
-            endTime={endTime}
-          />)}
-      />
-      <Route
-        path="/UserView" render={() =>
-        (<UserView
-          history={history}
-          headers={headers}
-          trigger={trigger}
-          setTrigger={setTrigger}
-          startTime={startTime}
-          endTime={endTime}
-        />)}
-      />
-      <Route
-        path="/Admin" render={() =>
-        (<Admin
-          history={history}
-          headers={headers}
-          setTrigger={setTrigger}
-        />)}
-      />
+      <Nav history={history} />
+      <Route exact path="/" render={() => <HomeView />} />
+      <Route path="/UserView" render={() => <UserView headers={headers} />} />
+      <Route path="/Admin" render={() => <Admin headers={headers} />} />
     </div>
   )
 }
