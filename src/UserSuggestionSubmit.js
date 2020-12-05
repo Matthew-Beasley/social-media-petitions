@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { Route, Link } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { userState } from './State';
+import React, { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { userState, isDroppedState, suggestionsState } from './State';
 import axios from 'axios';
 import UserSuggestionsView from './UserSuggestionsView';
 
 
-const UserSuggestionSubmit = ({ history, headers, isDropped, setIsDropped, suggestions, setSuggestions }) => {
+const UserSuggestionSubmit = ({ headers }) => {
   const [user, setUser] = useRecoilState(userState)
+  const [isDropped, setIsDropped] = useRecoilState(isDroppedState);
+  const [suggestions, setSuggestions] = useRecoilState(suggestionsState);
   const [topic, setTopic] = useState('');
   const [shortText, setShortText] = useState('');
   const [longText, setLongText] = useState('');

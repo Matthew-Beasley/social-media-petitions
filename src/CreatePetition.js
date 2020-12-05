@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 
-const CreatePetition  = ({ history, headers, petitions, setPetitions }) => {
+const CreatePetition  = ({ headers, petitions, setPetitions }) => {
   const [topic, setTopic] = useState('');
   const [shortText, setShortText] = useState('');
   const [longText, setLongText] = useState('');

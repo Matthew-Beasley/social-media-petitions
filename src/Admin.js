@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { userState, triggerState } from './State';
 import CreatePetition from './CreatePetition';
 import PetitionUpdate from './PetitionUpdate';
 import SuggestionAdmin from './SuggestionAdmin';
 
-const Admin = ({ headers, history, setTrigger }) => {
+const Admin = ({ headers }) => {
   const [petitions, setPetitions] = useState([]);
+  const [trigger, setTrigger] = useRecoilState(triggerState);
 
   useEffect(() => {
     setTrigger(Math.random());
@@ -18,7 +21,6 @@ const Admin = ({ headers, history, setTrigger }) => {
         setPetitions={setPetitions}
       />
       <CreatePetition
-        history={history}
         headers={headers}
         petitions={petitions}
         setPetitions={setPetitions}
