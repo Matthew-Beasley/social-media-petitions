@@ -15,6 +15,6 @@ const setConbecToAdmin = async () => {
     await createUser({ email: 'conbec@outlook.com', password: 'jasper' });
     await updateUser({ email: 'conbec@outlook.com', isAdmin: true })
   }
-}
+};
 
 module.exports = { setConbecToAdmin };

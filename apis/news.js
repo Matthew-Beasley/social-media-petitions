@@ -1,6 +1,7 @@
+require('dotenv').config()
 const axios = require('axios');
 const express = require('express');
-const PORT = process.env.REDISCLOUD_URL || 'redis://localhost:6379';
+const PORT = process.env.REDISCLOUD_URL;
 const redisClient = require('redis').createClient(PORT);
 const newsRouter = express.Router();
 
@@ -10,7 +11,6 @@ const apiKey = 'apiKey=c30ad051e9e6471490d1c763659adc0b';
 
 const checkCache = (req, res, next) => {
   const key = req.originalUrl;
-  console.log(redisClient)
   redisClient.get(key, (err, data) => {
     if (err) {
       console.log(err);
