@@ -15,7 +15,6 @@ const News = ({ petitions }) => {
     for (let i = 0; i < petitions.length; i++) {
       promises.push(axios.get(`/news/everything?q=${petitions[i].topic.replace(/,/g, '')}&from=${startTime}&to=${endTime}&pageSize=5`));
     }
-    console.log(promises.length)
     if (promises.length < 6) {
       promises.push(axios.get(`/news/everything?q=politics&from=${startTime}&to=${endTime}&pageSize=5`));
     }

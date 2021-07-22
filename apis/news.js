@@ -1,6 +1,7 @@
 const axios = require('axios');
 const express = require('express');
-const redisClient = require('redis').createClient(process.env.REDIS_URL);
+const PORT = process.env.REDISCLOUD_URL || 'redis://localhost:6379';
+const redisClient = require('redis').createClient(PORT);
 const newsRouter = express.Router();
 
 const topHeadlinesEndPoint = 'https://newsapi.org/v2/top-headlines';
@@ -9,13 +10,14 @@ const apiKey = 'apiKey=c30ad051e9e6471490d1c763659adc0b';
 
 const checkCache = (req, res, next) => {
   const key = req.originalUrl;
+  console.log(redisClient)
   redisClient.get(key, (err, data) => {
     if (err) {
       console.log(err);
       res.status(500).send(err);
     }
     else if (data) {
-      console.log('served by redis')
+      console.log('served by redis');
       res.send(data);
     }
     else {
