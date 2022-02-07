@@ -1,7 +1,7 @@
 require('dotenv').config()
 const axios = require('axios');
 const express = require('express');
-const PORT = process.env.REDISCLOUD_URL;
+const PORT = process.env.REDIS_TLS_URL;
 const redisClient = require('redis').createClient(PORT);
 const newsRouter = express.Router();
 
